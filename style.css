@@ -47,11 +47,16 @@ p{font-size: 18px; font-weight: 300;
 
 /* TABLE & LIST */
 li{ margin-left: -30px; list-style: none;}
-caption{font-size: 22px; font-weight: 700; Margin-bottom: 0px;}
+caption{font-size: 22px; font-weight: 700;}
 tr{font-size: 18px; font-weight: 300;}
 .box table{width: 100%}
-.members{width: 50%}
-.members td{padding-bottom: 10px;}
+.membersTable{width: 50%;
+    margin: 0px auto;}
+.membersTable td{padding: 5px 15px;
+    width: 50%;}
+.membersTable tr td:first-child{text-align:right;}
+.membersTable tr td:last-child{text-align:left;}
+
 
 /* IMAGE */
 img { box-shadow: slategray 5px 5px 5px;}
