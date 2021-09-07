@@ -6,22 +6,44 @@ html{font-family: 'Nunito', sans-serif;
 
 /* TEXT */
 h2{font-size: 24px; font-weight: 700;
-    text-shadow:slategray 0px 3px 5px; color:black;}
-h3{font-size: 20px; font-weight: 600;}
+    text-shadow:slategray 0px 3px 4px;
+    color:black;
+    margin: 0px;
+    padding: 0px;
+}
+h3{font-size: 20px; font-weight: 600;
+}
 h4{font-size: 20px; font-weight: 700;
     margin-top: 5px;
-    margin-bottom: 15px;}
-p{font-size: 18px; font-weight: 300;}
-.box h4,caption{text-shadow:slategray 0px 3px 5px; color:black;}
+    margin-bottom: 15px;
+}
+p{font-size: 18px; font-weight: 300;
+}  
+.box h4,caption{text-shadow:slategray 0px 3px 5px; color:black;
+}
 
 /* DIV BOX */
 .box{
     border:solid 1px slategray;
     box-shadow: black 10px 10px 10px;
-    padding: 20px;
     margin: 30px;
+    padding: 20px;
     background-color:aliceblue;
-    box-sizing: content-box;}
+}
+.header1{
+    background-color: rgba(207, 234, 248,1);
+    margin: -20px -20px 0px -20px;
+    padding: 15px 0px 15px 30px;
+}
+.header2{
+    background-color: rgba(207, 234, 248,0.55);
+    margin: 0px -20px 0px -20px;  
+    padding: 5px 0px 5px 30px;
+}
+.header2 p{
+    margin: 0px;
+    padding: 0px;
+}
 
 /* TABLE & LIST */
 li{ margin-left: -30px; list-style: none;}
