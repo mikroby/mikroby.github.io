@@ -50,7 +50,7 @@ li{ margin-left: -30px; list-style: none;}
 caption{font-size: 22px; font-weight: 700;}
 tr{font-size: 18px; font-weight: 300;}
 .box table{width: 100%}
-.membersTable{width: 50%;
+.membersTable{width: 100%;
     margin: 0px auto;}
 .membersTable td{padding: 5px 15px;
     width: 50%;}
