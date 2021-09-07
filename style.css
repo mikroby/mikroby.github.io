@@ -9,7 +9,7 @@ h2{font-size: 24px; font-weight: 700; text-shadow:slategray 0px 3px 4px; color:b
     margin: 0px;}
 h3{font-size: 20px; font-weight: 600;}
 h4{font-size: 20px; font-weight: 700;
-    margin: 20px 20px;}
+    margin: 20px;}
 p{font-size: 18px; font-weight: 300; margin: 20px;}  
 .box h4,caption{text-shadow:slategray 0px 3px 5px; color:black;}
 small{margin: 20px;}
@@ -51,3 +51,5 @@ img { box-shadow: slategray 5px 5px 5px;}
 a{text-decoration-line:none; text-shadow:slategray 0px 0px 3px; color: darkgray;}
 a:hover{text-shadow:slategray 0px 0px 2px; color:black;}
 a:active{text-shadow:black 0px 0px 3px; color:black;}
+
+video{margin: 20px;}
