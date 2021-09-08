@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;700;900&display=swap');
+/* FONT */
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap'); */
 
 html{font-family: 'Nunito', sans-serif;
     background: url('/img/hatter.bmp');
@@ -15,7 +17,7 @@ h5{font-size:14px; font-weight: 300; margin: 5px 20px;}
 
 /* DIV BOX */
 .box{
-    border:solid 1px slategray;box-shadow: black 10px 10px 10px;
+    border:solid 1px slategray; box-shadow: black 10px 10px 10px;
     background-color:aliceblue;
     width: 92%; margin: 30px auto;
 }
