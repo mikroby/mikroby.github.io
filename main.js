@@ -11,4 +11,4 @@ let clickAbleElement = document.querySelector(".header1");
 clickAbleElement.onclick = function () {location.assign("/index.html#pageTop")};
 
 clickAbleElement = document.querySelector(".header2");
-clickAbleElement.onclick = function () {location.assign("/links.html")};
+clickAbleElement.onclick = function () {location.assign("/links.html#link")};
