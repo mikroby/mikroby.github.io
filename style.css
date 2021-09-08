@@ -44,7 +44,7 @@ td{text-align: start; padding: 5px;}
 
 /* IMAGE & VIDEO */
 img { box-shadow: slategray 5px 5px 5px;}
-.aboutMe{width: 50%; display: block; margin: 0 auto;}
+.aboutMe{width: 65%; display: block; margin: 0 auto;}
 .photoBox{margin: 20px;}
 .aboutUs{width: 100%;}
 .rider{display: block; width: 50%; margin: 0 auto;}
