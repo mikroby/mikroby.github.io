@@ -11,7 +11,7 @@ h4{font-size: 20px; font-weight: 700;
     margin: 20px;}
 p{font-size: 18px; font-weight: 300; margin: 20px;}  
 .box h4,caption{text-shadow:slategray 0px 3px 5px; color:black;}
-small{margin: 20px;}
+h5{font-size:14px; font-weight: 300; margin: 5px 20px;}
 
 /* DIV BOX */
 .box{
