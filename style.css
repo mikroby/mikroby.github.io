@@ -17,7 +17,7 @@ small{margin: 20px;}
 .box{
     border:solid 1px slategray;box-shadow: black 10px 10px 10px;
     background-color:aliceblue;
-    width: 95%; margin: 30px auto;
+    width: 92%; margin: 30px auto;
 }
 .header1{
     background-color: rgba(207, 234, 248,1);
