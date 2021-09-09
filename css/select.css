@@ -3,7 +3,7 @@
 
 @keyframes moveShadow {
     from {box-shadow: 0 0 0px black;}
-    to {box-shadow: 0 0 25px black;}
+    to {box-shadow: 0 0 30px black;}
 }
 
 @keyframes moveButton {
