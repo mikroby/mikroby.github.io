@@ -54,4 +54,5 @@ label{color: black;
 
 button:hover{
     animation: moveButton 0.5s linear;
+    box-shadow: 0 0 5px black;
 }
