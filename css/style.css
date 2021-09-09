@@ -29,6 +29,10 @@ h5{font-size:14px; font-weight: 300; margin: 5px 20px;}
     padding: 5px 0px 5px 20px;}
 .header2 p{
     margin: 0px;}
+.login{
+    margin:0px 20px;    
+    text-align: end;
+}
 
 /* TABLE & LIST */
 li{ margin: 5px 0px; list-style: none; font-size: 20px; font-weight: 600;}
@@ -57,3 +61,4 @@ video{margin: 20px;}
 a{text-decoration-line:none; text-shadow:slategray 0px 0px 3px; color: darkgray;}
 a:hover{text-shadow:slategray 0px 0px 2px; color:black;}
 a:active{text-shadow:black 0px 0px 3px; color:black;}
+.login a{color:black;}
