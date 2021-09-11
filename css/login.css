@@ -15,8 +15,7 @@
 html{
     font-family: 'Nunito', sans-serif;
     background: url('/img/hatter.bmp');
-    scroll-behavior:smooth;
-    color: black;
+    scroll-behavior:smooth;    
 }
 
 h1{
@@ -26,11 +25,20 @@ h1{
     text-align: center;
 }
 
+p{
+    text-align: center;
+}
+
+a{
+    text-decoration-line:none;
+    color: black;
+}
+
 button{
     font-family: 'Nunito', sans-serif;
     background-color: aliceblue;
     display: block;
-    margin: 15px auto;
+    margin: 15px auto 5px;
 }
 
 button:hover{
@@ -38,13 +46,16 @@ button:hover{
     box-shadow: 3px 3px 5px slategray;
 }
 
-.section{
-    margin:22.5%;
+.login-div input{
+    display: block;
+    margin-bottom: 7px;
+    padding: 3px;
 }
 
 .centerBox{
     display:flex ;
     justify-content:center;
+    margin: 25% 0 25px;
 }
 
 .login-div{
@@ -54,10 +65,4 @@ button:hover{
     animation: moveShadow 1.5s alternate infinite linear;
     background-color: aliceblue;
     display: inline-block;
-}
-
-.login-div input{
-    display: block;
-    margin-bottom: 7px;
-    padding: 3px;
 }
