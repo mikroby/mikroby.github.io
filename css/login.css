@@ -3,14 +3,13 @@
 
 @keyframes moveShadow {
     from {box-shadow: 0 0 0px black;}
-    to {box-shadow: 0 0 30px black;}
+    to {box-shadow: 20px 20px 30px black;}
 }
 
 @keyframes moveButton {
     from {box-shadow: 0 0 0px black;}
     to {box-shadow: 0 0 5px black;}
 }
-
 
 html{
     font-family: 'Nunito', sans-serif;
