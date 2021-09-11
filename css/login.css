@@ -1,28 +1,41 @@
 /* FONT */
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+/* ANIMATION */
 @keyframes moveShadow {
-    from {box-shadow: 0 0 0px black;}
+    from {box-shadow: 2px 2px 2px black;}
     to {box-shadow: 20px 20px 30px black;}
 }
 
 @keyframes moveButton {
-    from {box-shadow: 0 0 0px black;}
-    to {box-shadow: 0 0 5px black;}
+    from {box-shadow: 0 0 0px slategray;}
+    to {box-shadow: 3px 3px 5px slategray;}
 }
 
 html{
     font-family: 'Nunito', sans-serif;
     background: url('/img/hatter.bmp');
     scroll-behavior:smooth;
+    color: black;
 }
 
-h1{font-size: 24px; font-weight: 500; text-shadow:slategray 0px 3px 4px; color:black;
+h1{
+    font-size: 24px; font-weight: 500;
+    text-shadow:slategray 0px 3px 4px; color:black;
     margin: 5px;
     text-align: center;
 }
-    
-label{color: black;
+
+button{
+    font-family: 'Nunito', sans-serif;
+    background-color: aliceblue;
+    display: block;
+    margin: 15px auto;
+}
+
+button:hover{
+    animation: moveButton 0.3s linear;
+    box-shadow: 3px 3px 5px slategray;
 }
 
 .section{
@@ -38,10 +51,8 @@ label{color: black;
     border-radius: 5px;
     padding: 15px;
     border: solid 1px;
-    color: black;
     animation: moveShadow 1.5s alternate infinite linear;
     background-color: aliceblue;
-    /* box-shadow: 0 0 5px slategray; */
     display: inline-block;
 }
 
@@ -49,9 +60,4 @@ label{color: black;
     display: block;
     margin-bottom: 7px;
     padding: 3px;
-}
-
-button:hover{
-    animation: moveButton 0.5s linear;
-    box-shadow: 0 0 5px black;
 }
