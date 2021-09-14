@@ -4,7 +4,7 @@
 /* ANIMATION */
 @keyframes moveShadow {
     from {box-shadow: 2px 2px 2px black;}
-    to {box-shadow: 20px 20px 30px black;}
+    to {box-shadow: 15px 15px 30px black;}
 }
 
 @keyframes moveButton {
