@@ -62,7 +62,7 @@ img {
 .aboutUs{width: 100%;}
 .rider{display: block; width: 65%; margin: 0 auto;}
 .photos img{display: block; width: 75%; margin: 3% auto;}
-video{margin: 20px;}
+iframe{margin: 20px;}
 
 /* ANCHOR */
 a{text-decoration-line:none; text-shadow:slategray 0px 0px 3px; color: darkgray;}
