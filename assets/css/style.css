@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
 @keyframes move-in{
-    0%{left:-100%;}
-    100%{left:25%;}
+    0%{transform: translateX(0);}
+    100%{transform: translateX(250%);}
 }
 @keyframes move-out{
-    0%{left:25%;}
-    100%{left:-100%;}
+    0%{transform: translateX(250%);}
+    100%{transform: translateX(0);}
 }
 
 *{
@@ -46,8 +46,8 @@ main{
     position: absolute;
     height: 100%;
     width: 100%;
-    background-color: black;
-    transition: opacity 0.5s;    
+    background-color: black;    
+    transition: opacity 0.5s;   
 }
 .overlay--appear{
     opacity:60%;
@@ -125,12 +125,12 @@ main{
         width: 100%;
     }
 
-    @keyframes move-in{
-        0%{left:-100%;}
-        100%{left:0%;}
+    @keyframes move-in{       
+        0%{transform: translateX(0);}
+        100%{transform: translateX(100%);}
     }
     @keyframes move-out{
-        0%{left:0%;}
-        100%{left:-100%;}
+        0%{transform: translateX(100%);}
+        100%{transform: translateX(0);}        
     }
 }
