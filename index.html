@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Modal exercise</title>
+</head>
+
+<body>
+
+    <main>
+
+        <div id="overlay" class="overlay--vanish" onclick="closeModal()"></div>
+
+        <div id="modal" class="modal--vanish">
+            <button class="btn__close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <header class="modal__header">
+                Header
+            </header>
+            <article class="modal__content">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus odio. Suspendisse sed lectus sed
+                ex
+                ultricies ornare id vel orci. Ut id nisi quam. Nunc efficitur facilisis leo elementum luctus. Mauris ex
+                ligula, efficitur vitae augue in, consectetur rutrum nulla. Ut lacinia vehicula lectus, in iaculis justo
+                maximus a. Praesent sapien sapien, ullamcorper nec enim vel, viverra egestas est. Pellentesque vel
+                ornare ex. Phasellus eget mi sed massa dictum congue.
+            </article>
+            <footer class="modal__footer">
+                <button class="modal__btn__ok" onclick="closeModal()">Okey</button>
+                <button class="modal__btn__cancel" onclick="closeModal()">Cancel</button>
+            </footer>
+        </div>
+
+        <button class="btn" onclick="openModal()">
+            Click here for a Modal window!
+        </button>
+
+    </main>
+
+
+    <script src="./assets/js/main.js"></script>
+
+</body>
+
+</html>

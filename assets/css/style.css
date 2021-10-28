@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+@keyframes move-in{
+    0%{left:-100%;}
+    100%{left:25%;}
+}
+@keyframes move-out{
+    0%{left:25%;}
+    100%{left:-100%;}
+}
+
+*{
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+    font-family: 'Nunito', sans-serif;    
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    font-size:16px;
+}
+body{
+    margin: 0;
+    background-color: aliceblue;    
+    height: 100%;
+}
+main{
+    width: 100%;
+    height: 100%;
+    display: flex;    
+    justify-content: center;  
+    align-items: center;  
+}
+
+.btn{
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 0 5px slategray;
+    cursor: pointer;
+}
+
+#overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    transition: opacity 0.5s;    
+}
+.overlay--appear{
+    opacity:60%;
+    z-index: 1;
+}
+.overlay--vanish{
+    opacity:0;
+    z-index: -1;
+}
+
+#modal{
+    position: absolute;
+    display: inline-block;
+    width: 50%;
+    left:-100%;    
+    background-color: snow;
+    padding: 1.5rem;
+    z-index: 2;
+    padding: 1rem;    
+}
+.modal--appear{
+    animation: move-in 0.5s ease-out forwards;
+}
+.modal--vanish{   
+    animation: move-out 0.5s ease-in forwards;   
+}
+.btn__close{
+    float:right;
+    font-size: 1.5rem;    
+    border-style: hidden;
+    background-color: inherit;
+    cursor: pointer;    
+}
+.modal__header{
+    margin:1.2rem 1rem 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.modal__content{
+    margin:0 1rem 2rem;
+    font-size: 1rem;
+    word-wrap: normal;    
+}
+.modal__footer{   
+    margin: 0rem 1rem 1rem;
+    float:right;
+}
+[class*='modal__btn']{
+    display:inline;    
+    font-size: 1rem;    
+    border-style: hidden;
+    color:snow;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    opacity:0.7;
+    transition: opacity 0.3s;
+}
+[class*='modal__btn']:hover{
+    opacity:1;
+}
+.modal__btn__ok{   
+    background-color: rgb(93, 230, 93);  
+}
+.modal__btn__cancel{   
+    background-color: rgb(231, 83, 83);   
+}
+
+@media screen and (max-width:560px) {
+    html{       
+        font-size:12px;
+    }
+    
+    #modal{        
+        width: 100%;
+    }
+
+    @keyframes move-in{
+        0%{left:-100%;}
+        100%{left:0%;}
+    }
+    @keyframes move-out{
+        0%{left:0%;}
+        100%{left:-100%;}
+    }
+}
