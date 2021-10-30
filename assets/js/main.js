@@ -10,6 +10,7 @@ const checkPatterns = [
 ];
 let currentMark;
 let steps;
+let winnerIs='';
 
 (function fisrtStart() {
     initialize();
@@ -42,10 +43,15 @@ function initialize() {
     showTurn(currentMark);
 }
 
+function animate() {
+    const element = document.querySelector('#game__header');
+    element.className = 'game__header--shock';
+    setTimeout(() => element.className = '', 510);
+}
+
 function putMark() {
-    const element=document.querySelector('#game__header');
-    element.className='game__header--shock';
-    setTimeout(()=>element.className='',500);
+
+    animate();
 
     this.textContent = marks[Number(currentMark)];
     this.setAttribute('data-value', currentMark ? 1 : -1);
@@ -53,7 +59,8 @@ function putMark() {
 
     check();
 
-    if (steps === 9) {
+    if (steps === 9 && winnerIs==='')
+    {
         openModal('Döntetlen eredmény !', 'Vége a játéknak, nincs több üres cella.', 'Új játék', 'Kilépés');
     }
 
@@ -73,19 +80,19 @@ function check() {
 
         evaluate(sumOfMarks);
     }
-    );
+    );    
 }
 
 function evaluate(sumOfMarks) {
 
-    if (sumOfMarks == 3 || sumOfMarks == -3) {
-        const winnerIs = marks[(sumOfMarks + 3) % 5];
+    if (sumOfMarks === 3 || sumOfMarks === -3) {
+        winnerIs = marks[(sumOfMarks + 3) % 5];
         openModal(`A győztes: ${winnerIs} jelű játékos!`, '', 'Új játék', 'Kilépés');
     }
 }
 
-function showTurn(player){
-    document.querySelector('#nextPlayer').textContent=marks[Number(player)];
+function showTurn(player) {
+    document.querySelector('#nextPlayer').textContent = marks[Number(player)];
 }
 
 function newGameStart() {
