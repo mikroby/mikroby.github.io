@@ -80,7 +80,7 @@ function evaluate(sumOfMarks) {
 
     if (sumOfMarks == 3 || sumOfMarks == -3) {
         const winnerIs = marks[(sumOfMarks + 3) % 5];
-        openModal(`A győztes: ${winnerIs} !`, '', 'Új játék', 'Kilépés');
+        openModal(`A győztes: ${winnerIs} jelű játékos!`, '', 'Új játék', 'Kilépés');
     }
 }
 
