@@ -10,7 +10,7 @@ const checkPatterns = [
 ];
 let currentMark;
 let steps;
-let winnerIs='';
+let winnerIs;
 
 (function fisrtStart() {
     initialize();
@@ -37,6 +37,7 @@ function initialize() {
         item.textContent = '';
     });
     steps = 1;
+    winnerIs='';
 
     // first player starts with 'X'.
     currentMark = false;
