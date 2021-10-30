@@ -1,14 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
-@keyframes move-in{
-    0%{transform: translateX(0);}
-    100%{transform: translateX(250%);}
-}
-@keyframes move-out{
-    0%{transform: translateX(250%);}
-    100%{transform: translateX(0);}
-}
-
 *{
     box-sizing: border-box;
 }
@@ -22,16 +13,71 @@ html{
 }
 body{
     margin: 0;
-    background-color: aliceblue;    
+    background-color: #d1dcdd;    
     height: 100%;
 }
 main{
     width: 100%;
     height: 100%;
-    display: flex;    
+    display: flex; 
+    flex-direction: column;   
     justify-content: center;  
     align-items: center;  
 }
+#game__header{
+    margin:1.2rem 0;
+    font-size: 3.2rem;
+    font-weight: 600;
+}
+.game__header--shock{
+    animation: shake 0.25s alternate 2;    
+}
+@keyframes shake {    
+    0%{
+        transform: translateX(0) rotate(0);
+    }
+    
+    50%{
+        transform: translateX(10px) rotate(10deg);
+    }
+    100%{
+        transform: translateX(-10px) rotate(-10deg);
+    }
+}
+
+.field-container{
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgb(100, 100, 100);
+    width:20rem;
+    height:20rem;
+    display: flex;
+    flex-direction: column;    
+    background-clip: content-box;
+    background-color: #528abb;
+}
+.row{
+    height: 33.34%;
+    display: flex;
+}  
+.row:nth-child(2){
+    border: 1px #f0ffff;
+    border-style: solid none;
+}
+.cell{
+    width: 33.333%;  
+    color: #f0ffff;
+    font-size: 3rem;
+    font-weight: 100;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; 
+}
+.cell:nth-child(2){
+    border: 1px #f0ffff;
+    border-style: none solid;
+}
+
 
 .btn{
     font-family: inherit;
@@ -40,6 +86,18 @@ main{
     border-radius: 5px;
     box-shadow: 0 0 5px slategray;
     cursor: pointer;
+    margin-top: 0;
+}
+.showTurn{
+    margin:3rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+#nextPlayer{
+    font-size: 3rem;
+    font-weight: 600;
+    color: #528abb;
 }
 
 #overlay{
@@ -47,7 +105,10 @@ main{
     height: 100%;
     width: 100%;
     background-color: black;    
-    transition: opacity 0.5s;   
+    transition: opacity 0.5s;        
+}
+.overlay--default{
+    display: none;
 }
 .overlay--appear{
     opacity:60%;
@@ -62,11 +123,12 @@ main{
     position: absolute;
     display: inline-block;
     width: 50%;
-    left:-100%;    
+    left:-50%;    
     background-color: snow;
     padding: 1.5rem;
     z-index: 2;
-    padding: 1rem;    
+    padding: 1rem;
+    border-radius: 5px;  
 }
 .modal--appear{
     animation: move-in 0.5s ease-out forwards;
@@ -105,15 +167,26 @@ main{
     margin: 0 0.25rem;
     opacity:0.7;
     transition: opacity 0.3s;
+    border-radius: 5px;
 }
 [class*='modal__btn']:hover{
     opacity:1;
 }
 .modal__btn__ok{   
-    background-color: rgb(93, 230, 93);  
+    background-color: #357cb9;
+    /* background-color: rgb(93, 230, 93);   */
 }
 .modal__btn__cancel{   
     background-color: rgb(231, 83, 83);   
+}
+
+@keyframes move-in{
+    0%{transform: translateX(0);}
+    100%{transform: translateX(150%);}
+}
+@keyframes move-out{
+    0%{transform: translateX(150%);}
+    100%{transform: translateX(0);}
 }
 
 @media screen and (max-width:560px) {
@@ -123,6 +196,7 @@ main{
     
     #modal{        
         width: 100%;
+        left:-100%;        
     }
 
     @keyframes move-in{       

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hu">
 
 <head>
     <meta charset="UTF-8">
@@ -7,40 +7,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Modal exercise</title>
+    <title>Tic-Tac-Toe játék</title>
 </head>
 
 <body>
 
     <main>
 
-        <div id="overlay" class="overlay--vanish" onclick="closeModal()"></div>
+        <header id="game__header" class="">
+            TIC-TAC-TOE
+        </header>
 
-        <div id="modal" class="">
-            <button class="btn__close" onclick="closeModal()">
-                <i class="fas fa-times"></i>
-            </button>
+        <div class="field-container">
+            <div class="row">
+                <div class="cell" data-value="" data-index="1"></div>
+                <div class="cell" data-value="" data-index="2"></div>
+                <div class="cell" data-value="" data-index="3"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-value="" data-index="4"></div>
+                <div class="cell" data-value="" data-index="5"></div>
+                <div class="cell" data-value="" data-index="6"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-value="" data-index="7"></div>
+                <div class="cell" data-value="" data-index="8"></div>
+                <div class="cell" data-value="" data-index="9"></div>
+            </div>
+        </div>    
 
-            <header class="modal__header">
-                Header
-            </header>
-            <article class="modal__content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus odio. Suspendisse sed lectus sed
-                ex
-                ultricies ornare id vel orci. Ut id nisi quam. Nunc efficitur facilisis leo elementum luctus. Mauris ex
-                ligula, efficitur vitae augue in, consectetur rutrum nulla. Ut lacinia vehicula lectus, in iaculis justo
-                maximus a. Praesent sapien sapien, ullamcorper nec enim vel, viverra egestas est. Pellentesque vel
-                ornare ex. Phasellus eget mi sed massa dictum congue.
-            </article>
-            <footer class="modal__footer">
-                <button class="modal__btn__ok" onclick="closeModal()">Okey</button>
-                <button class="modal__btn__cancel" onclick="closeModal()">Cancel</button>
-            </footer>
+        <div class="showTurn">
+            Most következik:
+            <br>        
+            <span id="nextPlayer">
+                <!-- which player's turn     -->
+            </span>
+            <br>
+            jelű játékos
         </div>
 
-        <button class="btn" onclick="openModal()">
-            Click here for a Modal window!
+        <button class="btn"
+            onclick="openModal('Tic-Tac-Toe',
+        'Két játékos felváltva helyezi el saját jelét: X-et vagy O-t. Az a játékos győz, akinek előbb sikerül egy sorban, egy oszlopban vagy átlósan elhelyezni a három azonos jelet.','Játék indítása','Kilépés')">
+            A játék rövid leírása
         </button>
+
+
+        <div id="overlay" class="overlay--default"></div>
+
+        <div id="modal" class="">
+            <!-- <button class="btn__close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button> -->
+
+            <header class="modal__header">
+                <!-- main message... -->
+            </header>
+            <article class="modal__content">
+                <!-- alternative message... -->
+            </article>
+            <footer class="modal__footer">
+                <button class="modal__btn__ok" onclick="newGameStart()">
+                    <!-- ok button label... -->
+                </button>
+                <button class="modal__btn__cancel" onclick="window.close()">
+                    <!-- close button label... -->
+                </button>
+            </footer>
+        </div>
 
     </main>
 
