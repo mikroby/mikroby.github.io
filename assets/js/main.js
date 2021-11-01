@@ -1,3 +1,10 @@
+// megállapítások tetszőleges cellaszámú és akár téglalap alakú pálya esetére (is). gyorsabb és általános érvényű a kód:
+// 1.) ha N a megnyeréshez szükséges jelek száma, akkor elegendő 2*N-1-ik lépéstől keresni a lehetséges győztest.
+// 2.) nem kell az egész táblát végigellenőrizni, elegendő az éppen lerakott jel oszlopában, sorában és a két áthaladó átlóban összeszámolni a lerakott jel db-számát.
+// 3.) az éppen aktuális vonal mentén az összeszámolásnál ha a soron következő cella tartalma nem egyezik az előző celláéval, a számlálót nullázni kell és ehhez hozzáadva a kurrens cella értékét folytatni a számlálást.
+// az alábbi kód, egyelőre az 1.)-est valósítja meg, később szeretném általános esetre kibővíteni.
+// bocsánat, a fentieket nehéz lett volna angolul...
+
 'use strict';
 
 // 'X' meaning: currentMark = false, marks[0], data-value=-1.
@@ -8,6 +15,8 @@ const checkPatterns = [
     [1, 4, 7], [2, 5, 8], [3, 6, 9],
     [1, 5, 9], [3, 5, 7]
 ];
+const minMarksToWin = 3;
+const minStepsToCheckWinner = 2 * minMarksToWin - 1;
 let currentMark;
 let steps;
 let winnerIs;
@@ -37,7 +46,7 @@ function initialize() {
         item.textContent = '';
     });
     steps = 1;
-    winnerIs='';
+    winnerIs = '';
 
     // first player starts with 'X'.
     currentMark = false;
@@ -58,10 +67,11 @@ function putMark() {
     this.setAttribute('data-value', currentMark ? 1 : -1);
     this.removeEventListener('click', putMark);
 
-    check();
+    if (steps >= minStepsToCheckWinner) {
+        check();
+    }
 
-    if (steps === 9 && winnerIs==='')
-    {
+    if (steps === 9 && winnerIs === '') {
         openModal('Döntetlen eredmény !', 'Vége a játéknak, nincs több üres cella.', 'Új játék', 'Kilépés');
     }
 
@@ -80,14 +90,14 @@ function check() {
                 .getAttribute('data-value')));
 
         evaluate(sumOfMarks);
-    }
-    );    
+    });
 }
 
 function evaluate(sumOfMarks) {
 
-    if (sumOfMarks === 3 || sumOfMarks === -3) {
-        winnerIs = marks[(sumOfMarks + 3) % 5];
+    if (Math.abs(sumOfMarks) === minMarksToWin) {
+        // making 0 or 1 as an index to choose the winner mark.
+        winnerIs = marks[(sumOfMarks + minMarksToWin) % minStepsToCheckWinner];
         openModal(`A győztes: ${winnerIs} jelű játékos!`, '', 'Új játék', 'Kilépés');
     }
 }
