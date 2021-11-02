@@ -69,7 +69,7 @@ function gameMainMethod() {
     }
 
     changePlayer();
-    
+
     showPlayer();
 }
 
@@ -108,6 +108,9 @@ function check() {
 }
 
 function displayWinner(winnerIs, pattern) {
+
+    document.querySelectorAll('.cell').forEach(element => element.removeEventListener('click', gameMainMethod));    
+
     pattern.forEach(index => document.querySelector(`[data-index = '${index}']`)
         .className = 'cell winnerCells');
 
@@ -116,14 +119,14 @@ function displayWinner(winnerIs, pattern) {
     setTimeout(() => openModal(`A győztes: ${winnerIs} jelű játékos!`, '', 'Új játék', 'Kilépés'), 2520);
 }
 
-function displayDraw(){
+function displayDraw() {
     openModal('Döntetlen eredmény !', 'Vége a játéknak, nincs több üres cella.', 'Új játék', 'Kilépés');
 }
 
 function showPlayer(player) {
     document.querySelector('#nextPlayer').textContent = marks[Number(currentMark)];
 }
-function changePlayer(){
+function changePlayer() {
     currentMark = !currentMark;
     steps++;
 }
