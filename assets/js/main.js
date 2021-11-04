@@ -7,8 +7,8 @@
 
 'use strict';
 
-// 'X' meaning: currentMark = false, marks[0], data-value=-1.
-// 'O' meaning: currentMark = true,  marks[1], data-value=1.
+// 'X' meaning: marks[0], data-value=-1.
+// 'O' meaning: marks[1], data-value=1.
 const marks = ['X', 'O'];
 const checkPatterns = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9],
@@ -50,11 +50,11 @@ function initialize() {
         item.setAttribute('data-value', 0);
         item.textContent = '';
     });
-    steps = 1;
+    steps = 0;
     winnerIs = '';
 
-    // first player starts with 'X'.
-    currentMark = false;
+    // first player starts with first element of marks array = 'X'.
+    changePlayer();
     showPlayer();
 }
 
@@ -69,7 +69,6 @@ function gameMainMethod() {
     }
 
     changePlayer();
-
     showPlayer();
 }
 
@@ -80,8 +79,8 @@ function animateHeader() {
 }
 
 function putMark(cell) {
-    cell.textContent = marks[Number(currentMark)];
-    cell.setAttribute('data-value', currentMark ? 1 : -1);
+    cell.textContent = currentMark;
+    cell.setAttribute('data-value', currentMark===marks[0] ? -1 : 1);
     cell.removeEventListener('click', gameMainMethod);
 }
 
@@ -94,10 +93,8 @@ function check() {
             sumOfMarks += Number(document.querySelector(`[data-index = '${index}']`)
                 .getAttribute('data-value')));
 
-        if (Math.abs(sumOfMarks) === minMarksToWin) {
-            // making 0 or 1 as an index to choose the winner mark.
-            winnerIs = marks[(sumOfMarks + minMarksToWin) % minStepsToCheckWinner];
-
+        if (Math.abs(sumOfMarks) === minMarksToWin) {            
+            winnerIs = currentMark;
             displayWinner(winnerIs, pattern);
         }
     });
@@ -124,9 +121,9 @@ function displayDraw() {
 }
 
 function showPlayer(player) {
-    document.querySelector('#nextPlayer').textContent = marks[Number(currentMark)];
+    document.querySelector('#nextPlayer').textContent = currentMark;
 }
 function changePlayer() {
-    currentMark = !currentMark;
+    currentMark = marks[steps % 2];
     steps++;
 }
