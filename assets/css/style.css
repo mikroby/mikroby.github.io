@@ -27,7 +27,7 @@ body{
   text-transform: uppercase;
   font-weight: 300;
   font-size: 3.5rem;
-  margin: 2rem 0 1rem;
+  margin: 3rem 0 1rem;
 }
 
 .alt__header{
@@ -75,7 +75,7 @@ body{
   width: 6.57rem;
   height: 10rem;
   border-radius: 0.5rem;
-  transition: transform 0.5s ease; 
+  transition: transform 0.5s ease-in-out; 
   cursor: pointer;
 }
 
@@ -111,6 +111,10 @@ body{
 .cards--flipped
 {
   transform: rotateY(180deg);
+  cursor: default;
+}
+
+.cards--disabled{
   cursor: default;
 }
 

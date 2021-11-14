@@ -76,11 +76,7 @@ const showClock = () => {
   if (timerEnabled) { timing(); }
 };
 
-const timing = () => {
-  if (timerEnabled) {
-    setTimeout(() => { timer++; showClock() }, 1000);
-  };
-};
+const timing = () => setTimeout(() => { timer++; showClock() }, 1000);
 
 const startGame = () => {
   initializeVariables();
@@ -109,12 +105,20 @@ const stayFlipped = (clickedCards) => {
 const disableOthers = () => {
   const disabled = Array.from(document.querySelectorAll
     ('.playField .cards:not(.cards--clicked):not(.cards--flipped)'));
-  disabled.forEach(item => item.removeEventListener('click', flipCard));
+
+  disabled.forEach(item => {
+    item.removeEventListener('click', flipCard);
+    item.classList.add('cards--disabled');
+  });
+
   return disabled;
 }
 
 const enableOthers = (disabled) =>
-  disabled.forEach(item => item.addEventListener('click', flipCard));
+  disabled.forEach(item => {
+    item.addEventListener('click', flipCard)
+    item.classList.remove('cards--disabled');
+  });
 
 function checkPairs() {
   const disabledCards = disableOthers();
