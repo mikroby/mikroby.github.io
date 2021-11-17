@@ -76,7 +76,13 @@ const showClock = () => {
   if (timerEnabled) { timing(); }
 };
 
-const timing = () => setTimeout(() => { timer++; showClock() }, 1000);
+const timing = () => {
+  const id = setTimeout(() => {
+    clearTimeout(id);
+    timer++;
+    showClock()
+  }, 1000)
+};
 
 const startGame = () => {
   initializeVariables();
@@ -151,11 +157,21 @@ function flipClickedBack(clickedCards) {
 function gameEnd() {
   timerEnabled = false;
 
-  setTimeout(() => {
-    getClassedTag('cards').forEach(item =>
-      item.classList.remove('cards--flipped'));
-  }, 5000);
-  setTimeout(() => startGame(), 5550);
+  const waitFor = new Promise((resolve) => {
+    const id = setTimeout(() => {
+      clearTimeout(id);
+      getClassedTag('cards').forEach(item =>
+        item.classList.remove('cards--flipped'));
+      resolve()
+    }, 5000)
+  });
+
+  waitFor.then(() => {
+    const id = setTimeout(() => {
+      clearTimeout(id);
+      startGame()
+    }, 550)
+  });
 };
 
 export default startGame;
