@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+html{
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  font-size:16px;
+}
+*{
+	box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  background-color: rgb(240, 248, 255);
+}
+
+.main__header{
+  font-family: 'Fredericka the Great', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 3rem;
+  margin: 0 0 1rem;
+}
+
+.alt__header{
+  text-align: center;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 0 0 1rem;
+  font-family: 'Architects Daughter';
+}
+
+.content{
+  border-radius: 0.25rem;
+  box-shadow: 0 0px 5px rgba(0, 0, 0,0.5);
+  background-color: whitesmoke;
+  padding: 1.25rem;
+  margin: 0rem 0;
+}
+
+a{
+  display: block;
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  color: black;  
+  text-decoration-line:none;  
+  transition: 0.3s ease-in-out;
+  margin: 1rem 0;
+  padding:0 0.25rem;
+}
+
+a:hover{
+  box-shadow:0 0px 5px rgba(0, 0, 0,0.75);
+  border-radius: 0.25rem;  
+  color:black;
+  /* padding:0.25rem 0; */
+}
+a:active{ 
+  color:black;
+}
+
+footer{
+  font-weight: 300;
+  font-size: 1rem;
+  margin: 1rem 0 0;
+}
+
+@media screen and (max-width:640px) {
+  html{       
+      font-size:14px;
+  }
+}
+@media screen and (max-width:576px) {
+  html{       
+      font-size:12px;
+  }
+}
+
+@media screen and (max-width:480px) {
+  html{       
+      font-size:10px;
+  }
+}
+
+@media screen and (max-width:420px) {
+  html{       
+      font-size:8px;
+  }
+}
