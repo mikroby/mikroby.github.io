@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+    font-family: 'Nunito', sans-serif;    
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+    font-size:16px;
+}
+body{
+    margin: 0;
+    background-color: rgb(209, 220, 221);    
+    height: 100%;
+}
+main{
+    width: 100%;
+    height: 100%;
+    display: flex; 
+    flex-direction: column;   
+    justify-content: center;  
+    align-items: center;  
+}
+#game__header{
+    margin:1.2rem 0;
+    font-size: 3.2rem;
+    font-weight: 600;
+}
+.game__header--shock{
+    animation: shake 0.25s alternate 2;    
+}
+@keyframes shake {    
+    0%{
+        transform: translateX(0) rotate(0);
+    }
+    
+    50%{
+        transform: translateX(10px) rotate(10deg);
+    }
+    100%{
+        transform: translateX(-10px) rotate(-10deg);
+    }
+}
+
+.field-container{
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgb(100, 100, 100);
+    width:20rem;
+    height:20rem;
+    display: flex;
+    flex-direction: column;    
+    background-clip: content-box;
+    background-color: rgb(82, 138, 187);
+}
+.row{
+    height: 33.34%;
+    display: flex;
+}  
+.row:nth-child(2){
+    border: 1px rgb(240, 255, 255);
+    border-style: solid none;
+}
+.cell, .winnerCells{
+    width: 33.333%;  
+    color: rgb(240, 255, 255);
+    font-size: 3rem;
+    font-weight: 100;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;    
+}
+.cell:nth-child(2){
+    border: 1px rgb(240, 255, 255);
+    border-style: none solid;
+}
+.winnerCells{
+    animation: zoom 0.5s alternate 5 ease-in-out;
+}
+@keyframes zoom {
+    0%{
+        font-size: 3rem;
+        text-shadow: 0 0 0 rgb(70, 70, 70);      
+    }      
+    50%{
+        font-size: 4rem;
+        text-shadow: 0 0 10px rgb(70, 70, 70);
+    }
+    100%{
+        font-size: 3rem;
+        text-shadow: 0 0 0 rgb(70, 70, 70);
+    }
+}
+
+.btn{
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(112, 128, 144);
+    cursor: pointer;
+    margin-top: 0;
+}
+.showTurn{
+    margin:3rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+#nextPlayer{
+    font-size: 3rem;
+    font-weight: 600;
+    color: rgb(82, 138, 187);
+}
+
+#overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0);    
+    transition: opacity 0.5s;        
+}
+.overlay--default{
+    display: none;
+}
+.overlay--appear{
+    opacity:60%;
+    z-index: 1;
+}
+.overlay--vanish{
+    opacity:0;
+    z-index: -1;
+}
+
+#modal{
+    position: absolute;
+    display: inline-block;
+    width: 50%;
+    left:-50%;    
+    background-color: rgb(255, 250, 250);
+    padding: 1.5rem;
+    z-index: 2;
+    padding: 1rem;
+    border-radius: 5px;  
+}
+.modal--appear{
+    animation: move-in 0.5s ease-out forwards;
+}
+.modal--vanish{   
+    animation: move-out 0.5s ease-in forwards;   
+}
+.btn__close{
+    float:right;
+    font-size: 1.5rem;    
+    border-style: hidden;
+    background-color: inherit;
+    cursor: pointer;    
+}
+.modal__header{
+    margin:1.2rem 1rem 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.modal__content{
+    margin:0 1rem 2rem;
+    font-size: 1rem;
+    word-wrap: normal;    
+}
+.modal__footer{   
+    margin: 0rem 1rem 1rem;
+    float:right;
+}
+[class*='modal__btn']{
+    display:inline;    
+    font-size: 1rem;    
+    border-style: hidden;
+    color:rgb(255, 250, 250);
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin: 0 0.25rem;
+    opacity:0.7;
+    transition: opacity 0.3s;
+    border-radius: 5px;
+}
+[class*='modal__btn']:hover{
+    opacity:1;
+}
+.modal__btn__ok{   
+    background-color: rgb(53, 124, 185);
+    /* background-color: rgb(93, 230, 93);   */
+}
+.modal__btn__cancel{   
+    background-color: rgb(231, 83, 83);   
+}
+
+@keyframes move-in{
+    0%{transform: translateX(0);}
+    100%{transform: translateX(150%);}
+}
+@keyframes move-out{
+    0%{transform: translateX(150%);}
+    100%{transform: translateX(0);}
+}
+
+@media screen and (max-width:560px) {
+    html{       
+        font-size:12px;
+    }
+    
+    #modal{        
+        width: 100%;
+        left:-100%;        
+    }
+
+    @keyframes move-in{       
+        0%{transform: translateX(0);}
+        100%{transform: translateX(100%);}
+    }
+    @keyframes move-out{
+        0%{transform: translateX(100%);}
+        100%{transform: translateX(0);}        
+    }
+}
