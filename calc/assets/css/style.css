@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+@font-face {
+  font-family: digital;
+  src: url(../font/digital-7\ \(italic\).ttf);
+}
+
+html{
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  font-size:16px;
+}
+*{
+	box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+  background-color: rgb(240, 248, 255);
+}
+
+.calculator{
+  height:27rem;
+  width:25rem;
+  display: flex;
+  flex-direction: column;  
+  justify-content: space-between;
+  border-radius: 0.25rem;
+  box-shadow: 0 5px 10px rgba(0, 0, 0,0.5);
+  background-color: #ffffff;
+  padding: 1.25rem;   
+}
+
+.error{
+  animation: shake 0.2s alternate 3;    
+}
+@keyframes shake {    
+    0%{
+        transform: rotate(0);
+    }
+    
+    50%{
+        transform: rotate(1deg);
+    }
+    100%{
+        transform: rotate(-1deg);
+    }
+}
+
+.display{
+  font-family: digital, 'Nunito', sans-serif;
+  letter-spacing: 0.13rem;
+  height:5rem;
+  width: 100%;  
+  display:flex;
+  align-items: center;
+  justify-content: right;
+  padding: 0 0.5rem;
+  font-size: 2rem;  
+  font-weight: 600;
+  border-radius: 0.25rem;
+  background-color: inherit;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5) inset;
+  /* color:#4d90fd; */
+  color: rgb(80, 80, 80);
+  margin: 0 0 1.25rem;
+}
+
+.matrix{
+  width:100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;  
+  justify-content: space-between;
+}
+
+.coloumns{
+  height: 100%;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttons{
+  height: 15%;
+  width: 100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;  
+  border-radius: 0.25rem;
+  color: rgb(80, 80, 80);
+  box-shadow: 0 0 3px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+.buttons:active{
+  box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+}
+
+.operation--btn{  
+  background-color: #dddddd;
+}
+
+.number--btn{
+  background-color: #f9f9f9;
+}
+
+.termination--btn{
+  height: 78.75%;
+  background-color: #4d90fd;
+  color:#ffffff;
+}
+
+.termination--btn:active{
+box-shadow: 0 0 10px rgba(0,0,0,0.75) inset;
+}
+
+@media screen and (max-width:440px) {
+  html{       
+      font-size:14px;
+  }
+}
+@media screen and (max-width:375px) {
+  html{       
+      font-size:12px;
+  }
+}
+@media screen and (max-width:320px) {
+  html{       
+      font-size:10px;
+  }
+}
