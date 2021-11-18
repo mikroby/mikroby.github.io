@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Keresd a párját! játék</title>
+</head>
+
+<body>
+    <header>
+        <h1 class="main__header">Keresd a párját !</h1>
+        <!-- <h2 class="alt__header">játék</h2> -->
+    </header>
+
+    <section class="instructions">
+        A játék indításához kattints egy kártyára !
+    </section>
+
+    <div class="clock"></div>
+
+    <div class="playField"></div>
+
+    <script type="module">
+        import startGame from './assets/js/app.js'
+        startGame();
+    </script>
+</body>
+
+</html>
