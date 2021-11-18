@@ -138,7 +138,8 @@ function checkPairs() {
 
   } else {
     cardsFlipped = 0;
-    setTimeout(() => {
+    const id = setTimeout(() => {
+      clearTimeout(id);
       enableOthers(disabledCards);
       flipClickedBack(clickedCards)
     }, 2000);
