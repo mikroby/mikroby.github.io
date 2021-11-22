@@ -1,9 +1,9 @@
 'use strict';
-const url = 'json/got.json';
+const url = '/json/got.json';
 const method = { method: 'GET' };
-const portraitPlaceholder = '../assets/iron throne.png';
-const picturePlaceholder = '../assets/pictures/iron throne.jpg';
-const shieldPlaceholder = '../assets/houses/shield.png'
+const portraitPlaceholder = '/assets/iron throne.png';
+const picturePlaceholder = '/assets/pictures/iron throne.jpg';
+const shieldPlaceholder = '/assets/houses/shield.png'
 const picture = document.querySelector('.picture');
 const infoHeader = document.querySelector('.infoHeader');
 const shield = document.querySelector('.shield');
