@@ -93,11 +93,11 @@ body{
 }
 .grow--caption{
   transform: scale(1.2); 
-  text-shadow: 0 0.72rem 0.1rem rgba(0, 0, 0,0.55);  
+  text-shadow: 0 0.72rem 0.12rem rgba(0, 0, 0,0.55);  
 }
 .stayGrown{
   transform: scale(1.2);  
-  text-shadow: 0 0.72rem 0.1rem rgba(0, 0, 0,0.55);  
+  text-shadow: 0 0.72rem 0.12rem rgba(0, 0, 0,0.55);  
 }
 
 .info--container{
