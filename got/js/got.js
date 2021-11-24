@@ -90,11 +90,12 @@ function getClicked() {
 
 const sortByName = (list) =>
   list.sort((a, b) => {
-    if (a.name.toUpperCase() < b.name.toUpperCase()) { return -1; }
-    if (a.name.toUpperCase() > b.name.toUpperCase()) { return 1; }
+    const lastNameA = a.name.split(' ').at(-1).toUpperCase();    
+    const lastNameB = b.name.split(' ').at(-1).toUpperCase();    
+    if (lastNameA < lastNameB) { return -1; }
+    if (lastNameA > lastNameB) { return 1; }
     return 0;
   });
-;
 
 function addEffects() {
   this.firstElementChild.classList.add('grow--img');
