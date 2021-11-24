@@ -90,11 +90,17 @@ function getClicked() {
 
 const sortByName = (list) =>
   list.sort((a, b) => {
-    const lastNameA = a.name.split(' ').at(-1).toUpperCase();    
-    const lastNameB = b.name.split(' ').at(-1).toUpperCase();    
+    const nameA = a.name.split(' ');
+    const nameB = b.name.split(' ');
+    const lastNameA = nameA.at(-1).toUpperCase();
+    const lastNameB = nameB.at(-1).toUpperCase();
     if (lastNameA < lastNameB) { return -1; }
     if (lastNameA > lastNameB) { return 1; }
-    return 0;
+    const firstNameA = nameA.at(-2).toUpperCase();
+    const firstNameB = nameB.at(-2).toUpperCase();
+    if (firstNameA < firstNameB) { return -1; }
+    if (firstNameA > firstNameB) { return 1; }
+    // return 0;
   });
 
 function addEffects() {
