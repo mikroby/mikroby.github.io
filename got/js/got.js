@@ -31,7 +31,7 @@ const createTag = (tag, className = '', src = '') => {
 };
 
 const showPicture = (url) => {
-  picture.src = url ? `${url}` : picturePlaceholder;
+  picture.src = url ? url : picturePlaceholder;
 };
 
 const showHeader = (text) => {
@@ -108,8 +108,8 @@ function removeEffects() {
 
 const createPortrait = (character) => {
   const figure = createTag('figure', 'portrait');
-  const url = character.portrait || portraitPlaceholder;
-  const image = createTag('img', 'portrait--img', `${url}`);
+  const urlPortrait = character.portrait || portraitPlaceholder;
+  const image = createTag('img', 'portrait--img', urlPortrait);
   const figcaption = createTag('figcaption', 'portrait--caption', '');
   figcaption.textContent = character.name;
   figure.appendChild(image);
@@ -126,7 +126,7 @@ const error = () => {
 };
 
 const createCharacters = (list) => {
-  if (!list) {
+  if (list.length === 0) {
     error();
     return
   };
