@@ -144,12 +144,12 @@ const updateMessages = (pending, completed) => {
 const animate = (item, valueTo) =>
   new Promise(resolve => {
     item.style.opacity = `${valueTo}`;
-    const transitionEnded = event => {     
+    const transitionEnded = event => {
       if (event.propertyName !== 'opacity') {
         return;
       }
       item.removeEventListener('transitionend', transitionEnded);
-      resolve();     
+      resolve();
     }
     item.addEventListener('transitionend', transitionEnded);
   });
@@ -159,7 +159,7 @@ const addNewPending = async () => {
   input.value = '';
   const newItem = createItem(task, pendingList);
   pendingList.insertAdjacentElement('afterbegin', newItem);
-  // animation missing
+  // animation missing  
   updateLocalStorageEntry();
 };
 
@@ -170,7 +170,7 @@ async function ClickedToCompleted() {
   parent.remove();
   const newItem = createItem(task, completedList);
   completedList.insertAdjacentElement('afterbegin', newItem);
-    // animation missing
+  // animation missing  
   updateLocalStorageEntry();
 };
 
@@ -183,7 +183,9 @@ async function deleteClickedTask() {
 }
 
 const clearAllPending = () => {
-  pendingList.innerHTML = '';
+  while (pendingList.childElementCount) {
+    pendingList.lastElementChild.remove();
+  }
   updateLocalStorageEntry();
 };
 
