@@ -73,7 +73,7 @@ footer{
 small{
   float:right;
   color: slategray;
-  padding: 0 0 0 1rem;
+  padding: 0 0 0 1.5rem;
 }
 
 @media screen and (max-width:424px) {
