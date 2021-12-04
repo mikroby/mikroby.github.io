@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Admin Page</title>
+</head>
+
+<body>
+    <header class="header--dark">
+        <h3 class="header__title">Admin Page</h3>
+        
+        <button class="hamburger__btn" type="menu">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <button class="personal__btn" type="menu">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+
+        <div class="header__search">
+            <form action="">
+                <input class="search__input" type="search" placeholder="Search for..." name="searchField" size="15">
+                <button class="search__btn" type="button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <main>
+        <aside>
+            <nav class="main__nav">
+                <ul class="nav__ul">
+                    <li>
+                        <header>core</header>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav__icon">
+                                <i class="fa fa-tachometer" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav__ul--hidden">
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <header>interface</header>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav__icon">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav__ul--hidden">
+                                Layouts
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav__icon">
+                                <i class="fa fa-bookmark" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav__ul--hidden">
+                                Pages
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <header>addons</header>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav__icon">
+                                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav__ul--hidden">
+                                Charts
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="nav__icon">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                            </span>
+                            <span class="nav__ul--hidden">
+                                Tables
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <section class="content">
+            <h1>Dashboard</h1>
+            <div class="main__breadcrumb">Dashboard</div>
+            <div class="main__cards">
+                <div class="main__card main__card--blue">
+                    <div class="card__top">
+                        Primary Card
+                    </div>
+                    <div class="card__bottom">
+                        <a href="#">
+                            View Details
+                            <span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="main__card main__card--yellow">
+                    <div class="card__top">
+                        Warning Card
+                    </div>
+                    <div class="card__bottom">
+                        <a href="#">
+                            View Details
+                            <span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="main__card main__card--green">
+                    <div class="card__top">
+                        Success Card
+                    </div>
+                    <div class="card__bottom">
+                        <a href="#">
+                            View Details
+                            <span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="main__card main__card--red">
+                    <div class="card__top">
+                        Danger Card
+                    </div>
+                    <div class="card__bottom">
+                        <a href="#">
+                            View Details
+                            <span>
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
