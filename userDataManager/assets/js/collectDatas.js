@@ -6,7 +6,7 @@ import setModal from "./modal.js";
 
 
 const collectDatas = async () => {
-  const settings = await readData(files.URL,files.settingsJSON);
+  const settings = await readData(files.URL, files.settingsJSON);
   const userData = await readData(files.URL, files.contentJSON);
   return { settings, userData };
 };
