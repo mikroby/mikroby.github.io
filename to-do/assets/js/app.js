@@ -156,7 +156,7 @@ const animate = (item, valueTo = '') =>
   });
 
 const enterPressed = (keyEvent) => {
-  if (keyEvent.keyCode !== 13) { return }
+  if (keyEvent.key !== 'Enter') { return }
   addNewPending();
 }
 
