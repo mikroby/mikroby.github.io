@@ -50,6 +50,7 @@ function moveIn() {
 
 const addBtnEvents = () => {
   addTaskBtn.addEventListener('click', addNewPending);
+  input.addEventListener('keydown', enterPressed);
   completeTaskBtn.addEventListener('click', toggleDisplay);
   clearAllTaskBtn.addEventListener('click', clearAllPending);
 }
@@ -141,9 +142,9 @@ const updateMessages = (pending, completed) => {
   completedMessage.textContent = `Completed tasks: ${result}`
 };
 
-const animate = (item, valueTo) =>
+const animate = (item, valueTo = '') =>
   new Promise(resolve => {
-    item.style.opacity = `${valueTo}`;
+    if (valueTo !== '') { item.style.opacity = `${valueTo}` };
     const transitionEnded = event => {
       if (event.propertyName !== 'opacity') {
         return;
@@ -154,29 +155,40 @@ const animate = (item, valueTo) =>
     item.addEventListener('transitionend', transitionEnded);
   });
 
+const enterPressed = (keyEvent) => {
+  if (keyEvent.keyCode !== 13) { return }
+  addNewPending();
+}
+
 const addNewPending = async () => {
   const task = input.value || placeholder;
   input.value = '';
   const newItem = createItem(task, pendingList);
   pendingList.insertAdjacentElement('afterbegin', newItem);
-  // animation missing  
+  // animation.
+  newItem.style.opacity = 0;
+  setTimeout(() => animate(newItem, 1), 0);
   updateLocalStorageEntry();
 };
 
 async function ClickedToCompleted() {
   const task = this.nextSibling.textContent;
   const parent = this.parentElement;
+  // animation.
   await animate(parent, 0);
   parent.remove();
   const newItem = createItem(task, completedList);
   completedList.insertAdjacentElement('afterbegin', newItem);
-  // animation missing  
+  // animation.
+  newItem.style.opacity = 0;
+  setTimeout(() => animate(newItem, 1), 0);
   updateLocalStorageEntry();
 };
 
 async function deleteClickedTask() {
   const task = this.previousSibling.textContent;
   const parent = this.parentElement;
+  // animation.
   await animate(parent, 0);
   parent.remove();
   updateLocalStorageEntry();
