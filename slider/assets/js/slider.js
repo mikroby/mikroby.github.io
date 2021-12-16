@@ -54,6 +54,7 @@ const showInfo = (index) => {
 
 function nextDot() {
   const actualDot = document.querySelector('.dot-selected');
+  if (this===actualDot) {return}
   actualDot.classList.remove('dot-selected');
   this.classList.add('dot-selected');
   changeSlide(this.dataset.index);
