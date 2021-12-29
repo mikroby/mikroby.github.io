@@ -23,6 +23,7 @@ let shots, hits, sunks, ships;
 const initialize = () => {
   button.textContent = 'A játék leírása';
   button.onclick = function () { window.location = "#playRules" };
+  info.textContent='';
 
   cells.forEach(cell => {
     cell.addEventListener('click', shoot);
