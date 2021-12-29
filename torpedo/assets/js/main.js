@@ -12,6 +12,7 @@ const shotNumber = document.querySelector('#shotNumber');
 const hitNumber = document.querySelector('#hitNumber');
 const sunkNumber = document.querySelector('#sunkNumber');
 const button = document.querySelector('.btn');
+const field= document.querySelector('.field');
 
 const shipsToLocate = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 const maxCell = 10;
@@ -40,6 +41,10 @@ const showInfo = () => {
 }
 
 const hit = (cell) => {
+  animateField();
+  const hitSound = new Audio('assets/sound/hit.wav');
+  hitSound.volume = 0.5;
+  hitSound.play();
   hits++;
   cell.classList.add('hit');
   cell.innerHTML = shipMark;
@@ -47,6 +52,10 @@ const hit = (cell) => {
 }
 
 const missed = (cell) => {
+  const missedSound = new Audio('assets/sound/missed.wav');
+  missedSound.volume = 0.6;
+  missedSound.play();
+  animateHeader();
   cell.classList.add('missed');
   cell.innerHTML = shootMark;
   info.textContent = '';
@@ -58,6 +67,7 @@ const evaluateShot = (cell) => {
 }
 
 const sunk = (ship) => {
+  new Audio('assets/sound/sunk.wav').play();
   sunks++;
   ship.forEach(cell => cell.classList.replace('hit', 'sunk'));
   info.textContent = 'Talált, Süllyedt!';
@@ -103,7 +113,6 @@ const checkEnd = () => {
 }
 
 function shoot() {
-  animateHeader();
   shots--;
   this.removeEventListener('click', shoot);
   this.classList.add('shot');
@@ -119,6 +128,14 @@ const animateHeader = () => {
     clearTimeout(id);
     header.classList.toggle('shock-header');
   }, 510);
+}
+
+const animateField = () => {
+  field.classList.add('shock-field');
+  const id = setTimeout(() => {
+    clearTimeout(id);
+    field.classList.toggle('shock-field');
+  }, 410);
 }
 
 const start = () => {

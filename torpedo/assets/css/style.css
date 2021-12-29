@@ -30,7 +30,7 @@ body {
 }
 
 .shock-header {
-  animation: shake 0.25s alternate 2;
+  animation: shake 0.2s alternate 2;
 }
 
 @keyframes shake {
@@ -56,6 +56,23 @@ body {
   flex-direction: column;
   background-clip: content-box;
   background-color: rgb(82, 138, 187);
+}
+.shock-field {
+  animation: blast 0.1s alternate 4;
+}
+
+@keyframes blast {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(0.2rem);
+  }
+
+  100% {
+    transform: translateX(-0.2rem);
+  }
 }
 
 .row {
@@ -194,8 +211,8 @@ a {
   color: black;
 }
 
-@media screen and (max-width:560px) {
+@media screen and (max-width:370px) {
   html {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
