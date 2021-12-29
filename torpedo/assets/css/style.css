@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  /* font-size: 16px; */
+}
+
+body {
+  margin: 0;
+  background-color: rgb(209, 220, 221);
+  /* min-height: 100vh; */
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+#game__header {
+  margin: 1.5rem 0;
+  font-size: 3rem;
+  font-weight: 600;
+  text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.shock-header {
+  animation: shake 0.25s alternate 2;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+
+  50% {
+    transform: translateX(0.625rem) rotate(10deg);
+  }
+
+  100% {
+    transform: translateX(-0.625rem) rotate(-10deg);
+  }
+}
+
+.field {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  background-clip: content-box;
+  background-color: rgb(82, 138, 187);
+}
+
+.row {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+}
+
+.row:not(:nth-child(10)) {
+  border: 1px rgb(240, 255, 255);
+  border-style: none none solid none;
+}
+
+.cell {
+  width: 10%;
+  color: transparent;
+  font-size: 1.25rem;
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.cell:not(:nth-child(10)) {
+  border: 1px rgb(240, 255, 255);
+  border-style: none solid none none;
+}
+
+.shot {
+  cursor: default;
+}
+
+.missed {
+  color: aliceblue;
+}
+
+.hit {
+  color: coral;
+}
+
+.sunk {
+  color: darkblue;
+}
+
+.alive {
+  color: yellowgreen;
+}
+
+
+.showReport {
+  margin: 1.5rem 0 0;
+}
+
+#info {
+  height: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: black;
+  margin: 0 0 1.5rem;
+  text-align: center;
+
+
+}
+
+.shots, .hits, .sunks {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 3rem;
+  margin: 1rem 0;
+}
+
+#shotNumber,
+#hitNumber,
+#sunkNumber {
+  margin: 0 1rem;
+  font-size: 3rem;
+  font-weight: 600;
+  color: rgb(82, 138, 187);
+  float: right;
+}
+
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  margin: 1.5rem 0 0;
+  padding: 0.25rem;
+  text-align: center;
+  transition: all 0.3s;
+  background-color: rgb(219, 222, 224);
+}
+
+.btn:hover {
+  background-color: aliceblue;
+}
+
+.btn:active {
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.35),
+    0 0 0.5rem rgba(0, 0, 0, 0.35);
+}
+
+#playRules {
+  margin: 10rem 0;
+  width: 25%;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  font-size: 1.2rem;
+  text-align: justify;
+
+}
+
+ul {
+  font-size: 1.2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+li {
+  text-align: left;
+}
+
+a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (max-width:560px) {
+  html {
+    font-size: 12px;
+  }
+}
