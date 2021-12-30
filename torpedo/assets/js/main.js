@@ -53,9 +53,7 @@ const hit = (cell) => {
 }
 
 const missed = (cell) => {
-  const missedSound = new Audio('assets/sound/missed.wav');
-  missedSound.volume = 0.6;
-  missedSound.play();
+  new Audio('assets/sound/missed.wav').play();
   animateHeader();
   cell.classList.add('missed');
   cell.innerHTML = shootMark;
