@@ -170,7 +170,8 @@ function animate() {
       projectile.y + projectile.radius < 0 ||
       projectile.y - projectile.radius > canvas.height
     ) {
-      setTimeout(() => {
+      const id = setTimeout(() => {
+        clearTimeout(id)
         projectiles.splice(index, 1)
       }, 0)
     }
@@ -195,7 +196,10 @@ function animate() {
       // collision between enemy and projectile
       if (dist - enemy.radius - projectile.radius < 1) {
 
-        new Audio('assets/explode.wav').play()
+        const id = setTimeout(() => {
+          clearTimeout(id)
+          new Audio('assets/explode.wav').play()
+        }, 0)
 
         // create explosions
         for (let i = 0; i < enemy.radius * 2; i++) {
@@ -212,7 +216,8 @@ function animate() {
           gsap.to(enemy, {
             radius: enemy.radius - 10
           })
-          setTimeout(() => {
+          const id = setTimeout(() => {
+            clearTimeout(id)
             projectiles.splice(projectileIndex, 1)
           }, 0)
         } else {
@@ -220,7 +225,8 @@ function animate() {
           score += 250
           scoreDisplay.textContent = score
           // remove enemy and projectile
-          setTimeout(() => {
+          const id = setTimeout(() => {
+            clearTimeout(id)
             enemies.splice(enemyIndex, 1)
             projectiles.splice(projectileIndex, 1)
           }, 0)
