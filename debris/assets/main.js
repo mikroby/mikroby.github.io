@@ -164,7 +164,7 @@ function animate() {
   projectiles.forEach((projectile, index) => {
     projectile.update()
 
-    // remove projectiles out of screen.
+    // remove projectiles reached out of screen.
     if (projectile.x + projectile.radius < 0 ||
       projectile.x - projectile.radius > canvas.width ||
       projectile.y + projectile.radius < 0 ||
@@ -196,12 +196,13 @@ function animate() {
       // collision between enemy and projectile
       if (dist - enemy.radius - projectile.radius < 1) {
 
+        // create sound
         const id = setTimeout(() => {
           clearTimeout(id)
           new Audio('assets/explode.wav').play()
         }, 0)
 
-        // create explosions
+        // create explosion effect
         for (let i = 0; i < enemy.radius * 2; i++) {
           particles.push(new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color,
             { x: (Math.random() - 0.5) * (Math.random() * 6), y: (Math.random() - 0.5) * (Math.random() * 6) }))
@@ -212,10 +213,12 @@ function animate() {
           // increase score
           score += 100
           scoreDisplay.textContent = score
-
+          
+          // shrink enemy
           gsap.to(enemy, {
             radius: enemy.radius - 10
           })
+          // remove projectile
           const id = setTimeout(() => {
             clearTimeout(id)
             projectiles.splice(projectileIndex, 1)
@@ -247,6 +250,7 @@ window.addEventListener('click', (event) => {
   projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity));
 })
 
+// start game by clicking the button
 StartGameButton.addEventListener('click', () => {
   init()
   modal.style.display = 'none'
