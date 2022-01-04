@@ -5,6 +5,9 @@ const delayTime = 3500;
 const sliderHeight = 650;
 const defaultSlideIndex = 1;
 
+const sound = new Audio('/assets/sound/click.wav');
+sound.volume = 0.5;
+
 const maxSlides = datas.length;
 const slider = document.querySelector('.slider');
 const buttons = document.querySelector('.buttons');
@@ -71,7 +74,7 @@ const animate = (item, eventProperty) =>
 
 const imageLoaded = (index) =>
   new Promise(resolve => {
-    slide.onload = resolve;    
+    slide.onload = resolve;
     slide.src = datas[index - 1].url;
   });
 
@@ -79,9 +82,8 @@ const changeSlide = async (index) => {
   clearTimeout(timeoutId);
   slide.classList.add('goLeft');
   await animate(slide, 'left');
-  
+  sound.play();
   await imageLoaded(index);
-
   slide.classList.remove('goLeft');
   await animate(slide, 'left');
   showInfo(index);
