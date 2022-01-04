@@ -11,7 +11,7 @@ const buttons = document.querySelector('.buttons');
 const caption = document.querySelector('.caption');
 const numbering = document.querySelector('.numbering');
 const dotContainer = document.querySelector('.dot--container');
-const slideContainer = document.querySelector('.slide--container');
+const slide = document.querySelector('.slide');
 let timeoutId;
 import datas from './datas.js';
 
@@ -33,14 +33,11 @@ const addEvents = () => {
   buttons.lastElementChild.addEventListener('click', cycleNext);
 }
 
-const startDefault = (defaultValue = 0) => {
-  const dot = document.querySelector(`.dot[data-index='${defaultValue}']`);
+const startDefault = (index = 1) => {
+  const dot = document.querySelector(`.dot[data-index='${index}']`);
   dot.classList.add('dot-selected');
-}
 
-const createSlide = (index) => {
-  const image = `<img src='${datas[index - 1].url}' class='slide'></img>`;
-  slideContainer.insertAdjacentHTML('afterbegin', image);
+  slide.src = `${datas[index - 1].url}`;
 }
 
 const showInfo = (index) => {
@@ -54,13 +51,13 @@ const showInfo = (index) => {
 
 function nextDot() {
   const actualDot = document.querySelector('.dot-selected');
-  if (this===actualDot) {return}
+  if (this === actualDot) { return }
   actualDot.classList.remove('dot-selected');
   this.classList.add('dot-selected');
   changeSlide(this.dataset.index);
 }
 
-const animate = (item, eventProperty, classNameTo) =>
+const animate = (item, eventProperty) =>
   new Promise(resolve => {
     const transitionEnded = event => {
       if (event.propertyName !== eventProperty) {
@@ -72,12 +69,21 @@ const animate = (item, eventProperty, classNameTo) =>
     item.addEventListener('transitionend', transitionEnded);
   });
 
+const imageLoaded = (index) =>
+  new Promise(resolve => {
+    slide.onload = resolve;    
+    slide.src = datas[index - 1].url;
+  });
+
 const changeSlide = async (index) => {
   clearTimeout(timeoutId);
-  const slide = document.querySelector('.slide');
   slide.classList.add('goLeft');
   await animate(slide, 'left');
-  slide.src = datas[index - 1].url;
+
+  console.log('előtte')
+  await imageLoaded(index);
+  console.log('utána')
+
   slide.classList.remove('goLeft');
   await animate(slide, 'left');
   showInfo(index);
@@ -109,8 +115,6 @@ const trigger = (timing) => {
   makeDots();
   addEvents();
   startDefault(defaultSlideIndex);
-  createSlide(defaultSlideIndex);
   showInfo(defaultSlideIndex);
   trigger(delayTime);
-
 })();
