@@ -79,10 +79,8 @@ const changeSlide = async (index) => {
   clearTimeout(timeoutId);
   slide.classList.add('goLeft');
   await animate(slide, 'left');
-
-  console.log('előtte')
+  
   await imageLoaded(index);
-  console.log('utána')
 
   slide.classList.remove('goLeft');
   await animate(slide, 'left');
