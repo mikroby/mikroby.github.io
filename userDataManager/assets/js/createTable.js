@@ -36,17 +36,15 @@ const createTableContent = (dataObject) => {
 
   tBody.innerHTML = '';
 
-  // forward or reverse order for id as needed...
-  // for (let i = 0; i < users.length; i++) {
-    for (let i = users.length - 1; i >= 0; i--) {
-    const coloums = headers.map(item =>
-      `<td class="${item[0]}">${users[i][item[0]]}</td>`);
-    const row =
-      `<tr>${coloums.join('')}<td class="opt">
-      ${editBtn}${deleteBtn}${saveBtn}${cancelBtn}
-      </td></tr>`;
-    tBody.innerHTML += row;
-  }
+  // reverse order for last added user to appear on top.
+  const rows = users.reverse().map(user => {
+    const coloums = headers.map(header =>
+      `<td class="${header[0]}">${user[header[0]]}</td>`);
+    return `<tr>${coloums.join('')}<td class="opt">
+    ${editBtn}${deleteBtn}${saveBtn}${cancelBtn}</td></tr>`;
+  })
+  
+  tBody.innerHTML = rows.join('');
 }
 
 export { createTableHeader, createTableContent };
