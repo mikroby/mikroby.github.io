@@ -5,7 +5,7 @@ const delayTime = 3500;
 const sliderHeight = 650;
 const defaultSlideIndex = 1;
 
-const sound = new Audio('/assets/sound/click.wav');
+const sound = new Audio('assets/sound/click.wav');
 sound.volume = 0.5;
 
 const maxSlides = datas.length;
