@@ -6,24 +6,23 @@ const shipMark = '<i class="fas fa-square"></i>';
 const shootMark = '<i class="fas fa-times"></i>';
 
 const header = document.querySelector('#game__header');
-const cells = document.querySelectorAll('.cell');
 const info = document.querySelector('#info');
 const shotNumber = document.querySelector('#shotNumber');
 const hitNumber = document.querySelector('#hitNumber');
 const sunkNumber = document.querySelector('#sunkNumber');
 const button = document.querySelector('.btn');
-const field= document.querySelector('.field');
+const field = document.querySelector('.field');
 
 const shipsToLocate = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 const maxCell = 10;
 const maxShots = 40;
-let shots, hits, sunks, ships;
+let cells,shots, hits, sunks, ships;
 
 
 const initialize = () => {
   button.textContent = 'A játék leírása';
   button.onclick = function () { window.location = "#playRules" };
-  info.textContent='';
+  info.textContent = '';
 
   cells.forEach(cell => {
     cell.addEventListener('click', shoot);
@@ -143,8 +142,22 @@ const start = () => {
   ships = hideShips();
 }
 
+const createField = () => {
+  let template = [];
+  for (let y = 0; y < maxCell; y++) {
+    template.push(`<div class="row" data-y="${y}">`);
+    for (let x = 0; x < maxCell; x++) {
+      template.push(`<div class="cell" data-x="${x}"></div>`);
+    }
+    template.push(`</div>`);
+  }
+  field.innerHTML = template.join('');
+}
+
 // IIFE starter.
 (() => {
+  createField();
+  cells = document.querySelectorAll('.cell');
   start();
 })();
 

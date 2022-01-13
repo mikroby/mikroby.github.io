@@ -36,7 +36,7 @@ const hideShips = () => {
       const array = [];
       for (let i = 0; i < ship; i++) {
         field[row][col + i] = ship;
-        array.push(document.querySelector(`[data-y='${row}'] [data-x='${col+i}'`));        
+        array.push(document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`));
       }
       return array;
     },
@@ -44,7 +44,7 @@ const hideShips = () => {
       const array = [];
       for (let i = 0; i < ship; i++) {
         field[row + i][col] = ship;
-        array.push(document.querySelector(`[data-y='${row+i}'] [data-x='${col}'`));
+        array.push(document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`));
       }
       return array;
     }
@@ -73,14 +73,14 @@ const hideShips = () => {
         }
       }
 
-      // in case of error tries other direction...but not likely to happen.
+      // in case of 0 chance function tries other direction...but not likely to happen.
       if (chances.length === 0) {
         alert(`megpróbálom másik irányban elhelyezni a ${ship} méretű hajót!`);
         direction = direction === 'rows' ? 'cols' : 'rows';
         counter++;
       }
       if (counter === 3) {
-        throw (error);
+        throw `nem helyezhető el a ${ship} méretű hajó`;
       }
 
     } while (chances.length === 0);
