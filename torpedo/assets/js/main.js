@@ -143,7 +143,7 @@ const start = () => {
 }
 
 const createField = () => {
-  let template = [];
+  const template = [];
   for (let y = 0; y < maxCell; y++) {
     template.push(`<div class="row" data-y="${y}">`);
     for (let x = 0; x < maxCell; x++) {
