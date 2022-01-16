@@ -9,7 +9,7 @@ const mainTitle = 'User Data Manager';
 const files = {
   URL: 'https://mikroby.github.io/userDataManager/db/',
   settingsJSON: 'db/sets.json',
-  contentJSON: 'users'
+  contentJSON: 'users.json'
 };
 
 
