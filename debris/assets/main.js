@@ -1,3 +1,8 @@
+'use strict'
+
+import { Player, Projectile, Enemy, Particle } from './classes.js'
+export { c, friction }
+
 const ratio = 5
 
 const canvas = document.querySelector('canvas')
@@ -18,98 +23,7 @@ const friction = 0.99
 
 let player, projectiles, enemies, particles, score, animationId, timeId
 
-class Player {
-  constructor(x, y, radius, color) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
-  }
-
-  draw() {
-    c.beginPath()
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    c.fillStyle = this.color
-    c.fill()
-  }
-}
-
-class Projectile {
-  constructor(x, y, radius, color, velocity) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
-    this.velocity = velocity
-  }
-
-  draw() {
-    c.beginPath()
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    c.fillStyle = this.color
-    c.fill()
-  }
-
-  update() {
-    this.draw()
-    this.x = this.x + this.velocity.x
-    this.y = this.y + this.velocity.y
-  }
-}
-
-class Enemy {
-  constructor(x, y, radius, color, velocity) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
-    this.velocity = velocity
-  }
-
-  draw() {
-    c.beginPath()
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    c.fillStyle = this.color
-    c.fill()
-  }
-
-  update() {
-    this.draw()
-    this.x = this.x + this.velocity.x
-    this.y = this.y + this.velocity.y
-  }
-}
-
-
-class Particle {
-  constructor(x, y, radius, color, velocity) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
-    this.velocity = velocity
-    this.alpha = 1
-  }
-
-  draw() {
-    c.save()
-    c.globalAlpha = this.alpha
-    c.beginPath()
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    c.fillStyle = this.color
-    c.fill()
-    c.restore()
-  }
-
-  update() {
-    this.draw();
-    this.velocity.x *= friction
-    this.velocity.y *= friction
-    this.x = this.x + this.velocity.x
-    this.y = this.y + this.velocity.y
-    this.alpha -= 0.01
-  }
-}
+// class definitions moved to separate file
 
 function init() {
   player = new Player(x, y, 10, 'white')
@@ -127,16 +41,16 @@ function spawnEnemies() {
     let x, y
 
     if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
-      y = Math.random() * canvas.height;
+      x = Math.random() < 0.5 ? 0 - radius : canvas.width + radius
+      y = Math.random() * canvas.height
     } else {
       x = Math.random() * canvas.width
-      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+      y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
     }
 
     const color = `hsl(${Math.random() * 360},50%,50%)`
 
-    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x)
     const velocity = {
       x: Math.cos(angle),
       y: Math.sin(angle)
@@ -213,7 +127,7 @@ function animate() {
           // increase score
           score += 100
           scoreDisplay.textContent = score
-          
+
           // shrink enemy
           gsap.to(enemy, {
             radius: enemy.radius - 10
@@ -247,7 +161,7 @@ window.addEventListener('click', (event) => {
     y: Math.sin(angle) * ratio
   }
 
-  projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity));
+  projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity))
 })
 
 // start game by clicking the button
