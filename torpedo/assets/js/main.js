@@ -15,7 +15,7 @@ const field = document.querySelector('.field');
 
 const shipsToLocate = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
 const maxCell = 10;
-const maxShots = 40;
+const maxShots = 45;
 let cells,shots, hits, sunks, ships;
 
 
