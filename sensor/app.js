@@ -12,8 +12,8 @@ const zValue = document.querySelector('.z span')
 
 const useSensor = () => {
   
-  // let sensor = new Magnetometer({ frequency: 10 })
-  let sensor = new Accelerometer({ frequency: 10 })
+  let sensor = new Magnetometer({ frequency: 10 })
+  // let sensor = new Accelerometer({ frequency: 10 })
 
   sensor.addEventListener('reading', e => {
     xValue.textContent = sensor.x.toFixed(1)

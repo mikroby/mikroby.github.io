@@ -16,5 +16,6 @@ html {
 }
 
 .x span, .y span, .z span {
+  margin-right: 5rem;
   float: right;
 }
