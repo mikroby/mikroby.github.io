@@ -1,8 +1,12 @@
 'use strict'
 
+const sensorObject = {
+  'magnetometer'() { return new Magnetometer({ frequency: 10 }) }
+  ,
+  'accelerometer'() { return new Accelerometer({ frequency: 10 }) }
+}
 
 const sensors = ['magnetometer', 'accelerometer']
-// const sensorName = sensors[0]
 
 const named = document.querySelector('.sensor span')
 const state = document.querySelector('.status span')
@@ -12,12 +16,10 @@ const zValue = document.querySelector('.z span')
 
 
 const useSensor = (sensorName) => {
-  
+
   named.textContent = sensorName
-  
-  let sensor = sensorName === 'magnetometer' ?
-    new Magnetometer({ frequency: 10 }) :
-    new Accelerometer({ frequency: 10 })
+
+  const sensor = sensorObject[sensorName]()
 
   sensor.addEventListener('reading', e => {
     xValue.textContent = sensor.x.toFixed(1)
@@ -31,8 +33,8 @@ const useSensor = (sensorName) => {
   sensor.start()
 }
 
-sensors.forEach(sensorName=> {
-  
+sensors.forEach(sensorName => {
+
   navigator.permissions.query({ name: sensorName })
     .then(result => {
       if (result.state === 'denied') {
@@ -42,7 +44,8 @@ sensors.forEach(sensorName=> {
 
       // Use the sensor.
       useSensor(sensorName)
-      
-    }).catch(error=>console.warn(error))
 
-  })
+    }).catch(error => console.warn(error))
+
+})
+
