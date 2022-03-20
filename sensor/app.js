@@ -12,13 +12,13 @@ const zValue = document.querySelector('.z span')
 
 const useSensor = () => {
   
-  // let sensor = new Magnetometer({ frequency: 1 })
+  // let sensor = new Magnetometer({ frequency: 10 })
   let sensor = new Accelerometer({ frequency: 10 })
 
   sensor.addEventListener('reading', e => {
-    xValue.textContent = sensor.x
-    yValue.textContent = sensor.y
-    zValue.textContent = sensor.z
+    xValue.textContent = sensor.x.toFixed(2)
+    yValue.textContent = sensor.y.toFixed(2)
+    zValue.textContent = sensor.z.toFixed(2)
   })
   sensor.addEventListener('error', event => {
     state.textContent = `${event.error.name}, ${event.error.message}`
