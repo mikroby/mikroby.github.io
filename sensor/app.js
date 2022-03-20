@@ -16,9 +16,9 @@ const useSensor = () => {
   let sensor = new Accelerometer({ frequency: 10 })
 
   sensor.addEventListener('reading', e => {
-    xValue.textContent = sensor.x.toFixed(3)
-    yValue.textContent = sensor.y.toFixed(3)
-    zValue.textContent = sensor.z.toFixed(3)
+    xValue.textContent = sensor.x.toFixed(1)
+    yValue.textContent = sensor.y.toFixed(1)
+    zValue.textContent = sensor.z.toFixed(1)
   })
   sensor.addEventListener('error', event => {
     state.textContent = `${event.error.name}, ${event.error.message}`
