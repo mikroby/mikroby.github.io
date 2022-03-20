@@ -1,7 +1,7 @@
 'use strict'
 
-// const sensorName = 'magnetometer'
-const sensorName = 'accelerometer'
+const sensorName = 'magnetometer'
+// const sensorName = 'accelerometer'
 
 const named = document.querySelector('.sensor span')
 const state = document.querySelector('.status span')
