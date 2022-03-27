@@ -1,6 +1,6 @@
 'use strict';
 
-import { deleteUser, updateUser, newUser, readData } from "./crud.js";
+import { deleteUser, updateUser, newUser } from "./crud.js";
 import { start } from "./main.js";
 import setModal from "./modal.js";
 
@@ -14,7 +14,7 @@ const clickBtns = {
 }
 
 const setEventListener = (element, eventFunction) => {
-  Array.from(element).forEach(item => {
+  element.forEach(item => {
     item.addEventListener('click', eventFunction);
   });
 };
@@ -90,11 +90,11 @@ function erase() {
 };
 
 const validate = (userData, headers) => {
-  // I couldn't solve to read regexp-s from settings.json.
+  // it would be better to read regexp-s from settings.json.
   const validators = {
     'name': /^[A-Z][a-z]+( [A-Z][a-z]+[A-z]+)+$/,
     'emailAddress':
-    /^[a-z\d][a-z_\d]+((\.[a-z\d][a-z_\d]+)+)?@[a-z\d][a-z_\d]+((\.[a-z\d][a-z_\d]+)+)?\.[a-z]+$/,
+      /^[a-z\d][a-z_\d]+((\.[a-z\d][a-z_\d]+)+)?@[a-z\d][a-z_\d]+((\.[a-z\d][a-z_\d]+)+)?\.[a-z]+$/,
     'address': /^\d+ [A-Z][a-z]+( [A-Z][a-z]+[A-z]+)+$/
   };
   return headers.every((item, index) => validators[item].test(userData[index]));
@@ -110,9 +110,9 @@ function save() {
   const clicked = this;
   const grandParent = clicked.parentElement.parentElement;
   const userId = grandParent.querySelector('.id').textContent;
-  const coloums = grandParent.querySelectorAll('td:not(.id):not(.opt)');
-  const userData = Array.from(coloums).map(item => item.firstElementChild.value);
-  const headers = Array.from(coloums).map(item => item.className);
+  const coloums = Array.from(grandParent.querySelectorAll('td:not(.id):not(.opt)'));
+  const userData = coloums.map(item => item.firstElementChild.value);
+  const headers = coloums.map(item => item.className);
 
   if (validate(userData, headers)) {
     updateUser(userId, packObject(userData, headers)).then(start);
@@ -147,9 +147,9 @@ function cancel() {
 
 const addNewUser = (event) => {
   event.preventDefault();
-  const coloums = document.querySelectorAll('.header--inputs input[name]');
-  const userData = Array.from(coloums).map(item => item.value);
-  const headers = Array.from(coloums).map(item => item.name);
+  const coloums = Array.from(document.querySelectorAll('.header--inputs input[name]'));
+  const userData = coloums.map(item => item.value);
+  const headers = coloums.map(item => item.name);
 
   if (validate(userData, headers)) {
     setModal('success', 5000);

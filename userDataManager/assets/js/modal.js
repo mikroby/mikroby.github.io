@@ -8,7 +8,7 @@ const modal = document.querySelector('.modal');
 
 
 const setModal = async (type, timeOut) => {
-  const settings = await readData(files.settingsJSON);
+  const settings = await readData(files.URL, files.settingsJSON);
 
   const { messages } = settings;
   const { styling } = settings;

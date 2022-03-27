@@ -40,12 +40,9 @@ const communicateServer = async (method,URL,sendData='') => {
     }
     const response = await fetch(URL, crud[method]);
     const data = await response.json();
-
-    console.log(data)
-
     return data;
   } catch (error) {
-    // alert(`Error: ${error}`);
+    // proper error handling in function checkDatas
     return [];
   }
 };

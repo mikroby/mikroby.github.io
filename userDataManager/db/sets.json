@@ -20,7 +20,7 @@
   "messages": {
     "invalid": "Some of the entered datas are invalid, please check!",
     "incomplete": "Complete Your Edit or Click Cancel!",
-    "jsonFileError": "users.json file is empty or missing!",    
+    "jsonFileError": "users.json file is empty or missing!",
     "success": "New datas have been saved!",
     "modified": "Modified datas have been saved!"
   },

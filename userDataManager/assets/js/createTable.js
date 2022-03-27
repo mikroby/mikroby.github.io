@@ -25,13 +25,13 @@ const createTableHeader = (dataObject) => {
   const inputs = headers.map(item => item[0] !== 'id' ?
     `<th><input type="text" name="${item[0]}" placeholder="..." required></th>` : `<th></th>`);
   tHead.innerHTML = `<tr class="header--texts">${coloums.join('')}<th class="opt">Options</th></tr>
-  <tr class="header--inputs">${inputs.join('')}
-  <th><input type="submit" value="add new" class="input--btn"></th></tr>`;
+    <tr class="header--inputs">${inputs.join('')}
+    <th><input type="submit" value="add new" class="input--btn"></th></tr>`;
 }
 
 // list accroding to header order.
 const createTableContent = (dataObject) => {
-  const users = dataObject.userData;
+  const users = dataObject.userData.users;
   const { headers } = dataObject.settings;
 
   tBody.innerHTML = '';
@@ -41,9 +41,9 @@ const createTableContent = (dataObject) => {
     const coloums = headers.map(header =>
       `<td class="${header[0]}">${user[header[0]]}</td>`);
     return `<tr>${coloums.join('')}<td class="opt">
-    ${editBtn}${deleteBtn}${saveBtn}${cancelBtn}</td></tr>`;
+      ${editBtn}${deleteBtn}${saveBtn}${cancelBtn}</td></tr>`;
   })
-  
+
   tBody.innerHTML = rows.join('');
 }
 
