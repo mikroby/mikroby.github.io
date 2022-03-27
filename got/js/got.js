@@ -100,7 +100,7 @@ const sortByName = (list) =>
     const firstNameB = nameB.at(-2).toUpperCase();
     if (firstNameA < firstNameB) { return -1; }
     if (firstNameA > firstNameB) { return 1; }
-    // return 0;
+    return 0;
   });
 
 function addEffects() {
