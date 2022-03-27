@@ -7,8 +7,9 @@ import { btnClickHandlers } from "./eventHandling.js";
 // main and file constants.
 const mainTitle = 'User Data Manager';
 const files = {
-  URL: 'https://mikroby.github.io/userDataManager/db/',
-  settingsJSON: 'db/sets.json',
+  // URL: 'https://mikroby.github.io/userDataManager/db/',
+  URL:'db/',
+  settingsJSON: 'sets.json',
   contentJSON: 'users.json'
 };
 
