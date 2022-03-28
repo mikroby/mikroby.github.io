@@ -1,6 +1,7 @@
 'use strict'
 
-const sensors = ['accelerometer', 'gyroscope', 'proximity','magnetometer']
+const sensors = ['accelerometer','proximity']
+// const sensors = ['accelerometer','proximity', 'gyroscope', 'magnetometer']
 const sensorObject = {
   'magnetometer'() { return new Magnetometer({ frequency: 10 }) }
   ,
@@ -8,7 +9,7 @@ const sensorObject = {
   ,
   'gyroscope'() { return new Gyroscope({ frequency: 10 }) }
   ,
-  'proximity'() { return new ProximitySensor() }
+  'proximity'() { return new ProximitySensor({ frequency: 10 }) }
   ,
   'ambient-light-sensor'() { return new AmbientLightSensor({ frequency: 10 }) }
 }
