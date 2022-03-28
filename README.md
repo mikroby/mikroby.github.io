@@ -1,2 +1,1 @@
-# test webpage
-for actual projects
+# test webpage for actual projects
