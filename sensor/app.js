@@ -15,7 +15,7 @@ const useSensor = (sensorName) => {
     <p class="status">Status : <span></span></p>  
     <p class="x">Value along X-axis : <span></span></p>
     <p class="y">Value along Y-axis : <span></span></p>
-    <p class="z">Value along Z-axis : <span></span></p>
+    <p class="z">Value along Z-axis : <span></span></p>    
     </div>
     `
 
