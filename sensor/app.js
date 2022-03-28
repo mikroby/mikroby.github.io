@@ -1,21 +1,20 @@
 'use strict'
 
-const sensors = ['accelerometer','proximity']
-// const sensors = ['accelerometer','proximity', 'gyroscope', 'magnetometer']
+const sensors = ['accelerometer', 'proximity', 'gyroscope', 'magnetometer']
 const sensorObject = {
-  'magnetometer'() { return new Magnetometer({ frequency: 10 }) }
+  'magnetometer'() { return new Magnetometer({ frequency: 5 }) }
   ,
   'accelerometer'() { return new Accelerometer({ frequency: 10 }) }
   ,
   'gyroscope'() { return new Gyroscope({ frequency: 10 }) }
   ,
-  'proximity'() { return new ProximitySensor({ frequency: 10 }) }
+  'proximity'() { return new ProximitySensor({ frequency: 5 }) }
   ,
-  'ambient-light-sensor'() { return new AmbientLightSensor({ frequency: 10 }) }
+  'ambient-light-sensor'() { return new AmbientLightSensor({ frequency: 5 }) }
 }
 
 
-const useSensor = (sensorName, index, result = 'okay') => {
+const useSensor = (sensorName, index, result) => {
   const template = `
     <div class="container">
     <h2 class="sensor">${index}. Sensor : ${sensorName}</h2>
@@ -42,14 +41,14 @@ const useSensor = (sensorName, index, result = 'okay') => {
       xValue.textContent = sensor.illuminance.toFixed(2)
     })
   }
-  if (sensorName==='accelerometer' || sensorName==='magnetometer'){
+  if (sensorName === 'accelerometer' || sensorName === 'magnetometer') {
     sensor.addEventListener('reading', () => {
       xValue.textContent = sensor.x.toFixed(1)
       yValue.textContent = sensor.y.toFixed(1)
       zValue.textContent = sensor.z.toFixed(1)
     })
   }
-  if(sensorName === 'proximity'){
+  if (sensorName === 'proximity') {
     sensor.addEventListener('reading', () => {
       xValue.textContent = sensor.distance.toFixed(2)
     })
@@ -64,19 +63,18 @@ const useSensor = (sensorName, index, result = 'okay') => {
 
 // starter IIFE
 (() => sensors.forEach((sensorName, index) => {
-  // navigator.permissions.query({ name: sensorName })
-  //   .then(result => {
+  navigator.permissions.query({ name: sensorName })
+    .then(result => {
 
-  //     // check whether sensor presents
-  //     if (result.state === 'denied') {
-  //       console.warn(`Permission to use ${sensorName} sensor is denied.`)
-  //       return
-  //     }
+      // check whether sensor presents
+      if (result.state === 'denied') {
+        console.warn(`Permission to use ${sensorName} sensor is denied.`)
+        return
+      }
 
   // otherwise use the sensor.
-  useSensor(sensorName, index + 1)
-  // useSensor(sensorName, index + 1, result)
+    useSensor(sensorName, index + 1, result.state)
 
-  // }).catch(error => console.warn(error))
+  }).catch(error => console.warn(error))
 })
 )()
