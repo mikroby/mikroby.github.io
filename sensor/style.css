@@ -21,7 +21,7 @@ html {
 }
 
 .x span, .y span, .z span {
-  /* margin-right: 5rem; */
+  margin-right: 10rem;
   float: right;
 }
 
@@ -29,8 +29,8 @@ html {
   font-size: small;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .container {
-    width: 100%;   
+    width: 100%;
   }
-}
+} */
