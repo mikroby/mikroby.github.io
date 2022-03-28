@@ -8,10 +8,11 @@ const sensorObject = {
 }
 
 
-const useSensor = (sensorName, index) => {
+const useSensor = (sensorName, index, result) => {
   const template = `
     <div class="container">
     <h1 class="sensor">${index}. Sensor : ${sensorName}</h1>
+    <p>${result.state}</p>
     <p class="status index${index}">Status : <span></span></p>  
     <p class="x index${index}">Value along X-axis : <span></span></p>
     <p class="y index${index}">Value along Y-axis : <span></span></p>
@@ -47,7 +48,7 @@ const useSensor = (sensorName, index) => {
 (() => sensors.forEach((sensorName, index) => {
   navigator.permissions.query({ name: sensorName })
     .then(result => {
-
+       
       // check whether sensor presents
       if (result.state === 'denied') {
         console.warn(`Permission to use ${sensorName} sensor is denied.`)
@@ -55,7 +56,7 @@ const useSensor = (sensorName, index) => {
       }
 
       // otherwise use the sensor.
-      useSensor(sensorName, index + 1)
+      useSensor(sensorName, index + 1, result)
 
     }).catch(error => console.warn(error))
 })
