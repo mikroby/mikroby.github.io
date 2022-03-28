@@ -1,6 +1,6 @@
 'use strict'
 
-const sensors = ['magnetometer', 'accelerometer']
+const sensors = ['accelerometer', 'magnetometer']
 const sensorObject = {
   'magnetometer'() { return new Magnetometer({ frequency: 10 }) }
   ,
@@ -8,24 +8,25 @@ const sensorObject = {
 }
 
 
-const useSensor = (sensorName) => {
+const useSensor = (sensorName, index) => {
   const template = `
     <div class="container">
-    <h1 class="sensor">Sensor : ${sensorName}</h1>
-    <p class="status">Status : <span></span></p>  
-    <p class="x">Value along X-axis : <span></span></p>
-    <p class="y">Value along Y-axis : <span></span></p>
-    <p class="z">Value along Z-axis : <span></span></p>    
+    <h1 class="sensor">${index}. Sensor : ${sensorName}</h1>
+    <p class="status index${index}">Status : <span></span></p>  
+    <p class="x index${index}">Value along X-axis : <span></span></p>
+    <p class="y index${index}">Value along Y-axis : <span></span></p>
+    <p class="z index${index}">Value along Z-axis : <span></span></p>    
     </div>
     `
 
-  document.body.insertAdjacentHTML('afterbegin', template)
+  document.body.insertAdjacentHTML('beforeend', template)
 
-  const state = document.querySelector('.status span')
-  const xValue = document.querySelector('.x span')
-  const yValue = document.querySelector('.y span')
-  const zValue = document.querySelector('.z span')
+  const state = document.querySelector(`.status.index${index} span`)
+  const xValue = document.querySelector(`.x.index${index} span`)
+  const yValue = document.querySelector(`.y.index${index} span`)
+  const zValue = document.querySelector(`.z.index${index} span`)
 
+  
   // create sensor object
   const sensor = sensorObject[sensorName]()
 
@@ -39,22 +40,22 @@ const useSensor = (sensorName) => {
     state.textContent = `${event.error.name}, ${event.error.message}`
   })
 
-  sensor.start()
+  sensor.start()  
 }
 
 // starter IIFE
-(() => sensors.forEach(sensorName => {
+(() => sensors.forEach((sensorName, index) => {
   navigator.permissions.query({ name: sensorName })
     .then(result => {
 
-      // check wether sensor presents
+      // check whether sensor presents
       if (result.state === 'denied') {
-        state.textContent = `Permission to use ${sensorName} sensor is denied.`
+        console.warn(`Permission to use ${sensorName} sensor is denied.`)
         return
       }
 
       // otherwise use the sensor.
-      useSensor(sensorName)
+      useSensor(sensorName, index + 1)
 
     }).catch(error => console.warn(error))
 })
