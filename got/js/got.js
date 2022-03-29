@@ -153,13 +153,15 @@ const createCharacters = (list) => {
 };
 
 const searchCharacter = () => {
-  if (!search.value) { return };
+  if (!search.value.trim()) {
+    search.value = '';
+    return
+  };
 
   const found = aliveCharacters.find(character =>
-    character.name.toUpperCase() === search.value.toUpperCase());
+    character.name.toUpperCase() === search.value.trim().toUpperCase());
 
   setAnimatedOff();
-  search.value = '';
 
   if (found) {
     showInfo(found);
@@ -167,12 +169,23 @@ const searchCharacter = () => {
     hideUnnecessaryInfo();
     showHeader('Character not found ...');
   }
+  search.value = '';
 };
+
+const keyboardHandler = (event) => {  
+  if (event.key !== 'Enter') { return }
+  searchCharacter();
+}
+
+const addHandlers = () => {
+  document.querySelector('.search__btn').
+    addEventListener('click', searchCharacter);
+  search.addEventListener('keyup', keyboardHandler);
+}
 
 (() => {
   getJson().then(createCharacters);
-  document.querySelector('.search__btn').
-    addEventListener('click', searchCharacter);
+  addHandlers();
   hideUnnecessaryInfo();
 }
 )();
