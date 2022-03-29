@@ -4,7 +4,7 @@
 /* GENERAL: FONT & BACKGROUND */
 html{
     font-family: 'Nunito', sans-serif;
-    background: url('/assets/img/hatter.bmp');    
+    background: url('../img/hatter.bmp');    
     scroll-behavior:smooth;
 }
 body{
