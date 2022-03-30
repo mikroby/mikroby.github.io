@@ -24,7 +24,7 @@ body {
   background-color: rgb(240, 248, 255);
 }
 
-header{
+header {
   text-align: center;
 }
 
@@ -36,7 +36,7 @@ header{
   margin: 1rem 0;
 }
 
-.alt__header {  
+.alt__header {
   font-family: 'Architects Daughter';
   font-weight: 300;
   font-size: 2rem;
@@ -52,22 +52,26 @@ header{
   display: inline-block;
 }
 
-a {  
+.link {
   display: block;
   font-size: 1.25rem;
-  color: black;
-  text-decoration-line: none;
   transition: 0.3s ease-out;
   padding: 0.25rem 0.5rem;
-  line-height:1.7rem;
+  line-height: 1.7rem;
+  word-wrap: break-word;
 }
 
-a:hover {
+.link:hover {
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.75);
   border-radius: 0.25rem;
-  color: black;
   font-size: 1.3rem;
   padding: 0.235rem 0.5rem;
+}
+
+small {
+  float: right;
+  color: slategray;
+  padding: 0 0 0 1.5rem;
 }
 
 footer {
@@ -76,10 +80,14 @@ footer {
   margin: 1rem 0;
 }
 
-small {
-  float: right;
-  color: slategray;
-  padding: 0 0 0 1.5rem;
+.github {
+  vertical-align: middle;
+  margin: 0 0 0 1rem;
+}
+
+a, a:hover, a:visited, a:active {
+  text-decoration-line: none;
+  color: black;
 }
 
 @media screen and (max-width:424px) {
