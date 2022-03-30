@@ -1,25 +1,56 @@
 
 
-.jumbo {
-  background-color: rgba(255, 255, 255, 0.75);
-  padding: 1.5rem;
+.navbar {
+  background-color: #ffbf00;
 }
 
-.category-polisher {
-  background-color: rgba(255, 255, 255, 0.9);
+.navbar-brand {
+  color: white !important;
+  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+  font-weight: bolder;
 }
 
-h3 {
-  background-color: rgba(255, 255, 255, 0.75);
-  padding: 1rem;
-  border-radius: 2rem;
-  margin: 0 -0.5rem;
+.navbar-brand:hover {
+  text-shadow: 0 0.25rem 0.5rem black;
 }
 
-button.sort-direction {
-  color: #495057 !important;
-  background-color: #e9ecef !important;
-  border: 1px solid #ced4da !important;
+a:hover {
+  color: white !important;
+}
+
+.active {
+  color: white !important;
+  text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+
+#error {
+  object-fit: contain;
+}
+
+.guide {
+  position: absolute;
+  top: 25%;
+  left: 35%;
+}
+
+.card {
+  max-width: 16rem;
+  opacity: 0.9;
+  box-shadow: 0px 6px 12px 0px rgba(167, 128, 0, 0.8), 0px 6px 20px 0px #2e4901;
+}
+.card:hover {
+  opacity: 1;
+  border-color: #5a3d0b;
+}
+
+img {
+  min-height: 30%;
+  max-height: 50%;
+}
+
+.card-body {
+  font-size: small;
 }
 
 input {
@@ -27,8 +58,17 @@ input {
   border: 1px;
 }
 
+.category-polisher {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
 table {
   background-color: rgba(255, 255, 255, 0.9);
+}
+
+.jumbo {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 1.5rem;
 }
 
 .add-product {
@@ -70,47 +110,17 @@ h2 {
   margin: 0 -0.5rem;
 }
 
-.card {
-  max-width: 16rem;
-  opacity: 0.9;
-  box-shadow: 0px 6px 12px 0px rgba(167, 128, 0, 0.8), 0px 6px 20px 0px #2e4901;
-}
-.card:hover {
-  opacity: 1;
-  border-color: #5a3d0b;
+h3 {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 1rem;
+  border-radius: 2rem;
+  margin: 0 -0.5rem;
 }
 
-img {
-  min-height: 30%;
-  max-height: 50%;
-}
-
-.card-body {
-  font-size: small;
-}
-
-.navbar {
-  background-color: #ffbf00;
-}
-
-.navbar-brand {
-  color: white !important;
-  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
-  font-weight: bolder;
-}
-
-.navbar-brand:hover {
-  text-shadow: 0 0.25rem 0.5rem black;
-}
-
-a:hover {
-  color: white !important;
-}
-
-.active {
-  color: white !important;
-  text-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.5);
-  font-weight: bold;
+button.sort-direction {
+  color: #495057 !important;
+  background-color: #e9ecef !important;
+  border: 1px solid #ced4da !important;
 }
 
 /* You can add global styles to this file, and also import other style files */

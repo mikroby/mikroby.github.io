@@ -608,13 +608,17 @@ If '${e}' is a directive input, make sure the directive is imported by the curre
 </div>\r
 \r
 `;var sl=class{constructor(e,t,r){this.activatedRoute=e;this.productService=t;this.router=r;this.product=new he;this.categories$=this.productService.getAllCategories()}ngOnInit(){}onAddProduct(e){this.productService.addProduct(e).subscribe(t=>this.router.navigate(["/admin"]),t=>console.error(t))}};sl=z([re({selector:"app-add-product",template:e3||""}),se(0,M(Vn)),se(1,M(Te)),se(2,M(Ve))],sl);var t3=`<div class="container-fluid">\r
-  <img id="error" src="./assets/bg_img/darkwood.jpg" alt="404" class="img-fluid">\r
+  <div class="position-relative">\r
+    <img id="error" src="./assets/bg_img/darkwood.jpg" alt="404" class="img-fluid">\r
+    <h1 class="text-info h2 text-center guide">\r
+      Elt\xE9vedt\xE9l? <br>\r
+      Nem keny\xE9rmorzsa, <br>\r
+      de a fenti men\xFC seg\xEDt <br>\r
+      hazat\xE1l\xE1lni...\r
+    </h1>\r
+  </div>\r
 \r
-<h1>Elt\xE9vedt\xE9l? Nem keny\xE9rmorzsa, de a fenti men\xFC seg\xEDt hazat\xE1l\xE1lni...</h1>\r
-</div>\r
-\r
-\r
-`;var il=class{constructor(){}ngOnInit(){}};il=z([re({selector:"app-page-not-found",template:t3||""})],il);var AW=[{path:"",component:rl},{path:"cat01",component:zu},{path:"cat02",component:Gu},{path:"cat03",component:Wu},{path:"cat04",component:Ku},{path:"cat05",component:Zu},{path:"cat06",component:Yu},{path:"cat07",component:Qu},{path:"cat08",component:Xu},{path:"cat09",component:Ju},{path:"cat10",component:el},{path:"admin",component:Zo},{path:"data-editor",component:za},{path:"data-editor/:id",component:za},{path:"add-product",component:sl},{path:"add-category",component:qu},{path:"category-editor",component:tl},{path:"category-polisher/:id",component:nl},{path:"**",component:il}],yh=class{};yh=z([St({imports:[Jn.forRoot(AW)],exports:[Jn]})],yh);var n3=`<app-navigation></app-navigation>\r
+</div>`;var il=class{constructor(){}ngOnInit(){}};il=z([re({selector:"app-page-not-found",template:t3||""})],il);var AW=[{path:"",component:rl},{path:"cat01",component:zu},{path:"cat02",component:Gu},{path:"cat03",component:Wu},{path:"cat04",component:Ku},{path:"cat05",component:Zu},{path:"cat06",component:Yu},{path:"cat07",component:Qu},{path:"cat08",component:Xu},{path:"cat09",component:Ju},{path:"cat10",component:el},{path:"admin",component:Zo},{path:"data-editor",component:za},{path:"data-editor/:id",component:za},{path:"add-product",component:sl},{path:"add-category",component:qu},{path:"category-editor",component:tl},{path:"category-polisher/:id",component:nl},{path:"**",component:il}],yh=class{};yh=z([St({imports:[Jn.forRoot(AW)],exports:[Jn]})],yh);var n3=`<app-navigation></app-navigation>\r
 <div class="container mt-3">\r
   <div class="row">\r
     <div class="col-12">\r
