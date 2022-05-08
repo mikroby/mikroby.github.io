@@ -21,7 +21,7 @@ body {
   flex-direction: column;
   align-items: center;
   /* justify-content: center;   */
-  background-color: rgb(240, 248, 255);
+  background-color: rgba(240, 248, 255, 1);
 }
 
 header {
@@ -46,7 +46,8 @@ header {
 .content {
   border-radius: 0.25rem;
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  background-image: url('./paper-background.png');
   padding: 1.25rem;
   margin: 0;
   display: inline-block;
@@ -57,12 +58,12 @@ header {
   font-size: 1.25rem;
   transition: all 0.3s ease-out;
   padding: 0.25rem 0.5rem;
-  line-height: 1.7rem;  
+  line-height: 1.7rem;
 }
 
 .link:hover {
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.75);
-  border-radius: 0.25rem;  
+  border-radius: 0.25rem;
   transform: scale(1.015);
 }
 
@@ -83,7 +84,10 @@ footer {
   margin: 0 0 0 1rem;
 }
 
-a, a:hover, a:visited, a:active {
+a,
+a:hover,
+a:visited,
+a:active {
   text-decoration-line: none;
   color: black;
 }
