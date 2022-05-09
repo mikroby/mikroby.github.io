@@ -24,8 +24,8 @@ body {
   /* background-image: url('./Spiders_web.jpg');   */
   /* background-color: rgba(240, 248, 255, 1); */
   background-image: url('./hatter.bmp');
-  /* filter: opacity(50%); */
-  /* filter: blur(1px); */
+  /* backdrop-filter: opacity(10%); */
+  /* backdrop-filter: blur(5px); */
   /* filter: drop-shadow(0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5)); */
 }
 
