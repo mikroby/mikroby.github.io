@@ -21,7 +21,12 @@ body {
   flex-direction: column;
   align-items: center;
   /* justify-content: center;   */
-  background-color: rgba(240, 248, 255, 1);
+  /* background-image: url('./Spiders_web.jpg');   */
+  /* background-color: rgba(240, 248, 255, 1); */
+  background-image: url('./hatter.bmp');
+  /* filter: opacity(50%); */
+  /* filter: blur(1px); */
+  /* filter: drop-shadow(0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5)); */
 }
 
 header {
