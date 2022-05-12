@@ -15,18 +15,16 @@ html {
 
 body {
   max-width: 100vw;
-  min-height: 100vh;
+  max-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   /* justify-content: center;   */
-  /* background-image: url('./Spiders_web.jpg');   */
   /* background-color: rgba(240, 248, 255, 1); */
+  /* background-image: url('./paper-background.png'); */
   background-image: url('./hatter.bmp');
-  /* backdrop-filter: opacity(10%); */
-  /* backdrop-filter: blur(5px); */
-  /* filter: drop-shadow(0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5)); */
+  /* background-image: url('./Spiders_web.jpg');   */
 }
 
 header {
@@ -35,10 +33,9 @@ header {
 
 .main__header {
   font-family: 'Fredericka the Great', sans-serif;
-  text-transform: uppercase;
   font-weight: 300;
   font-size: 3rem;
-  margin: 1rem 0;
+  margin: 1rem 0 1.75rem;
 }
 
 .alt__header {
@@ -48,14 +45,29 @@ header {
   margin: 0 0 1rem;
 }
 
-.content {
+.portrait__box {
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  left: 60%;
+}
+
+.portrait__box img {
+  filter: contrast(50%);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: left;
+}
+
+.list__box {
+  position: relative;
   border-radius: 0.25rem;
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.5);
-  /* background-color: whitesmoke; */
-  background-image: url('./paper-background.png');
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
+  /* background-color: aliceblue; */
+  background-color: transparent;
+  backdrop-filter: blur(5px);
   padding: 1.25rem;
-  margin: 0;
-  display: inline-block;
 }
 
 .link {
@@ -64,6 +76,7 @@ header {
   transition: all 0.3s ease-out;
   padding: 0.25rem 0.5rem;
   line-height: 1.7rem;
+  color: black;
 }
 
 .link:hover {
@@ -74,11 +87,15 @@ header {
 
 small {
   float: right;
-  color: slategray;
+  /* color: slategray; */
+  /* color: lightgray; */
+  color: aliceblue;
   padding: 0 0 0 1.5rem;
 }
 
 footer {
+  position: absolute;
+  bottom: 0;
   font-weight: 300;
   font-size: 1rem;
   margin: 1rem 0;
