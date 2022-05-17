@@ -1,16 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+* {
+  box-sizing: border-box;
+}
 
 html {
   scroll-behavior: smooth;
   font-family: 'Nunito', sans-serif;
   user-select: none;
   font-size: 16px;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 body {
@@ -20,15 +19,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center;   */
-  /* background-color: rgba(240, 248, 255, 1); */
-  /* background-image: url('./paper-background.png'); */
   background-image: url('./hatter.bmp');
-  /* background-image: url('./Spiders_web.jpg');   */
 }
 
 header {
   text-align: center;
+}
+
+@keyframes moveHeader {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .main__header {
@@ -36,23 +41,39 @@ header {
   font-weight: 300;
   font-size: 3rem;
   margin: 1rem 0 1.75rem;
+  animation: moveHeader 0.75s;
+  animation-fill-mode: forwards;
 }
 
 .alt__header {
-  font-family: 'Architects Daughter';
+  font-family: 'Architects Daughter', sans-serif;
   font-weight: 300;
   font-size: 2rem;
   margin: 0 0 1rem;
 }
 
 .portrait__box {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 40%;
   left: 60%;
 }
 
+@keyframes moveImage {
+  0% {
+    opacity: 0;
+    transform: translateX(60%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
 .portrait__box img {
+  animation: moveImage 2s;
+  animation-fill-mode: forwards;
   filter: contrast(50%);
   height: 100%;
   width: 100%;
@@ -60,14 +81,29 @@ header {
   object-position: left;
 }
 
+section {
+  position: fixed;
+  top: 12%;
+}
+
+@keyframes moveList {
+  0% {
+    transform: translateY(200%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
 .list__box {
-  position: relative;
   border-radius: 0.25rem;
   box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
-  /* background-color: aliceblue; */
   background-color: transparent;
   backdrop-filter: blur(5px);
   padding: 1.25rem;
+  animation: moveList 1s;
+  animation-fill-mode: forwards;
 }
 
 .link {
@@ -87,21 +123,36 @@ header {
 
 small {
   float: right;
-  /* color: slategray; */
-  /* color: lightgray; */
   color: aliceblue;
   padding: 0 0 0 1.5rem;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  font-weight: 300;
-  font-size: 1rem;
-  margin: 1rem 0;
+@keyframes moveFooter {
+  0% {
+    transform: translateY(200%);
+  }
+  
+  100% {
+    transform: translateY(0%);
+  }
 }
 
-.github {
+footer {
+  position: fixed;
+  bottom: 0%;
+}
+
+.footer__text{
+  transform: translateY(200%);
+  font-weight: 300;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  animation: moveFooter 1s 1.2s;
+  animation-fill-mode: forwards;
+  
+}
+
+.github, .email, .linkedIn {
   vertical-align: middle;
   margin: 0 0 0 1rem;
 }
