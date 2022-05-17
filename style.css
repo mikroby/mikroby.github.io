@@ -131,7 +131,7 @@ small {
   0% {
     transform: translateY(200%);
   }
-  
+
   100% {
     transform: translateY(0%);
   }
@@ -142,19 +142,24 @@ footer {
   bottom: 0%;
 }
 
-.footer__text{
+.footer__text {
   transform: translateY(200%);
   font-weight: 300;
   font-size: 1rem;
   margin-bottom: 1.5rem;
   animation: moveFooter 1s 1.2s;
   animation-fill-mode: forwards;
-  
 }
 
-.github, .email, .linkedIn {
+.badge {
   vertical-align: middle;
   margin: 0 0 0 1rem;
+  transition: all 0.3s ease-out;
+}
+
+.badge:hover {
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.75);
+  transform: scale(1.015);
 }
 
 a,
