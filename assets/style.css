@@ -50,11 +50,77 @@ header {
   animation-fill-mode: forwards;
 }
 
-.alt__header {
+/* .alt__header {
   font-family: 'Architects Daughter', sans-serif;
   font-weight: 300;
   font-size: 2rem;
   margin: 0 0 1rem;
+} */
+
+.skills__box {
+  position: fixed;
+  height: 100%;
+  width: 25%;
+  left: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill {
+  transition: all 0.2s ease-in-out;
+  margin: 1rem;
+  width:3rem;  
+}
+
+.skill:hover {
+  transform: scale(1.2);
+}
+
+@keyframes moveSkill {
+  0% {
+    transform: translateX(-300%);
+    opacity:0;
+  }
+  
+  100% {
+    transform: translateX(0%);
+    opacity:1;
+  }
+}
+
+[class^="m0"] {
+  transform: translateX(-300%);
+}
+
+.m01 {
+  animation: moveSkill 1s 2s;
+  animation-fill-mode: forwards;
+}
+.m02 {
+  animation: moveSkill 1s 2.2s;
+  animation-fill-mode: forwards;
+}
+.m03 {
+  animation: moveSkill 1s 2.4s;
+  animation-fill-mode: forwards;
+}
+.m04 {
+  animation: moveSkill 1s 2.6s;
+  animation-fill-mode: forwards;
+}
+.m05 {
+  animation: moveSkill 1s 2.8s;
+  animation-fill-mode: forwards;
+}
+.m06 {
+  animation: moveSkill 1s 3s;
+  animation-fill-mode: forwards;
+}
+.m07 {
+  animation: moveSkill 1s 3.2s;
+  animation-fill-mode: forwards;
 }
 
 .portrait__box {
@@ -159,7 +225,7 @@ footer {
   display: inline-block;
   vertical-align: middle;
   margin: 0 0.75rem 0;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .badge:hover {
