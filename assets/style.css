@@ -122,6 +122,10 @@ header {
   animation: moveSkill 1s 3.2s;
   animation-fill-mode: forwards;
 }
+.m08 {
+  animation: moveSkill 1s 3.4s;
+  animation-fill-mode: forwards;
+}
 
 .portrait__box {
   position: fixed;
