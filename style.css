@@ -5,6 +5,11 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
 html {
   scroll-behavior: smooth;
   font-family: 'Nunito', sans-serif;
@@ -109,15 +114,14 @@ section {
 .link {
   display: block;
   font-size: 1.25rem;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-in-out;
   padding: 0.25rem 0.5rem;
   line-height: 1.7rem;
-  color: black;
+  border-radius: 0.25rem;
 }
 
 .link:hover {
   box-shadow: 0 0px 5px rgba(0, 0, 0, 0.75);
-  border-radius: 0.25rem;
   transform: scale(1.015);
 }
 
@@ -152,22 +156,14 @@ footer {
 }
 
 .badge {
+  display: inline-block;
   vertical-align: middle;
-  margin: 0 0 0 1rem;
-  transition: all 0.3s ease-out;
+  margin: 0 0.75rem 0;
+  transition: all 0.1s ease-in-out;
 }
 
 .badge:hover {
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.75);
-  transform: scale(1.015);
-}
-
-a,
-a:hover,
-a:visited,
-a:active {
-  text-decoration-line: none;
-  color: black;
+  transform: scale(1.2);
 }
 
 @media screen and (max-width:424px) {
