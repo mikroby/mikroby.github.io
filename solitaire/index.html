@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Solitaire</title>
+</head>
+
+<body id="top">
+
+  <header id="game__header">
+    Solitaire
+  </header>
+
+  <small class="">v1.4</small>
+
+  <div class="field"></div>
+
+  <div class="showReport">
+    <div id="info"></div>
+
+    <div class="pegs">
+      kövek száma:
+      <span id="pegNumber"></span>
+    </div>
+
+    <div class="btn"></div>
+  </div>
+
+
+  <div id="playRules">
+    <h1>Solitaire játék</h1>
+    <p>
+      A játék során köveket kell mozgatni úgy,
+      hogy a játék végére csak egy maradjon a táblán.
+    </p>
+    <p>
+      A kövek csak ortogonálisan mozdíthatók el egy üres mezőre
+      és csak akkor, ha azzal egy szomszédosat átlép.
+      Az átlépett elem eltűnik a tábláról.
+    </p>
+    <p>
+      A gép jelzi mely kövek mozdíthatók szabályosan és
+      mutatja a lehetséges üres mezőket is.
+    </p>
+
+    <a href="#top">
+      <div class="btn">
+        vissza a táblához
+      </div>
+    </a>
+  </div>
+
+
+  <script type="module">
+    import "./assets/js/main.js";
+  </script>
+
+</body>
+
+</html>
