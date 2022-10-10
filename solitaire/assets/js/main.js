@@ -4,7 +4,7 @@ import { moves, neighbors } from "./graphs.js"
 const header = document.querySelector('#game__header');
 const info = document.querySelector('#info');
 const pegNumber = document.querySelector('#pegNumber');
-const button = document.querySelector('.btn');
+const button = document.querySelector('#toText');
 const fieldPattern = [3, 3, 7, 7, 7, 3, 3]
 let cells, firstMove
 
@@ -51,14 +51,14 @@ const initialize = () => {
 function take() {
   const taken = document.querySelector('.taken')
 
-  if (taken) taken.classList.toggle('taken')
+  if (taken) taken.classList.replace('taken', 'moveable')
 
   document.querySelectorAll('.transposable').forEach(cell => {
     cell.classList.remove('transposable')
     cell.removeEventListener('click', transpose)
   })
 
-  this.classList.toggle('taken')
+  this.classList.replace('moveable','taken')
 
   markTransposables(this)
 }

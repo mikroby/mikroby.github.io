@@ -17,13 +17,29 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 200vh;
+}
+
+.Page_1,
+.Page_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
 }
 
 #game__header {
-  margin: 1.5rem 0;
+  margin: 0 0 1.5rem;
   font-size: 3rem;
   font-weight: 600;
+  text-align: center;
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.version{
+  display: block;
+  text-align: center;
 }
 
 .shock-header {
@@ -80,6 +96,24 @@ body {
   box-shadow: none;
 }
 
+@keyframes smooth {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.moveable {
+  animation: smooth 0.4s alternate infinite linear;
+}
+
 .moveable:hover {
   background: red;
   cursor: pointer;
@@ -99,6 +133,7 @@ body {
 
 .showReport {
   margin: 1.5rem 0 0;
+  text-align: center;
 }
 
 #info {
@@ -113,18 +148,15 @@ body {
 .pegs {
   font-size: 1.2rem;
   font-weight: 600;
-  line-height: 3rem;
-  margin: 1rem 0;
+  line-height: 3rem;  
 }
 
 #pegNumber {
-  margin: 0 1rem;
+  margin: 0 0 0 1rem;
   font-size: 3rem;
   font-weight: 600;
   color: rgb(82, 138, 187);
-  float: right;
 }
-
 
 .btn {
   font-size: 1.2rem;
@@ -133,7 +165,8 @@ body {
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.35);
   cursor: pointer;
   margin: 1.5rem 0 0;
-  padding: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
   text-align: center;
   transition: all 0.3s;
   background-color: rgb(219, 222, 224);
@@ -148,16 +181,13 @@ body {
     0 0 0.5rem rgba(0, 0, 0, 0.35);
 }
 
-#playRules {
-  margin: 10rem 0;
-  width: 20rem;
-}
-
 h1 {
   text-align: center;
+  margin: 0 0 1rem;
 }
 
 p {
+  width: 20rem;
   font-size: 1.2rem;
   text-align: justify;
 }
