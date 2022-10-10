@@ -2,19 +2,26 @@
 import { moves, neighbors } from "./graphs.js"
 
 const header = document.querySelector('#game__header');
-const info = document.querySelector('#info');
+const infoBox = document.querySelector('.infoBox');
 const pegNumber = document.querySelector('#pegNumber');
 const button = document.querySelector('#toText');
 const fieldPattern = [3, 3, 7, 7, 7, 3, 3]
-let cells, firstMove
+let cells, firstMove, timerId
 
 
 const animateHeader = () => {
-  header.classList.add('shock-header');
+  header.classList.add('shock-header')
   const id = setTimeout(() => {
-    clearTimeout(id);
-    header.classList.toggle('shock-header');
-  }, 510);
+    clearTimeout(id)
+    header.classList.toggle('shock-header')
+  }, 510)
+}
+
+const blinkInfo = () => {  
+  timerId = setTimeout(() => {
+    clearTimeout(timerId)
+    infoBox.classList.remove('blinkInfo')
+  }, 1500)
 }
 
 const createField = () => {
@@ -44,7 +51,7 @@ const initialize = () => {
 
   button.textContent = 'A játék leírása'
   button.onclick = function () { window.location = "#playRules" }
-  info.textContent = ''
+  infoBox.textContent = 'Jelölj ki egy követ!'
   firstMove = true
 }
 
@@ -58,7 +65,7 @@ function take() {
     cell.removeEventListener('click', transpose)
   })
 
-  this.classList.replace('moveable','taken')
+  this.classList.replace('moveable', 'taken')
 
   markTransposables(this)
 }
@@ -104,16 +111,24 @@ const checkEnd = () => {
   const pegs = document.querySelectorAll('.occupied').length
   showInfo(pegs)
 
+  infoBox.classList.add('blinkInfo')
+
   if (pegs === 1) {
     theEnd('Megnyerted a játékot!')
     return
   }
 
-  if (markMoveables() === 0) theEnd('Vége a játéknak!')
+  if (markMoveables() === 0) {
+    theEnd('Vége a játéknak!')
+    return
+  }
+
+  blinkInfo()
 }
 
 const theEnd = (text) => {
-  info.textContent = text
+  clearTimeout(timerId)
+  infoBox.textContent = text
   button.textContent = 'Új játék';
   button.onclick = start;
 }
