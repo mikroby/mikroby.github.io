@@ -1,9 +1,14 @@
 'use strict'
 
-import { Player, Projectile, Enemy, Particle } from './classes.js'
+import { Player, Projectile, Enemy, Particle, Bomb } from './classes.js'
 export { c, friction }
 
-const speedRatio = 5
+const scoreDisplay = document.querySelector('#score')
+const bombDisplay = document.querySelector('#bombs')
+const awardDisplay = document.querySelector('#award')
+const StartGameButton = document.querySelector('#StartButton')
+const modal = document.querySelector('#modal')
+const bigScore = document.querySelector('#bigScore')
 
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
@@ -11,30 +16,38 @@ const c = canvas.getContext('2d')
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-const scoreDisplay = document.querySelector('#score')
-const StartGameButton = document.querySelector('#StartButton')
-const modal = document.querySelector('#modal')
-const bigScore = document.querySelector('#bigScore')
-
-const x = canvas.width / 2
-const y = canvas.height / 2
+const centerX = canvas.width / 2
+const centerY = canvas.height / 2
 
 const friction = 0.99
+const speedRatio = 5
+const RANGE = (centerX > centerY ? centerY : centerX) / 2
+const AWARD = 2000
 
-let player, projectiles, enemies, particles, score, animationId, timeId
+const sound = 'assets/explode.wav'
+
+let player, projectiles, enemies, particles, bomb, score, counter, bombs, animationId, timeId
 
 // class definitions moved to separate file
 
-function init() {
-  player = new Player(x, y, 10, 'white')
+const init = () => {
+  player = new Player(centerX, centerY, 10, 'white')
   projectiles = []
   enemies = []
   particles = []
+  bomb = null
   score = 0
+  counter = 1
+  bombs = 0
   scoreDisplay.textContent = score
+  bombDisplay.textContent = bombs
 }
 
-function spawnEnemies() {
+const explosionNoise = () => {
+  new Audio(sound).play()
+}
+
+const spawnEnemies = () => {
   timeId = setInterval(() => {
     const radius = Math.random() * (30 - 4) + 4
 
@@ -50,7 +63,7 @@ function spawnEnemies() {
 
     const color = `hsl(${Math.random() * 360},50%,50%)`
 
-    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x)
+    const angle = Math.atan2(centerY - y, centerX - x)
     const velocity = {
       x: Math.cos(angle),
       y: Math.sin(angle)
@@ -59,7 +72,15 @@ function spawnEnemies() {
   }, 1000)
 }
 
-function animate() {
+const checkBombAward = () => {
+  if (score > counter * AWARD) {
+    counter++
+    bombs++
+    bombDisplay.textContent = bombs
+  }
+}
+
+const animate = () => {
   animationId = requestAnimationFrame(animate)
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   // c.clearRect(0, 0, canvas.width, canvas.height)
@@ -75,6 +96,11 @@ function animate() {
     }
   })
 
+  if (bomb) {
+    if (bomb.radius < RANGE) bomb.update()
+    else bomb = null
+  }
+
   projectiles.forEach((projectile, index) => {
     projectile.update()
 
@@ -87,7 +113,7 @@ function animate() {
       const id = setTimeout(() => {
         clearTimeout(id)
         projectiles.splice(index, 1)
-      }, 0)
+      })
     }
   })
 
@@ -96,12 +122,16 @@ function animate() {
 
     const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y)
 
-    // end game.
+    if (bomb) {
+      if (dist - enemy.radius - bomb.radius < 1) killEnemyByBomb(enemy, enemyIndex)
+    }
+
+    // end game, reveal modal.
     if (dist - enemy.radius - player.radius < 1) {
       cancelAnimationFrame(animationId)
       clearInterval(timeId)
       bigScore.textContent = score
-      modal.style.display = 'flex'
+      modal.style.display = 'block'
     }
 
     projectiles.forEach((projectile, projectileIndex) => {
@@ -113,8 +143,8 @@ function animate() {
         // create sound
         const id = setTimeout(() => {
           clearTimeout(id)
-          new Audio('assets/explode.wav').play()
-        }, 0)
+          explosionNoise()
+        })
 
         // create explosion effect
         for (let i = 0; i < enemy.radius * 2; i++) {
@@ -127,6 +157,7 @@ function animate() {
           // increase score
           score += 100
           scoreDisplay.textContent = score
+          checkBombAward()
 
           // shrink enemy
           gsap.to(enemy, {
@@ -136,38 +167,73 @@ function animate() {
           const id = setTimeout(() => {
             clearTimeout(id)
             projectiles.splice(projectileIndex, 1)
-          }, 0)
+          })
         } else {
           // increase score
           score += 250
           scoreDisplay.textContent = score
+          checkBombAward()
           // remove enemy and projectile
           const id = setTimeout(() => {
             clearTimeout(id)
             enemies.splice(enemyIndex, 1)
             projectiles.splice(projectileIndex, 1)
-          }, 0)
+          })
         }
       }
     })
   })
 }
 
+const killEnemyByBomb = (enemy, enemyIndex) => {
+  // increase score
+  score += 250
+  scoreDisplay.textContent = score
+  checkBombAward()
+
+  // create explosion effect
+  for (let i = 0; i < enemy.radius * 2; i++) {
+    particles.push(new Particle(enemy.x, enemy.y, Math.random() * 2, enemy.color,
+      { x: (Math.random() - 0.5) * (Math.random() * 6), y: (Math.random() - 0.5) * (Math.random() * 6) }))
+  }
+
+  // remove enemy create sound
+  const id = setTimeout(() => {
+    clearTimeout(id)
+    explosionNoise()
+    enemies.splice(enemyIndex, 1)
+  })
+}
+
 // for each mouse click a new projectile launched
 window.addEventListener('click', (event) => {
-  const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width / 2)
+  const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX)
   const velocity = {
     x: Math.cos(angle) * speedRatio,
     y: Math.sin(angle) * speedRatio
   }
 
-  projectiles.push(new Projectile(canvas.width / 2, canvas.height / 2, 5, 'white', velocity))
+  projectiles.push(new Projectile(centerX, centerY, 5, 'white', velocity))
 })
 
-// start game by clicking the button
+const explodeBomb = () => {
+  if (!bombs) return
+  bombs--
+  bombDisplay.textContent = bombs
+  bomb = new Bomb(centerX, centerY, 10, 'red', 10)
+}
+
+// for hitting SPACE a bomb is launched only, if not existing yet.
+window.addEventListener('keyup', (event) => {
+  if (event.code === 'Space' && !bomb) explodeBomb()
+})
+
+// start game by clicking the button, hide modal.
 StartGameButton.addEventListener('click', () => {
   init()
   modal.style.display = 'none'
   animate()
   spawnEnemies()
-})
+});
+
+(() => awardDisplay.textContent = AWARD)()

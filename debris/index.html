@@ -12,17 +12,25 @@
 
 <body>
 
-  <div class="score-container"><span>Score: </span><span id="score">0</span>
+  <div class="score-container">
+    Score: <span id="score"></span>
     <br>
-    <span>destroy all the debris !</span>
+    Bombs: <span id="bombs"></span>
+    <br>
+    <br>
+    destroy debris to avoid collision !
+    <br>
+    click on left mouse to launch projectile.
+    <br>
+    every <span id="award"></span> points awards a bomb.
+    <br>
+    push SPACE to release a bomb in danger...
   </div>
 
   <div class="container" id="modal">
-    <div class="bg-white">
-      <h1 id="bigScore">0</h1>
-      <p class="points">Points</p>
-      <div class="btn" id="StartButton">Start Game</div>
-    </div>
+    <h1 id="bigScore">0</h1>
+    <p class="points">Points</p>
+    <div class="btn" id="StartButton">Start Game</div>
   </div>
 
   <canvas></canvas>

@@ -1,5 +1,5 @@
 import { c, friction } from './main.js'
-export { Player, Projectile, Enemy, Particle }
+export { Player, Projectile, Enemy, Particle, Bomb }
 
 // common properties, methods:
 // draw()
@@ -101,5 +101,27 @@ class Particle {
     this.x = this.x + this.velocity.x
     this.y = this.y + this.velocity.y
     this.alpha -= 0.01
+  }
+}
+
+class Bomb {
+  constructor(x, y, radius, color, grow) {
+    this.x = x
+    this.y = y
+    this.radius = radius
+    this.color = color
+    this.grow = grow
+  }
+
+  draw() {
+    c.beginPath()
+    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+    c.strokeStyle = this.color
+    c.stroke()
+  }
+
+  update() {
+    this.draw()
+    this.radius += this.grow
   }
 }
