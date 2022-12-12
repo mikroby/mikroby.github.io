@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/style.css">
 
-  <title>Debris Game based on a tutorial</title>
+  <title>Debris Game v1.0</title>
 </head>
 
 <body>
 
-  <div class="score-container">
+  <div class="container">
     Score: <span id="score"></span>
     <br>
     Bombs: <span id="bombs"></span>
@@ -25,12 +25,14 @@
     Every <span id="award"></span> points awards a bomb.
     <br>
     Press SPACE bar to release a bomb when in danger...
+    <br>
+    Press Esc to toggle Pause.    
   </div>
 
-  <div class="container" id="modal">
+  <div class="modal">
     <h1 id="bigScore">0</h1>
     <p class="points">Points</p>
-    <div class="btn" id="StartButton">Start Game</div>
+    <div class="btn" id="startButton">Start New Game</div>
   </div>
 
   <canvas></canvas>

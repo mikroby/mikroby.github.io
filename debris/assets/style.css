@@ -18,17 +18,17 @@ body {
   background-color: black;
 }
 
-.score-container {
+.container {
   position: fixed;
   color: white;
   margin: 1rem;
 }
 
-.container {
+.modal {
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 30%;
+  width: 25rem;
   transform: translate(-50%, -50%);
   border-radius: 0.5rem;
   background-color: white;

@@ -1,4 +1,4 @@
-import { c, friction } from './main.js'
+import { c, FRICTION } from './main.js'
 export { Player, Projectile, Enemy, Particle, Bomb }
 
 // common properties, methods:
@@ -96,8 +96,8 @@ class Particle {
 
   update() {
     this.draw();
-    this.velocity.x *= friction
-    this.velocity.y *= friction
+    this.velocity.x *= FRICTION
+    this.velocity.y *= FRICTION
     this.x = this.x + this.velocity.x
     this.y = this.y + this.velocity.y
     this.alpha -= 0.01
