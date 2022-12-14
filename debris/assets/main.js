@@ -69,9 +69,10 @@ const createEnemies = () => {
     const color = `hsl(${Math.random() * 360},50%,50%)`
 
     const angle = Math.atan2(CENTER_Y - y, CENTER_X - x)
+    const ratio = Math.random() < 0.2 ? 2 : 1
     const velocity = {
-      x: Math.cos(angle),
-      y: Math.sin(angle)
+      x: Math.cos(angle)*ratio,
+      y: Math.sin(angle)*ratio
     }
     enemies.push(new Enemy(x, y, radius, color, velocity))
   }, 1000)
@@ -93,7 +94,7 @@ const endGame = () => {
   modal.style.display = 'block'
 }
 
-const animate = () => { 
+const animate = () => {
   animationId = requestAnimationFrame(animate)
 
   if (togglePause) return
@@ -193,7 +194,7 @@ const animate = () => {
         }
       }
     })
-  })  
+  })
 }
 
 const killEnemyByBomb = (enemy, enemyIndex) => {
