@@ -42,11 +42,15 @@ h1 {
   margin: 0;
 }
 
-.points {
+.points, .title {
   font-size: 1rem;
   color: gray;
   font-weight: bold;
   margin: 0 0 1rem;
+}
+
+.title{
+  margin: 1.5rem 0 0;
 }
 
 .btn {

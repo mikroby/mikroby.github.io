@@ -1,6 +1,7 @@
 'use strict'
 
 import { Player, Projectile, Enemy, Particle, Bomb } from './classes.js'
+import { sound } from './sounds.js'
 export { c, FRICTION }
 
 // DOM elements:
@@ -24,11 +25,10 @@ const FRICTION = 0.99
 const SPEED_RATIO = 5
 const BOMB_RANGE = (CENTER_X > CENTER_Y ? CENTER_Y : CENTER_X) / 2
 const AWARD = 2000
-const SOUND_PATH = 'assets/explode.wav'
 
 // game variables
 let player, projectiles, enemies, particles, bomb,
-  score, counter, bombs,
+  score, counter, numOfBombs,
   animationId, timeId,
   togglePause
 
@@ -40,14 +40,10 @@ const init = () => {
   bomb = null
   score = 0
   counter = 1
-  bombs = 0
+  numOfBombs = 0
   togglePause = false
   scoreDisplay.textContent = score
-  bombDisplay.textContent = bombs
-}
-
-const explosionNoise = () => {
-  new Audio(SOUND_PATH).play()
+  bombDisplay.textContent = numOfBombs
 }
 
 const createEnemies = () => {
@@ -71,8 +67,8 @@ const createEnemies = () => {
     const angle = Math.atan2(CENTER_Y - y, CENTER_X - x)
     const ratio = Math.random() < 0.2 ? 2 : 1
     const velocity = {
-      x: Math.cos(angle)*ratio,
-      y: Math.sin(angle)*ratio
+      x: Math.cos(angle) * ratio,
+      y: Math.sin(angle) * ratio
     }
     enemies.push(new Enemy(x, y, radius, color, velocity))
   }, 1000)
@@ -81,8 +77,9 @@ const createEnemies = () => {
 const checkBombAward = () => {
   if (score > counter * AWARD) {
     counter++
-    bombs++
-    bombDisplay.textContent = bombs
+    numOfBombs++
+    bombDisplay.textContent = numOfBombs
+    sound.award()
   }
 }
 
@@ -155,7 +152,7 @@ const animate = () => {
         // create sound
         const id = setTimeout(() => {
           clearTimeout(id)
-          explosionNoise()
+          sound.explosion()
         })
 
         // create explosion effect
@@ -212,13 +209,16 @@ const killEnemyByBomb = (enemy, enemyIndex) => {
   // remove enemy create sound
   const id = setTimeout(() => {
     clearTimeout(id)
-    explosionNoise()
+    sound.explosion()
     enemies.splice(enemyIndex, 1)
   })
 }
 
 // for each mouse click a new projectile launched
 window.addEventListener('click', (event) => {
+
+  if (togglePause) return
+
   const angle = Math.atan2(event.clientY - CENTER_Y, event.clientX - CENTER_X)
   const velocity = {
     x: Math.cos(angle) * SPEED_RATIO,
@@ -229,25 +229,24 @@ window.addEventListener('click', (event) => {
 })
 
 const releaseBomb = () => {
-  if (!bombs) return
-  bombs--
-  bombDisplay.textContent = bombs
+  if (!numOfBombs) return
+  numOfBombs--
+  bombDisplay.textContent = numOfBombs
   bomb = new Bomb(CENTER_X, CENTER_Y, 10, 'red', 10)
+  sound.release()
 }
 
-// pressing SPACE a bomb is launched only, if not existing yet.
+// pressing ESCAPE toggles pause.
+// pressing SPACE a bomb is released only, if not existing yet.
 window.addEventListener('keyup', (event) => {
+  if (event.code === 'Escape') togglePause = !togglePause
   if (togglePause) return
   if (event.code === 'Space' && !bomb) releaseBomb()
 })
 
-// pressing ESCAPE toggles pause.
-window.addEventListener('keyup', (event) => {
-  if (event.code === 'Escape') togglePause = !togglePause
-})
-
 // start game by clicking the button, hide modal.
 startGameButton.addEventListener('click', () => {
+  sound.pop()
   modal.style.display = 'none'
   init()
   animate()
