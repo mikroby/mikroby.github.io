@@ -25,6 +25,7 @@ const FRICTION = 0.99
 const SPEED_RATIO = 5
 const BOMB_RANGE = (CENTER_X > CENTER_Y ? CENTER_Y : CENTER_X) / 2
 const AWARD = 2000
+const ENEMY_TIMING = 1000
 
 // game variables
 let player, projectiles, enemies, particles, bomb,
@@ -32,23 +33,8 @@ let player, projectiles, enemies, particles, bomb,
   animationId, timeId,
   togglePause
 
-const init = () => {
-  player = new Player(CENTER_X, CENTER_Y, 10, 'white')
-  projectiles = []
-  enemies = []
-  particles = []
-  bomb = null
-  score = 0
-  counter = 1
-  numOfBombs = 0
-  togglePause = false
-  scoreDisplay.textContent = score
-  bombDisplay.textContent = numOfBombs
-}
-
 const createEnemies = () => {
   timeId = setInterval(() => {
-
     if (togglePause) return
 
     const radius = Math.random() * (30 - 4) + 4
@@ -63,15 +49,15 @@ const createEnemies = () => {
     }
 
     const color = `hsl(${Math.random() * 360},50%,50%)`
-
     const angle = Math.atan2(CENTER_Y - y, CENTER_X - x)
     const ratio = Math.random() < 0.2 ? 2 : 1
     const velocity = {
       x: Math.cos(angle) * ratio,
       y: Math.sin(angle) * ratio
     }
+
     enemies.push(new Enemy(x, y, radius, color, velocity))
-  }, 1000)
+  }, ENEMY_TIMING)
 }
 
 const checkBombAward = () => {
@@ -84,11 +70,19 @@ const checkBombAward = () => {
 }
 
 const endGame = () => {
-  cancelAnimationFrame(animationId)
-  clearInterval(timeId)
+  window.removeEventListener('click', launchProjectile)
+  window.removeEventListener('keyup', checkKeyboard)
 
-  bigScore.textContent = score
-  modal.style.display = 'block'
+  // to do: stop animation after player explosion with promise.
+
+  // when promise resolved.
+  {
+    cancelAnimationFrame(animationId)
+    clearInterval(timeId)
+
+    bigScore.textContent = score
+    modal.style.display = 'block'
+  }
 }
 
 const animate = () => {
@@ -140,7 +134,7 @@ const animate = () => {
       if (dist - enemy.radius - bomb.radius < 1) killEnemyByBomb(enemy, enemyIndex)
     }
 
-    // end game, reveal modal.
+    // collision between player and enemy.
     if (dist - enemy.radius - player.radius < 1) endGame()
 
     projectiles.forEach((projectile, projectileIndex) => {
@@ -196,9 +190,9 @@ const animate = () => {
 
 const killEnemyByBomb = (enemy, enemyIndex) => {
   // increase score
-  score += 250
-  scoreDisplay.textContent = score
-  checkBombAward()
+  // score += 250
+  // scoreDisplay.textContent = score
+  // checkBombAward()
 
   // create explosion effect
   for (let i = 0; i < enemy.radius * 2; i++) {
@@ -214,20 +208,6 @@ const killEnemyByBomb = (enemy, enemyIndex) => {
   })
 }
 
-// for each mouse click a new projectile launched
-window.addEventListener('click', (event) => {
-
-  if (togglePause) return
-
-  const angle = Math.atan2(event.clientY - CENTER_Y, event.clientX - CENTER_X)
-  const velocity = {
-    x: Math.cos(angle) * SPEED_RATIO,
-    y: Math.sin(angle) * SPEED_RATIO
-  }
-
-  projectiles.push(new Projectile(CENTER_X, CENTER_Y, 5, 'white', velocity))
-})
-
 const releaseBomb = () => {
   if (!numOfBombs) return
   numOfBombs--
@@ -236,21 +216,53 @@ const releaseBomb = () => {
   sound.release()
 }
 
-// pressing ESCAPE toggles pause.
-// pressing SPACE a bomb is released only, if not existing yet.
-window.addEventListener('keyup', (event) => {
+const launchProjectile = (event) => {
+  if (togglePause) return
+
+  const angle = Math.atan2(event.clientY - CENTER_Y, event.clientX - CENTER_X)
+  const velocity = {
+    x: Math.cos(angle) * SPEED_RATIO,
+    y: Math.sin(angle) * SPEED_RATIO
+  }
+  // for each mouse click a new projectile launched
+  projectiles.push(new Projectile(CENTER_X, CENTER_Y, 5, 'white', velocity))
+}
+
+const checkKeyboard = (event) => {
+  // pressing ESCAPE toggles pause.
   if (event.code === 'Escape') togglePause = !togglePause
   if (togglePause) return
+  // pressing SPACE a bomb is released only, if not existing yet.
   if (event.code === 'Space' && !bomb) releaseBomb()
-})
+}
 
-// start game by clicking the button, hide modal.
-startGameButton.addEventListener('click', () => {
-  sound.pop()
-  modal.style.display = 'none'
-  init()
-  animate()
-  createEnemies()
-});
+const init = () => {
+  player = new Player(CENTER_X, CENTER_Y, 10, 'white')
+  projectiles = []
+  enemies = []
+  particles = []
+  bomb = null
+  score = 0
+  counter = 1
+  numOfBombs = 0
+  togglePause = false
+  scoreDisplay.textContent = score
+  bombDisplay.textContent = numOfBombs
+  window.addEventListener('click', launchProjectile)
+  window.addEventListener('keyup', checkKeyboard)
+}
 
-(() => awardDisplay.textContent = AWARD)()
+// starter IIFE
+(() => {
+  awardDisplay.textContent = AWARD
+
+  // start game by clicking the button, hide modal.
+  startGameButton.addEventListener('click', () => {
+    sound.pop()
+    modal.style.display = 'none'
+    init()
+    animate()
+    createEnemies()
+  })
+
+})()
