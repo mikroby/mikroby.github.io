@@ -70,16 +70,14 @@ const useSensor = (sensorName, index, result) => {
 
   navigator.permissions.query({ name: sensorName })
     .then(result => {
-
-      // check whether sensor allowed
+      // check whether sensor allowed: "denied" | "granted" | "prompt".
       if (result.state === 'denied') {
         console.warn(`Permission to use ${sensorName} sensor is denied.`)
-        return
+      } else {
+        // otherwise use the sensor.
+        useSensor(sensorName, index + 1, result.state)
       }
 
-      // otherwise use the sensor.
-      useSensor(sensorName, index + 1, result.state)
-
-    }).catch(error => console.warn('ERROR: ', error))
+    }).catch(error => console.warn(`Handled ERROR on ${sensorName}:`, error))
 })
 )()

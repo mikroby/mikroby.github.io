@@ -11,20 +11,34 @@ html {
   /* font-size: 16px; */
 }
 
+body {
+  margin: 0;
+}
+
+#header {
+  text-align: center;
+  margin: 0;
+  color: dodgerblue;
+}
+
 .container {
   width: 22rem;
   margin: 0 auto;
 }
 
-h1, h2 {
+h2 {
   margin-bottom: 0.5rem;
 }
 
-.x, .y, .z {
+.x,
+.y,
+.z {
   font-weight: bold;
 }
 
-.x span, .y span, .z span {
+.x span,
+.y span,
+.z span {
   margin-right: 10rem;
   float: right;
 }
