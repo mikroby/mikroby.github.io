@@ -101,7 +101,7 @@ const endGame = () => {
   window.removeEventListener('keyup', checkKeyboard)
   window.removeEventListener('mousemove', moveCrossHair)
 
-  // stop animation when timeout.
+  // stop animation and show modal when timeout.
   const id = setTimeout(() => {
     clearTimeout(id)
     cancelAnimationFrame(animationID)
@@ -170,13 +170,12 @@ const animate = () => {
 const shoot = () => {
   if (togglePause) return
 
+  numOfBullets--
+  bulletDisplay.textContent = numOfBullets
+  sound.shoot()
+  shootTrigger = true
+  
   if (!numOfBullets) endGame()
-  else {
-    numOfBullets--
-    bulletDisplay.textContent = numOfBullets
-    sound.shoot()
-    shootTrigger = true
-  }
 }
 
 const checkKeyboard = (event) => {
