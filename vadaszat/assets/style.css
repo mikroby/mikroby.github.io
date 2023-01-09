@@ -18,10 +18,17 @@ body {
   background-color: black;
 }
 
-.container {
+.container_left,
+.container_right {
   position: fixed;
   color: white;
   margin: 1rem;
+}
+
+.container_right {
+  right: 0;
+  text-align: start;
+  width: 7rem;
 }
 
 .modal {
@@ -33,10 +40,10 @@ body {
   border-radius: 0.5rem;
   background-color: white;
   padding: 1.5rem;
-  text-align: center;  
+  text-align: center;
 }
 
-.modal p{
+.modal p {
   text-align: left;
 }
 

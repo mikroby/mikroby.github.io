@@ -31,7 +31,7 @@ const START_TIMING = 300  // in ms
 const ENEMY_TIMING = 1000 // in ms
 const STOP_TIMING = 3000  // in ms
 const START_BULLETS = 12
-const AWARD_BULLETS = 5
+const AWARD_BULLETS = 6
 const AWARD_POINT = 2000  // points
 const SCORE_HIT = 100   // points
 const SCORE_KILL = 300  // points
@@ -45,15 +45,10 @@ let enemies, particles, crossHair, shootTrigger,
   togglePause
 
 const display = {
-  enemy(){
-    enemyDisplay.textContent = enemies.length
-  },
-  score(){
-    scoreDisplay.textContent = score
-  },
-  bullet(){
-    bulletDisplay.textContent = numOfBullets
-  }
+  enemy() { enemyDisplay.textContent = enemies.length },
+  score() { scoreDisplay.textContent = score },
+  bullet() { bulletDisplay.textContent = numOfBullets },
+  all() { this.enemy(); this.score(); this.bullet() }
 }
 
 const createEnemy = () => {
@@ -232,9 +227,7 @@ const init = () => {
   numOfBullets = START_BULLETS
   shootTrigger = false
   togglePause = false
-  display.score()
-  display.bullet()
-  display.enemy()
+  display.all()
 
   // user action allowed.
   const id = setTimeout(() => {
