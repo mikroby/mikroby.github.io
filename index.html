@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="./assets/index.js"></script>
-  <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous" onload="start(1)"></script>
-  <link rel="stylesheet" href="./assets/style.css" onload="start(2)">
+  <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous" onload="start('fontawesome')"></script>
+  <link rel="stylesheet" href="./assets/style.css" onload="start('css')">
   <title>Mikroby Test Page</title>
 </head>
 
@@ -18,39 +18,37 @@
     <span>Az oldal betöltése...</span>
   </div>
 
-  <div class="content hidden">
-    <header>
-      <h1 class="main__header">FRONT-END Development</h1>
-    </header>
+  <div id ="content" class="hidden">
+    <h1 class="main__header">FRONT-END Development</h1>
 
     <div class="portrait__box">
-      <img src="./assets/RT.png" alt="portrait" onload="start(3)">
+      <img src="./assets/RT.png" alt="portrait" onload="start('portrait')">
     </div>
 
     <div class="skills__box">
       <div class="m01">
-        <img class="skill" src="./assets/angular.png"></img>
+        <img class="skill grow" src="./assets/angular.png"></img>
       </div>
       <div class="m02">
-        <img class="skill" src="./assets/javascript.png"></img>
+        <img class="skill grow" src="./assets/javascript.png"></img>
       </div>
       <div class="m03">
-        <img class="skill" src="./assets/typescript.png"></img>
+        <img class="skill grow" src="./assets/typescript.png"></img>
       </div>
       <div class="m04">
-        <img class="skill" src="./assets/bootstrap.png"></img>
+        <img class="skill grow" src="./assets/bootstrap.png"></img>
       </div>
       <div class="m05">
-        <img class="skill" src="./assets/html5.png"></img>
+        <img class="skill grow" src="./assets/html5.png"></img>
       </div>
       <div class="m06">
-        <img class="skill" src="./assets/css3.png"></img>
+        <img class="skill grow" src="./assets/css3.png"></img>
       </div>
       <div class="m07">
-        <img class="skill" src="./assets/sass.png"></img>
+        <img class="skill grow" src="./assets/sass.png"></img>
       </div>
       <div class="m08">
-        <div class="skill">
+        <div class="skill grow">
           <i class="fab fa-git-square fa-4x" aria-hidden="true"></i>
         </div>
       </div>
@@ -63,6 +61,7 @@
         <!-- <a href="./sensor/index.html">sensor kísérlet mobilra<small>JavaScript</small></a> -->
         <a class="link" target="_blank" href="https://privatechats.web.app/">Private Chat
           app<small>Angular+FireStore+Bootstrap</small></a>
+        <a class="link" target="_blank" href="./vadaszat/index.html">Vadászat játék<small>JavaScript</small></a>
         <a class="link" target="_blank" href="./solitaire/index.html">Solitaire játék<small>JavaScript</small></a>
         <a class="link" target="_blank" href="./torpedo/index.html">Torpedó játék<small>JavaScript</small></a>
         <a class="link" target="_blank" href="./debris/index.html">Debris játék (tutorial
@@ -74,7 +73,8 @@
           (csapatmunka)<small>Angular+Material+Bootstrap+Git</small></a>
         <a class="link" target="_blank" href="./webshop/index.html">Hero-Hire webshop *
           (csapatmunka)<small>Angular+Bootstrap+Git</small></a>
-        <a class="link" target="_blank" href="./snake/index.html">Snake - játék (csapatmunka)<small>TypeScript</small></a>
+        <a class="link" target="_blank" href="./snake/index.html">Snake - játék
+          (csapatmunka)<small>TypeScript</small></a>
         <a class="link" target="_blank" href="./sitebuilding/index.html">Sitebuilding
           demo<small>Bootstrap</small></a>
         <a class="link" target="_blank" href="./checkout/index.html">Checkout form<small>Bootstrap</small></a>
@@ -99,18 +99,18 @@
     <footer>
       <div class="footer__text">
         &copy 2021- rtamas
-        <a class="badge" href="mailto:rtamas@hotmail.com">
+        <a class="badge grow" href="mailto:rtamas@hotmail.com">
           <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
         </a>
-        <a class="badge" target="_blank" href="https://linkedin.com/in/tamás-robotka-a78840236">
+        <a class="badge grow" target="_blank" href="https://linkedin.com/in/tamás-robotka-a78840236">
           <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
         </a>
-        <a class="badge" target="_blank" href="https://github.com/mikroby?tab=repositories">
+        <a class="badge grow" target="_blank" href="https://github.com/mikroby?tab=repositories">
           <i class="fa fa-github fa-2x" aria-hidden="true"></i>
         </a>
       </div>
     </footer>
-  </div>  
+  </div>
 
 </body>
 
