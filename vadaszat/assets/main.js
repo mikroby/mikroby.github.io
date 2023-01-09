@@ -10,6 +10,7 @@ const award = document.querySelector('#award')
 const bullet = document.querySelector('#award_bullet')
 const scoreDisplay = document.querySelector('#score')
 const bulletDisplay = document.querySelector('#bullets')
+const enemyDisplay = document.querySelector('#enemies')
 const bigScore = document.querySelector('#bigScore')
 const canvas = document.querySelector('canvas')
 const modal = document.querySelector('.modal')
@@ -17,8 +18,8 @@ const modal = document.querySelector('.modal')
 // canvas constants:
 const c = canvas.getContext('2d')
 canvas.width = innerWidth
-canvas.height = innerWidth / 2
-// canvas.height = innerHeight-6
+// canvas.height = innerWidth / 2
+canvas.height = innerHeight - 6
 console.log(`${canvas.width} x ${canvas.height}`);
 const CENTER_X = canvas.width / 2
 const CENTER_Y = canvas.height / 2
@@ -42,6 +43,18 @@ let enemies, particles, crossHair, shootTrigger,
   score, counter, numOfBullets,
   animationID, timerID,
   togglePause
+
+const display = {
+  enemy(){
+    enemyDisplay.textContent = enemies.length
+  },
+  score(){
+    scoreDisplay.textContent = score
+  },
+  bullet(){
+    bulletDisplay.textContent = numOfBullets
+  }
+}
 
 const createEnemy = () => {
   timerID = setInterval(() => {
@@ -67,22 +80,11 @@ const createEnemy = () => {
       y: Math.sin(angle) * speedRatio
     }
 
-    if (enemies.length < MAX_ENEMY)
+    if (enemies.length < MAX_ENEMY) {
       enemies.push(new Enemy(x, y, radius, color, velocity, speedRatio))
+      display.enemy()
+    }
   }, ENEMY_TIMING)
-}
-
-const scoreManager = (increment) => {
-  score += increment
-  scoreDisplay.textContent = score
-
-  // check if bullets to be awarded.
-  if (score > counter * AWARD_POINT) {
-    counter++
-    numOfBullets += AWARD_BULLETS
-    bulletDisplay.textContent = numOfBullets
-    sound.award()
-  }
 }
 
 const createParticles = (x, y, radius, color) => {
@@ -97,6 +99,7 @@ const createParticles = (x, y, radius, color) => {
 }
 
 const endGame = () => {
+  // no user action allowed.
   window.removeEventListener('click', shoot)
   window.removeEventListener('keyup', checkKeyboard)
   window.removeEventListener('mousemove', moveCrossHair)
@@ -113,6 +116,19 @@ const endGame = () => {
   }, STOP_TIMING)
 }
 
+const scoreManager = (increment) => {
+  score += increment
+  display.score()
+
+  // check if bullets to be awarded.
+  if (score > counter * AWARD_POINT) {
+    counter++
+    numOfBullets += AWARD_BULLETS
+    display.bullet()
+    sound.award()
+  }
+}
+
 const animate = () => {
   animationID = requestAnimationFrame(animate)
 
@@ -125,14 +141,12 @@ const animate = () => {
   // with no trailing:
   // c.clearRect(0, 0, canvas.width, canvas.height)  
 
-  crossHair.draw()
-
   particles.forEach((particle, index) => {
     if (particle.alpha <= 0) particles.splice(index, 1)
     else particle.update()
   })
 
-  enemies.forEach((enemy, enemyIndex) => {
+  enemies.forEach((enemy, index) => {
     enemy.update()
 
     // check hit if shoot triggered.
@@ -157,25 +171,42 @@ const animate = () => {
           // remove enemy.
           const id_1 = setTimeout(() => {
             clearTimeout(id_1)
-            enemies.splice(enemyIndex, 1)
+            enemies.splice(index, 1)
+            display.enemy()
           })
         }
       }
     }
+
+    // check if enemy is out of screen.
+    if (enemy.x + enemy.radius < 0 ||
+      enemy.x - enemy.radius > canvas.width ||
+      enemy.y + enemy.radius < 0 ||
+      enemy.y - enemy.radius > canvas.height) {
+      const id_2 = setTimeout(() => {
+        clearTimeout(id_2)
+        enemies.splice(index, 1)
+        display.enemy()
+      })
+    }
+
   })
 
-  if (shootTrigger) shootTrigger = false
+  if (shootTrigger) {
+    shootTrigger = false
+    if (!numOfBullets) endGame()
+  }
+
+  crossHair.draw()
 }
 
 const shoot = () => {
   if (togglePause) return
 
   numOfBullets--
-  bulletDisplay.textContent = numOfBullets
+  display.bullet()
   sound.shoot()
   shootTrigger = true
-  
-  if (!numOfBullets) endGame()
 }
 
 const checkKeyboard = (event) => {
@@ -201,9 +232,11 @@ const init = () => {
   numOfBullets = START_BULLETS
   shootTrigger = false
   togglePause = false
-  scoreDisplay.textContent = score
-  bulletDisplay.textContent = numOfBullets
+  display.score()
+  display.bullet()
+  display.enemy()
 
+  // user action allowed.
   const id = setTimeout(() => {
     clearTimeout(id)
     window.addEventListener('click', shoot)

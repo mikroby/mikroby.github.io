@@ -1,11 +1,17 @@
 import { c, FRICTION } from './main.js'
 
-export class Enemy {
-  constructor(x, y, radius, color, velocity, worth) {
+class General {
+  constructor(x, y, radius, color) {
     this.x = x
     this.y = y
     this.radius = radius
     this.color = color
+  }
+}
+
+export class Enemy extends General {
+  constructor(x, y, radius, color, velocity, worth) {
+    super(x, y, radius, color)
     this.velocity = velocity
     this.worth = worth
   }
@@ -24,13 +30,9 @@ export class Enemy {
   }
 }
 
-
-export class Particle {
+export class Particle extends General {
   constructor(x, y, radius, color, velocity) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
+    super(x, y, radius, color)
     this.velocity = velocity
     this.alpha = 1
   }
@@ -55,12 +57,9 @@ export class Particle {
   }
 }
 
-export class CrossHair {
+export class CrossHair extends General {
   constructor(x, y, radius, color) {
-    this.x = x
-    this.y = y
-    this.radius = radius
-    this.color = color
+    super(x, y, radius, color)
   }
 
   draw() {
