@@ -1,17 +1,19 @@
 export const sound = {
   pop() {
-    const audio = new Audio('./assets/sound/pop.wav')
+    const audio = new Audio('./assets/sound/reload.mp3')
     audio.volume = 0.25
     audio.play()
   },
 
   explosion() {
-    new Audio('./assets/sound/explosion.wav').play()
+    const audio = new Audio('./assets/sound/explosion.wav')
+    audio.volume = 0.7
+    audio.play()
   },
 
   award() {
-    const audio = new Audio('./assets/sound/award3.mp3')
-    audio.volume = 0.5
+    const audio = new Audio('./assets/sound/reload.mp3')
+    audio.volume = 0.25
     audio.play()
   },
 
