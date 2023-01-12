@@ -1,4 +1,5 @@
-import { c, FRICTION } from './main.js'
+import { c } from './dom.js'
+import { FRICTION } from './game_constants.js'
 
 class General {
   constructor(x, y, radius, color) {

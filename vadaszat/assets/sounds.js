@@ -1,4 +1,4 @@
-export const sound = {
+export default {
   pop() {
     const audio = new Audio('./assets/sound/reload.mp3')
     audio.volume = 0.25

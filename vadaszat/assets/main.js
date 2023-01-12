@@ -1,54 +1,27 @@
 'use strict'
 
 import { Enemy, Particle, CrossHair } from './classes.js'
-import { sound } from './sounds.js'
-export { c, FRICTION }
-
-// DOM elements:
-const startGameButton = document.querySelector('#startButton')
-const award = document.querySelector('#award')
-const bullet = document.querySelector('#award_bullet')
-const scoreDisplay = document.querySelector('#score')
-const bulletDisplay = document.querySelector('#bullets')
-const enemyDisplay = document.querySelector('#enemies')
-const bigScore = document.querySelector('#bigScore')
-const canvas = document.querySelector('canvas')
-const modal = document.querySelector('.modal')
-
-// canvas constants:
-const c = canvas.getContext('2d')
-canvas.width = innerWidth
-// canvas.height = innerWidth / 2
-canvas.height = innerHeight - 6
-console.log(`${canvas.width} x ${canvas.height}`);
-const CENTER_X = canvas.width / 2
-const CENTER_Y = canvas.height / 2
-
-// game constants:
-const FRICTION = 0.99
-const CROSSHAIR_RADIUS = 30 // in px
-const START_TIMING = 300  // in ms
-const ENEMY_TIMING = 1000 // in ms
-const STOP_TIMING = 3000  // in ms
-const START_BULLETS = 12
-const AWARD_BULLETS = 6
-const AWARD_POINT = 2000  // points
-const SCORE_HIT = 100   // points
-const SCORE_KILL = 300  // points
-const PRECISION = -10   // in px
-const MAX_ENEMY = 12
+import sound from './sounds.js'
+import CNST from './game_constants.js'
+import { c, canvas, CENTER_X, CENTER_Y } from './dom.js'
+import DOM from './dom.js'
 
 // game variables:
-let enemies, particles, crossHair, shootTrigger,
+let enemies, particles, crossHair,
   score, counter, numOfBullets,
-  animationID, timerID,
-  togglePause
+  togglePause, shootTrigger,
+  animationID, timerID
 
 const display = {
-  enemy() { enemyDisplay.textContent = enemies.length },
-  score() { scoreDisplay.textContent = score },
-  bullet() { bulletDisplay.textContent = numOfBullets },
-  all() { this.enemy(); this.score(); this.bullet() }
+  enemy() { DOM.enemyDisplay.textContent = enemies.length },
+  score() { DOM.scoreDisplay.textContent = score },
+  bullet() { DOM.bulletDisplay.textContent = numOfBullets },
+  allInfo() { this.enemy(); this.score(); this.bullet() },
+  bigScore() { DOM.bigScore.textContent = score },
+  descInfo() {
+    DOM.award.textContent = CNST.AWARD_POINT
+    DOM.bullet.textContent = CNST.AWARD_BULLETS
+  }
 }
 
 const createEnemy = () => {
@@ -75,11 +48,11 @@ const createEnemy = () => {
       y: Math.sin(angle) * speedRatio
     }
 
-    if (enemies.length < MAX_ENEMY) {
+    if (enemies.length < CNST.MAX_ENEMY) {
       enemies.push(new Enemy(x, y, radius, color, velocity, speedRatio))
       display.enemy()
     }
-  }, ENEMY_TIMING)
+  }, CNST.ENEMY_TIMING)
 }
 
 const createParticles = (x, y, radius, color) => {
@@ -105,10 +78,10 @@ const endGame = () => {
     cancelAnimationFrame(animationID)
     clearInterval(timerID)
 
-    bigScore.textContent = score
-    modal.style.display = 'block'
-    document.body.style.cursor = ''
-  }, STOP_TIMING)
+    display.bigScore()
+    DOM.showModal()
+    DOM.showCursor()
+  }, CNST.STOP_TIMING)
 }
 
 const scoreManager = (increment) => {
@@ -116,9 +89,9 @@ const scoreManager = (increment) => {
   display.score()
 
   // check if bullets to be awarded.
-  if (score > counter * AWARD_POINT) {
+  if (score > counter * CNST.AWARD_POINT) {
     counter++
-    numOfBullets += AWARD_BULLETS
+    numOfBullets += CNST.AWARD_BULLETS
     display.bullet()
     sound.award()
   }
@@ -149,7 +122,7 @@ const animate = () => {
       const dist = Math.hypot(crossHair.x - enemy.x, crossHair.y - enemy.y)
 
       // enemy in the cross-hair within precision.
-      if (dist - enemy.radius - crossHair.radius < PRECISION) {
+      if (dist - enemy.radius - crossHair.radius < CNST.PRECISION) {
         // play sound.
         sound.explosion()
         // create explosion effect.
@@ -157,12 +130,12 @@ const animate = () => {
 
         if (enemy.radius - 10 > 5) {
           // increase score.
-          scoreManager(SCORE_HIT * enemy.worth)
+          scoreManager(CNST.SCORE_HIT * enemy.worth)
           // shrink enemy.
           gsap.to(enemy, { radius: enemy.radius - 10 })
         } else {
           // increase score.
-          scoreManager(SCORE_KILL * enemy.worth)
+          scoreManager(CNST.SCORE_KILL * enemy.worth)
           // remove enemy.
           const id_1 = setTimeout(() => {
             clearTimeout(id_1)
@@ -208,7 +181,7 @@ const checkKeyboard = (event) => {
   // pressing ESCAPE toggles pause.
   if (event.code === 'Escape') togglePause = !togglePause
   if (togglePause) return
-  // pressing SPACE.
+  // pressing SPACE. not needed.
   // if (event.code === 'Space') xyz()
 }
 
@@ -217,17 +190,17 @@ const moveCrossHair = (event) => {
   crossHair.y = event.clientY
 }
 
-const init = () => {
-  crossHair = new CrossHair(CENTER_X, CENTER_Y, CROSSHAIR_RADIUS, 'white')
+const init = (event) => {
+  crossHair = new CrossHair
+    (event.clientX, event.clientY, CNST.CROSSHAIR_RADIUS, CNST.CROSSHAIR_COLOR)
   enemies = []
   particles = []
 
   score = 0
   counter = 1
-  numOfBullets = START_BULLETS
+  numOfBullets = CNST.START_BULLETS
   shootTrigger = false
   togglePause = false
-  display.all()
 
   // user action allowed.
   const id = setTimeout(() => {
@@ -235,20 +208,20 @@ const init = () => {
     window.addEventListener('click', shoot)
     window.addEventListener('keyup', checkKeyboard)
     window.addEventListener('mousemove', moveCrossHair)
-  }, START_TIMING)
+  }, CNST.START_TIMING)
 }
 
 // starter IIFE.
 (() => {
-  award.textContent = AWARD_POINT
-  bullet.textContent = AWARD_BULLETS
+  display.descInfo()
 
   // start game by clicking the button, hide modal.
-  startGameButton.addEventListener('click', () => {
-    document.body.style.cursor = 'none'
+  DOM.startButton.addEventListener('click', (event) => {
+    DOM.hideCursor()
+    DOM.hideModal()
+    init(event)
+    display.allInfo()
     sound.pop()
-    modal.style.display = 'none'
-    init()
     animate()
     createEnemy()
   })
