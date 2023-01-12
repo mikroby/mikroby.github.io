@@ -18,6 +18,7 @@ export class Enemy extends General {
 
   draw() {
     c.beginPath()
+    // c.ellipse(this.x, this.y, this.radius, this.radius / 2, 0,0, Math.PI * 2)
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
     c.fillStyle = this.color
     c.fill()
