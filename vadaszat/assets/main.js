@@ -1,10 +1,10 @@
 'use strict'
 
 import { Enemy, Particle, CrossHair } from './classes.js'
-import sound from './sounds.js'
+import { clearScreen, canvas, CENTER_X, CENTER_Y } from './display.js'
+import display from './display.js'
 import CNST from './game_constants.js'
-import { clearScreen, canvas, CENTER_X, CENTER_Y } from './dom.js'
-import display from './dom.js'
+import sound from './sounds.js'
 
 // game variables:
 let enemies, particles, crossHair,
@@ -189,6 +189,8 @@ const changeUserActions = (action) => {
 
 // run once starter IIFE.
 (() => {
+  // right mouse button disabled.
+  window.addEventListener('contextmenu', (event) => event.preventDefault())
   display.info(CNST.AWARD_POINT, CNST.AWARD_BULLETS)
 
   // start game by clicking the button, hide modal.

@@ -1,4 +1,4 @@
-import { c } from './dom.js'
+import { c } from './display.js'
 import { FRICTION } from './game_constants.js'
 
 class General {

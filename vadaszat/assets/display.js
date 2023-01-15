@@ -2,11 +2,11 @@
 const body = document.body
 const modal = document.querySelector('.modal')
 const startButton = document.querySelector('#startButton')
-const award = document.querySelector('#award')
 const bullet = document.querySelector('#award_bullet')
-const scoreDisplay = document.querySelector('#score')
+const award = document.querySelector('#award')
 const bulletDisplay = document.querySelector('#bullets')
 const enemyDisplay = document.querySelector('#enemies')
+const scoreDisplay = document.querySelector('#score')
 const bigScore = document.querySelector('#bigScore')
 
 export default {
@@ -36,10 +36,10 @@ const CENTER_Y = canvas.height / 2
 
 // clear screen. only one option must be choosen
 const clearScreen = () => {
-  // option #1: with trailing:
+  // option #1: with trailing.
   c.fillStyle = 'rgba(0, 0, 0, 0.1)'
   c.fillRect(0, 0, canvas.width, canvas.height)
-  // option #2: with no trailing:
+  // option #2: with no trailing.
   // c.clearRect(0, 0, canvas.width, canvas.height)
 }
 
