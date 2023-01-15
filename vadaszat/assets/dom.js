@@ -1,20 +1,28 @@
 // DOM elements.
-
 const body = document.body
 const modal = document.querySelector('.modal')
+const startButton = document.querySelector('#startButton')
+const award = document.querySelector('#award')
+const bullet = document.querySelector('#award_bullet')
+const scoreDisplay = document.querySelector('#score')
+const bulletDisplay = document.querySelector('#bullets')
+const enemyDisplay = document.querySelector('#enemies')
+const bigScore = document.querySelector('#bigScore')
 
 export default {
-  startButton: document.querySelector('#startButton'),
-  award: document.querySelector('#award'),
-  bullet: document.querySelector('#award_bullet'),
-  scoreDisplay: document.querySelector('#score'),
-  bulletDisplay: document.querySelector('#bullets'),
-  enemyDisplay: document.querySelector('#enemies'),
-  bigScore: document.querySelector('#bigScore'),
+  startButton,
   showCursor() { body.style.cursor = '' },
   hideCursor() { body.style.cursor = 'none' },
   showModal() { modal.style.display = 'block' },
   hideModal() { modal.style.display = 'none' },
+  enemy(value) { enemyDisplay.textContent = value },
+  score(value) { scoreDisplay.textContent = value },
+  bullet(value) { bulletDisplay.textContent = value },
+  bigScore(value) { bigScore.textContent = value },
+  info(value_1, value_2) {
+    award.textContent = value_1
+    bullet.textContent = value_2
+  }
 }
 
 const canvas = document.querySelector('canvas')
@@ -22,8 +30,17 @@ const c = canvas.getContext('2d')
 // set canvas size.
 canvas.width = innerWidth
 canvas.height = innerHeight - 6
-console.log(`${canvas.width} x ${canvas.height}`);
+console.log(`canvas size: ${canvas.width} x ${canvas.height}`);
 const CENTER_X = canvas.width / 2
 const CENTER_Y = canvas.height / 2
 
-export { canvas, c, CENTER_X, CENTER_Y }
+// clear screen. only one option must be choosen
+const clearScreen = () => {
+  // option #1: with trailing:
+  c.fillStyle = 'rgba(0, 0, 0, 0.1)'
+  c.fillRect(0, 0, canvas.width, canvas.height)
+  // option #2: with no trailing:
+  // c.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+export { canvas, c, clearScreen, CENTER_X, CENTER_Y }

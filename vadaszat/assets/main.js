@@ -3,26 +3,14 @@
 import { Enemy, Particle, CrossHair } from './classes.js'
 import sound from './sounds.js'
 import CNST from './game_constants.js'
-import { c, canvas, CENTER_X, CENTER_Y } from './dom.js'
-import DOM from './dom.js'
+import { clearScreen, canvas, CENTER_X, CENTER_Y } from './dom.js'
+import display from './dom.js'
 
 // game variables:
 let enemies, particles, crossHair,
   score, counter, numOfBullets,
   togglePause, shootTrigger,
   animationID, timerID
-
-const display = {
-  enemy() { DOM.enemyDisplay.textContent = enemies.length },
-  score() { DOM.scoreDisplay.textContent = score },
-  bullet() { DOM.bulletDisplay.textContent = numOfBullets },
-  allInfo() { this.enemy(); this.score(); this.bullet() },
-  bigScore() { DOM.bigScore.textContent = score },
-  descInfo() {
-    DOM.award.textContent = CNST.AWARD_POINT
-    DOM.bullet.textContent = CNST.AWARD_BULLETS
-  }
-}
 
 const createEnemy = () => {
   timerID = setInterval(() => {
@@ -50,7 +38,7 @@ const createEnemy = () => {
 
     if (enemies.length < CNST.MAX_ENEMY) {
       enemies.push(new Enemy(x, y, radius, color, velocity, speedRatio))
-      display.enemy()
+      display.enemy(enemies.length)
     }
   }, CNST.ENEMY_TIMING)
 }
@@ -67,10 +55,8 @@ const createParticles = (x, y, radius, color) => {
 }
 
 const endGame = () => {
-  // no user action allowed.
-  window.removeEventListener('click', shoot)
-  window.removeEventListener('keyup', checkKeyboard)
-  window.removeEventListener('mousemove', moveCrossHair)
+  // no user action allowed. 
+  changeUserActions('remove')
 
   // stop animation and show modal when timeout.
   const id = setTimeout(() => {
@@ -78,21 +64,21 @@ const endGame = () => {
     cancelAnimationFrame(animationID)
     clearInterval(timerID)
 
-    display.bigScore()
-    DOM.showModal()
-    DOM.showCursor()
+    display.bigScore(score)
+    display.showModal()
+    display.showCursor()
   }, CNST.STOP_TIMING)
 }
 
 const scoreManager = (increment) => {
   score += increment
-  display.score()
+  display.score(score)
 
   // check if bullets to be awarded.
   if (score > counter * CNST.AWARD_POINT) {
     counter++
     numOfBullets += CNST.AWARD_BULLETS
-    display.bullet()
+    display.bullet(numOfBullets)
     sound.award()
   }
 }
@@ -102,12 +88,7 @@ const animate = () => {
 
   if (togglePause) return
 
-  // clear screen.
-  // with trailing:
-  c.fillStyle = 'rgba(0, 0, 0, 0.1)'
-  c.fillRect(0, 0, canvas.width, canvas.height)
-  // with no trailing:
-  // c.clearRect(0, 0, canvas.width, canvas.height)  
+  clearScreen()
 
   particles.forEach((particle, index) => {
     if (particle.alpha <= 0) particles.splice(index, 1)
@@ -140,24 +121,21 @@ const animate = () => {
           const id_1 = setTimeout(() => {
             clearTimeout(id_1)
             enemies.splice(index, 1)
-            display.enemy()
+            display.enemy(enemies.length)
           })
         }
       }
     }
 
     // check if enemy is out of screen.
-    if (enemy.x + enemy.radius < 0 ||
-      enemy.x - enemy.radius > canvas.width ||
-      enemy.y + enemy.radius < 0 ||
-      enemy.y - enemy.radius > canvas.height) {
+    if (enemy.x + enemy.radius < 0 || enemy.x - enemy.radius > canvas.width ||
+      enemy.y + enemy.radius < 0 || enemy.y - enemy.radius > canvas.height) {
       const id_2 = setTimeout(() => {
         clearTimeout(id_2)
         enemies.splice(index, 1)
-        display.enemy()
+        display.enemy(enemies.length)
       })
     }
-
   })
 
   if (shootTrigger) {
@@ -172,7 +150,7 @@ const shoot = () => {
   if (togglePause) return
 
   numOfBullets--
-  display.bullet()
+  display.bullet(numOfBullets)
   sound.shoot()
   shootTrigger = true
 }
@@ -181,7 +159,7 @@ const checkKeyboard = (event) => {
   // pressing ESCAPE toggles pause.
   if (event.code === 'Escape') togglePause = !togglePause
   if (togglePause) return
-  // pressing SPACE. not needed.
+  // pressing SPACE. not used.
   // if (event.code === 'Space') xyz()
 }
 
@@ -201,27 +179,31 @@ const init = (event) => {
   numOfBullets = CNST.START_BULLETS
   shootTrigger = false
   togglePause = false
-
-  // user action allowed.
-  const id = setTimeout(() => {
-    clearTimeout(id)
-    window.addEventListener('click', shoot)
-    window.addEventListener('keyup', checkKeyboard)
-    window.addEventListener('mousemove', moveCrossHair)
-  }, CNST.START_TIMING)
 }
 
-// starter IIFE.
+const changeUserActions = (action) => {
+  window[`${action}EventListener`]('click', shoot)
+  window[`${action}EventListener`]('keyup', checkKeyboard)
+  window[`${action}EventListener`]('mousemove', moveCrossHair)
+}
+
+// run once starter IIFE.
 (() => {
-  display.descInfo()
+  display.info(CNST.AWARD_POINT, CNST.AWARD_BULLETS)
 
   // start game by clicking the button, hide modal.
-  DOM.startButton.addEventListener('click', (event) => {
-    DOM.hideCursor()
-    DOM.hideModal()
+  display.startButton.addEventListener('click', (event) => {
+    display.hideCursor()
+    display.hideModal()
     init(event)
-    display.allInfo()
+    display.score(score)
+    display.bullet(numOfBullets)
     sound.pop()
+    // user action allowed.
+    const id = setTimeout(() => {
+      clearTimeout(id)
+      changeUserActions('add')
+    })
     animate()
     createEnemy()
   })
