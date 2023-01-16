@@ -1,0 +1,33 @@
+@keyframes move_window {
+  0% {
+    transform: translate(-150%, -50%);
+    opacity:0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}
+
+@keyframes move_earth {
+  0% {
+    transform: translate(250%, -50%);
+    opacity:0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+    opacity:1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
