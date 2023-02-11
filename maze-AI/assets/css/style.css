@@ -24,7 +24,14 @@ body {
   justify-content: center;
 }
 
-.maze{
+header {
+  margin: 0 0 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+.maze {
   box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.35);
 }
 
