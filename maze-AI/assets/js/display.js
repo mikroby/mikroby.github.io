@@ -1,4 +1,4 @@
-import { cols, rows, cellSize, colorWall, colorGrid, widthWall, widthGrid } from './config.js'
+import { cols, rows, cellSize, color, width } from './config.js'
 
 export { display }
 
@@ -20,8 +20,8 @@ const display = (grid) => {
       const cell = grid[i][j]
 
       // draw grid.
-      ctx.strokeStyle = `${colorGrid}`;
-      ctx.lineWidth = widthGrid;
+      ctx.strokeStyle = `${color.grid}`;
+      ctx.lineWidth = width.grid;
       ctx.strokeRect(x, y, cellSize, cellSize)
 
       // draw walls.
@@ -44,8 +44,8 @@ const display = (grid) => {
     }
   }
 
-  ctx.strokeStyle = `${colorWall}`;
-  ctx.lineWidth = widthWall;
+  ctx.strokeStyle = `${color.wall}`;
+  ctx.lineWidth = width.wall;
   ctx.stroke();
 
 }

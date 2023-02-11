@@ -81,4 +81,6 @@ const createMaze = () => {
   initMaze()
   generatePath(0, 0)
   display(grid)
+
+  return grid
 }
