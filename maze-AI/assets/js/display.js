@@ -1,14 +1,23 @@
-import { cols, rows, cellSize, color, width } from './config.js'
+import { cols, rows, cellSize as cellSizeDefault, color, width } from './config.js'
 
-export { display }
+export { display, zoom }
 
-const canvas = document.getElementById("maze");
-const ctx = canvas.getContext("2d");
+// for zooming only.
+let cellSize = cellSizeDefault
+
+const canvas = document.querySelector('.maze');
+const ctx = canvas.getContext('2d');
 canvas.width = cols * cellSize
 canvas.height = rows * cellSize
 
+
+// for zooming only.
+const zoom = (event) => {
+   cellSize += event.deltaY * -0.005;
+}
+
 const display = (grid) => {
-  
+
   // clear canvas.
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath()

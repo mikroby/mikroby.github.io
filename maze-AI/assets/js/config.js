@@ -6,8 +6,8 @@ const color = {
   grid: 'lightgrey'
 }
 const width = {
-  wall: cellSize * 0.1,
-  grid: cellSize * 0.05
+  wall: cellSize / 10,
+  grid: cellSize / 20,
 }
 
 export {
