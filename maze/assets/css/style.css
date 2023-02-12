@@ -31,13 +31,18 @@ header {
   color: rgba(0, 0, 0, 0.35);
 }
 
-.version{
+.version {
   font-size: 1.25rem;
   font-weight: 300;
 }
 
 .maze {
   box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.35);
+  position: absolute;
+}
+
+.sprite {
+  position: relative;
 }
 
 .btn-box {

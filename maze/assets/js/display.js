@@ -1,39 +1,39 @@
 import { cols, rows, cellSize as cellSizeDefault, color, width } from './config.js'
 
-export { display, zoom }
-
-// for zooming only.
+export { display }
+// for zooming only
+// export { zoom }
 let cellSize = cellSizeDefault
+// const zoom = (event) => {
+//   cellSize += event.deltaY * -0.005;
+// }
 
+// set canvas.
 const canvas = document.querySelector('.maze');
 const ctx = canvas.getContext('2d');
 canvas.width = cols * cellSize
 canvas.height = rows * cellSize
 
-
-// for zooming only.
-const zoom = (event) => {
-   cellSize += event.deltaY * -0.005;
-}
-
 const display = (grid) => {
 
   // clear canvas.
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath()
+  // grid style.
+  ctx.strokeStyle = `${color.grid}`;
+  ctx.lineWidth = width.grid;
 
+  ctx.beginPath()
+  
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const x = j * cellSize;
       const y = i * cellSize;
       const cell = grid[i][j]
 
-      // draw grid.
-      ctx.strokeStyle = `${color.grid}`;
-      ctx.lineWidth = width.grid;
+      // draw grid.      
       ctx.strokeRect(x, y, cellSize, cellSize)
 
-      // draw walls.
+      // set path for walls.
       if (cell.top) {
         ctx.moveTo(x, y);
         ctx.lineTo(x + cellSize, y);
@@ -53,8 +53,10 @@ const display = (grid) => {
     }
   }
 
+  // wall style.
   ctx.strokeStyle = `${color.wall}`;
   ctx.lineWidth = width.wall;
+  // draw all walls path.
   ctx.stroke();
 
 }
