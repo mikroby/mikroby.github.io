@@ -16,6 +16,17 @@ const display = (col, row) => {
   ctx.beginPath()
   ctx.strokeStyle = `${sprite.color}`;
   ctx.arc((col + 0.5) * cellSize, (row + 0.5) * cellSize, sprite.size, 0, 2 * Math.PI);
+  ctx.fillStyle = `${sprite.fill}`
+  ctx.fill()
+  ctx.stroke();
+  ctx.beginPath()
+  ctx.arc((col + 0.35) * cellSize , (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
+  ctx.stroke();
+  ctx.beginPath()
+  ctx.arc((col + 0.65) * cellSize , (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
+  ctx.stroke();
+  ctx.beginPath()
+  ctx.arc((col + 0.5) * cellSize , (row + 0.65) * cellSize, 4, 0, 2 * Math.PI)
   ctx.stroke();
 }
 
@@ -48,7 +59,7 @@ const update = (grid) => {
   const neighbors = getNeighbors(row, col, grid)
 
   if (neighbors.length > 0) {
-    
+
     let selected, nextCol, nextRow
 
     // version#1: moves to current direction until not possible.

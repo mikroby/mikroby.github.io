@@ -3,10 +3,8 @@ import { display } from './display.js';
 
 export { createMaze }
 
-const grid = [];
-const stack = [];
+const grid = []
 const visited = []
-let neighbors = []
 
 const initMaze = () => {
   for (let i = 0; i < rows; i++) {
@@ -64,32 +62,20 @@ const removeWalls = (row, col, nextRow, nextCol) => {
 const generatePath = (row, col) => {
   // mark current cell visited.
   visited[row][col] = true;
-  // current cell position saved to stack.
-  stack.push({ row, col });
-
-  neighbors = getNeighbors(row, col)
+  // collect neighbors.
+  let neighbors = getNeighbors(row, col)
 
   while (neighbors.length > 0) {
     // choose a neighbor randomly.
     const { row: nextRow, col: nextCol } = neighbors
       .splice(Math.floor(Math.random() * neighbors.length), 1)[0]
-
     // remove walls between the current and the chosen cells.
     removeWalls(row, col, nextRow, nextCol)
-
     // recursive call to next cell.
     generatePath(nextRow, nextCol);
-
-  }
-
-  if (stack.length > 1) {
-    stack.pop();
-    const cell = stack.pop();
-    row = cell.row;
-    col = cell.col;
+    // return back to here from recursive call.
     neighbors = getNeighbors(row, col)
   }
-  
 }
 
 const createMaze = () => {

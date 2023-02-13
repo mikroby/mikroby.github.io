@@ -16,7 +16,8 @@ const sprite = {
     row: 0,
   },
   color: 'red',
-  time: 150,
+  fill: 'yellow',
+  time: 40,
 }
 
 export {

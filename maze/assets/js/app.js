@@ -8,10 +8,10 @@ import { sprite } from './config.js';
 let id
 
 const start = () => {
-  const grid = createMaze()
+  const maze = createMaze()
 
   clearInterval(id)
-  id = setInterval(() => update(grid), sprite.time)
+  id = setInterval(() => update(maze), sprite.time)
 
   // for zooming only.
   // canvas.onwheel = (event) => {

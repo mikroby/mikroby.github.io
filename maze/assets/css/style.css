@@ -72,3 +72,7 @@ header {
     0 0 0.5rem rgba(0, 0, 0, 0.35);
   transform: scale(0.98);
 }
+
+footer{
+  margin-top: 1rem;
+}
