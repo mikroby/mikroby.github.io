@@ -4,36 +4,34 @@ import { display } from './display.js';
 export { createMaze }
 
 const grid = []
-const visited = []
 
 const initMaze = () => {
   for (let i = 0; i < rows; i++) {
     grid[i] = [];
-    visited[i] = []
     for (let j = 0; j < cols; j++) {
       grid[i][j] = {
         top: true,
         bottom: true,
         right: true,
         left: true,
+        visited: false,
       };
-      visited[i][j] = false
     }
   }
 }
 
 const getNeighbors = (row, col) => {
   const neighbors = []
-  if (row > 0 && !visited[row - 1][col]) {
+  if (row > 0 && !grid[row - 1][col].visited) {
     neighbors.push({ row: row - 1, col });
   }
-  if (row < rows - 1 && !visited[row + 1][col]) {
+  if (row < rows - 1 && !grid[row + 1][col].visited) {
     neighbors.push({ row: row + 1, col });
   }
-  if (col > 0 && !visited[row][col - 1]) {
+  if (col > 0 && !grid[row][col - 1].visited) {
     neighbors.push({ row, col: col - 1 });
   }
-  if (col < cols - 1 && !visited[row][col + 1]) {
+  if (col < cols - 1 && !grid[row][col + 1].visited) {
     neighbors.push({ row, col: col + 1 });
   }
 
@@ -44,32 +42,33 @@ const removeWalls = (row, col, nextRow, nextCol) => {
   if (nextRow < row) {
     grid[nextRow][nextCol].bottom = false;
     grid[row][col].top = false;
+    return
   }
   if (nextRow > row) {
     grid[nextRow][nextCol].top = false;
     grid[row][col].bottom = false;
+    return
   }
   if (nextCol < col) {
     grid[nextRow][nextCol].right = false;
     grid[row][col].left = false;
+    return
   }
-  if (nextCol > col) {
-    grid[nextRow][nextCol].left = false;
-    grid[row][col].right = false;
-  }
+  // if (nextCol > col) {
+  grid[nextRow][nextCol].left = false;
+  grid[row][col].right = false;
+  // }
 }
 
 const generatePath = (row, col) => {
-  // mark current cell visited.
-  visited[row][col] = true;
-  // collect neighbors.
+  grid[row][col].visited = true;
   let neighbors = getNeighbors(row, col)
 
   while (neighbors.length > 0) {
     // choose a neighbor randomly.
     const { row: nextRow, col: nextCol } = neighbors
       .splice(Math.floor(Math.random() * neighbors.length), 1)[0]
-    // remove walls between the current and the chosen cells.
+
     removeWalls(row, col, nextRow, nextCol)
     // recursive call to next cell.
     generatePath(nextRow, nextCol);

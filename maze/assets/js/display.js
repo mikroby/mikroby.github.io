@@ -1,12 +1,6 @@
-import { cols, rows, cellSize as cellSizeDefault, color, width } from './config.js'
+import { cols, rows, cellSize, color, width } from './config.js'
 
 export { display }
-// for zooming only
-// export { zoom }
-let cellSize = cellSizeDefault
-// const zoom = (event) => {
-//   cellSize += event.deltaY * -0.005;
-// }
 
 // set canvas.
 const canvas = document.querySelector('.maze');
