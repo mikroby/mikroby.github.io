@@ -12,7 +12,7 @@ const display = (grid) => {
 
   // clear canvas.
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // grid style.
+  // styling grid.
   ctx.strokeStyle = `${color.grid}`;
   ctx.lineWidth = width.grid;
 
@@ -47,10 +47,10 @@ const display = (grid) => {
     }
   }
 
-  // wall style.
+  // styling wall.
   ctx.strokeStyle = `${color.wall}`;
   ctx.lineWidth = width.wall;
-  // draw all walls path.
+  // draw all walls path at once.
   ctx.stroke();
 
 }

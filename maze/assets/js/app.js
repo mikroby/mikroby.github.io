@@ -1,17 +1,24 @@
 import { createMaze } from './maze.js';
-import { update } from './sprite.js';
 import { sprite } from './config.js';
+import { Sprite } from './sprite.js';
 
 let id
 
 const start = () => {
   const maze = createMaze()
 
-  clearInterval(id)
-  id = setInterval(() => update(maze), sprite.time)
+  // set start position of figure
+  const { startCol, startRow } = sprite
+  // directions: 0 = up, 1 = left, 2 = right, 3 = down
+  const startDirection = Math.floor(Math.random() * 4)
+  const figure = new Sprite(startCol, startRow, maze, startDirection)
 
-  
-  // for further development using grid here...
+  clearInterval(id)
+  // move figure on timeouts.
+  id = setInterval(() => figure.move(), sprite.time)
+
+
+  // for further development add here...
 }
 
 // starter IIFE.

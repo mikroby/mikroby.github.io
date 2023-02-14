@@ -11,13 +11,11 @@ const width = {
 }
 const sprite = {
   size: cellSize / 3,
-  startPosition: {
-    col: 0,
-    row: 0,
-  },
+  startCol: 0,
+  startRow: 0,
   color: 'red',
   fill: 'yellow',
-  time: 40,
+  time: 100,
 }
 
 export {

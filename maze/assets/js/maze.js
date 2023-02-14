@@ -1,8 +1,6 @@
 import { cols, rows } from './config.js'
 import { display } from './display.js';
 
-export { createMaze }
-
 const grid = []
 
 const initMaze = () => {
@@ -77,10 +75,15 @@ const generatePath = (row, col) => {
   }
 }
 
-const createMaze = () => {
+export const createMaze = () => {
   initMaze()
   generatePath(0, 0)
   display(grid)
+
+  // init prop "visited" to false.
+  grid.forEach(row => {
+    row.forEach(col => col.visited = false)
+  });
 
   return grid
 }

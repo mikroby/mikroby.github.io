@@ -1,7 +1,5 @@
 import { cols, rows, cellSize, sprite } from './config.js'
 
-export { update }
-
 // set canvas
 const canvas = document.querySelector('.sprite')
 const ctx = canvas.getContext('2d')
@@ -20,20 +18,15 @@ const display = (col, row) => {
   ctx.fill()
   ctx.stroke();
   ctx.beginPath()
-  ctx.arc((col + 0.35) * cellSize , (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
+  ctx.arc((col + 0.35) * cellSize, (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
   ctx.stroke();
   ctx.beginPath()
-  ctx.arc((col + 0.65) * cellSize , (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
+  ctx.arc((col + 0.65) * cellSize, (row + 0.35) * cellSize, 2, 0, 2 * Math.PI)
   ctx.stroke();
   ctx.beginPath()
-  ctx.arc((col + 0.5) * cellSize , (row + 0.65) * cellSize, 4, 0, 2 * Math.PI)
+  ctx.arc((col + 0.5) * cellSize, (row + 0.65) * cellSize, 4, 0, 2 * Math.PI)
   ctx.stroke();
 }
-
-// default position.
-let { col, row } = sprite.startPosition
-// default direction 0...3 randomly.
-let direction = Math.floor(Math.random() * 4)
 
 const getNeighbors = (row, col, grid) => {
   const neighbors = [];
@@ -52,34 +45,69 @@ const getNeighbors = (row, col, grid) => {
   return neighbors
 }
 
-const update = (grid) => {
-  display(col, row)
+export class Sprite {
 
-  // collecting neighbors with no walls to current position.
-  const neighbors = getNeighbors(row, col, grid)
+  constructor(col, row, grid, direction) {
+    this.col = col
+    this.row = row
+    this.grid = grid
+    this.direction = direction
+  }
 
-  if (neighbors.length > 0) {
+  move() {
+    display(this.col, this.row)
+    // mark current cell visited.
+    this.grid[this.row][this.col].visited = true
 
-    let selected, nextCol, nextRow
+    // collecting neighbors with no walls facing to current position.
+    const neighbors = getNeighbors(this.row, this.col, this.grid)
 
-    // version#1: moves to current direction until not possible.
+    if (neighbors.length === 0) return
+
+    let selected
+
+    // version_#1: moves to current direction until not possible.
     do {
-      nextCol = direction === 1 ? col - 1 : direction === 2 ? col + 1 : col
-      nextRow = direction === 0 ? row - 1 : direction === 3 ? row + 1 : row
+      const nextCol = this.direction === 1 ?
+        this.col - 1 : this.direction === 2 ?
+          this.col + 1 : this.col
+      const nextRow = this.direction === 0 ?
+        this.row - 1 : this.direction === 3 ?
+          this.row + 1 : this.row
 
       selected = neighbors.find(cell => cell.row === nextRow && cell.col === nextCol)
 
       if (!selected) {
-        direction = Math.floor(Math.random() * 4)
+        const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
+        if (notVisited.length > 0) {
+          selected = notVisited[0]
+          this.direction = selected.col === this.col ? 3 * (selected.row > this.row) : 1 + (selected.col > this.col)
+        } else {
+          switch (this.direction) {
+            case 0:
+              this.direction = 3
+              break
+            case 1:
+              this.direction = 2
+              break
+            case 2:
+              this.direction = 1
+              break
+            case 3:
+              this.direction = 0
+          }
+          
+        }
       }
 
     } while (!selected)
 
-    // version#2: every step random.
+    // version_#2: every step random, "headless".
     // const selected = neighbors[Math.floor(Math.random() * neighbors.length)]
 
-    col = selected.col
-    row = selected.row
+    this.col = selected.col
+    this.row = selected.row
+
   }
 
 }
