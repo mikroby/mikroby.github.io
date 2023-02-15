@@ -46,12 +46,14 @@ const getNeighbors = (row, col, grid) => {
 }
 
 export class Sprite {
+  backwards = false
 
-  constructor(col, row, grid, direction) {
+  constructor(col, row, grid) {
     this.col = col
     this.row = row
     this.grid = grid
-    this.direction = direction
+    // directions: 0 = up, 1 = left, 2 = right, 3 = down
+    this.direction = Math.floor(Math.random() * 4)
   }
 
   move() {
@@ -78,12 +80,28 @@ export class Sprite {
 
       selected = neighbors.find(cell => cell.row === nextRow && cell.col === nextCol)
 
+      if (this.backwards) {
+        const escape = neighbors.filter(cell => cell.row !== nextRow && cell.col !== nextCol)
+        if (escape.length > 0) {
+          const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
+          if (notVisited.length > 0) {
+            selected = notVisited[Math.floor(Math.random() * notVisited.length)]
+            this.backwards = false
+          } else selected = escape[Math.floor(Math.random() * escape.length)]
+          //  turns away.
+          this.direction = selected.col === this.col ? 3 * (selected.row > this.row) : 1 + (selected.col > this.col)
+        }
+      }
+
       if (!selected) {
         const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
         if (notVisited.length > 0) {
-          selected = notVisited[0]
+          selected = notVisited[Math.floor(Math.random() * notVisited.length)]
+          //  turns away.
+          this.backwards = false
           this.direction = selected.col === this.col ? 3 * (selected.row > this.row) : 1 + (selected.col > this.col)
         } else {
+          // turn backwards.
           switch (this.direction) {
             case 0:
               this.direction = 3
@@ -97,7 +115,7 @@ export class Sprite {
             case 3:
               this.direction = 0
           }
-
+          this.backwards = true
         }
       }
 

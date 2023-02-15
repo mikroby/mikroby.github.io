@@ -1,5 +1,5 @@
 import { createMaze } from './maze.js';
-import { sprite } from './config.js';
+import { sprite as config } from './config.js';
 import { Sprite } from './sprite.js';
 
 let id
@@ -8,14 +8,12 @@ const start = () => {
   const maze = createMaze()
 
   // set start position of figure
-  const { startCol, startRow } = sprite
-  // directions: 0 = up, 1 = left, 2 = right, 3 = down
-  const startDirection = Math.floor(Math.random() * 4)
-  const figure = new Sprite(startCol, startRow, maze, startDirection)
+  const { startCol, startRow } = config 
+  const figure = new Sprite(startCol, startRow, maze)
 
   clearInterval(id)
   // move figure on timeouts.
-  id = setInterval(() => figure.move(), sprite.time)
+  id = setInterval(() => figure.move(), config.time)
 
 
   // for further development add here...
