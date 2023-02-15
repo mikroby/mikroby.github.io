@@ -62,7 +62,8 @@ export class Sprite {
     // collecting neighbors with no walls facing to current position.
     const neighbors = getNeighbors(this.row, this.col, this.grid)
 
-    if (neighbors.length === 0) return
+    // in a maze you can always go backwards. no need to check this.
+    // if (neighbors.length === 0) return
 
     let selected
 
@@ -96,7 +97,7 @@ export class Sprite {
             case 3:
               this.direction = 0
           }
-          
+
         }
       }
 
