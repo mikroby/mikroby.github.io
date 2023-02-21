@@ -1,7 +1,5 @@
 import { cols, rows, cellSize, sprite } from './config.js'
 
-const message = document.querySelector('#message')
-
 // set canvas
 const canvas = document.querySelector('.sprite')
 const ctx = canvas.getContext('2d')
@@ -47,6 +45,15 @@ const getNeighbors = (row, col, grid) => {
   return neighbors
 }
 
+const stopRun = (id) => {
+  // stop timeouts.
+  clearInterval(id)
+  // show message.
+  const message = document.querySelector('#message')
+  message.textContent = 'Maze completed.'
+  message.classList.toggle('hidden')
+}
+
 export class Sprite {
 
   constructor(col, row, grid) {
@@ -82,13 +89,7 @@ export class Sprite {
       // set next position.
       this.col = selected.col
       this.row = selected.row
-    } else {
-      // show message.
-      message.textContent='Maze completed.'
-      message.classList.toggle('hidden')
-      // stop timeouts.
-      clearInterval(id)
-    }
+    } else stopRun(id)
 
   }
 
