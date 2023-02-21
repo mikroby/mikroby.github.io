@@ -1,5 +1,5 @@
 import { cols, rows } from './config.js'
-import { display } from './display.js';
+import { displayMaze } from './display.js';
 
 const grid = []
 
@@ -78,7 +78,7 @@ const generatePath = (row, col) => {
 export const createMaze = () => {
   initMaze()
   generatePath(0, 0)
-  display(grid)
+  displayMaze(grid)
 
   // init prop "visited" to false.
   grid.forEach(row => {

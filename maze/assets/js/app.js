@@ -5,16 +5,18 @@ import { Sprite } from './sprite.js';
 let id
 
 const start = () => {
+  // hide message.
+  const message = document.querySelector('#message')
+  message.classList.add('hidden')
+  
   const maze = createMaze()
 
-  // set start position of figure
-  const { startCol, startRow } = config 
-  const figure = new Sprite(startCol, startRow, maze)
+  // set new figure.
+  const figure = new Sprite(config.startCol, config.startRow, maze)
 
   clearInterval(id)
   // move figure on timeouts.
-  id = setInterval(() => figure.move(), config.time)
-
+  id = setInterval(() => figure.move(id), config.time)
 
   // for further development add here...
 }

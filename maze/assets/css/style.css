@@ -49,6 +49,24 @@ header {
   position: relative;
 }
 
+.hidden {
+  /* visibility: hidden; */
+  opacity: 0;
+}
+
+#message {
+  position: fixed;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background-color: deepskyblue;
+  background-color: dodgerblue;
+  color:aliceblue;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  transition: all 0.5s;
+}
+
 .btn-box {
   margin: 2rem 0 0;
 }
@@ -70,7 +88,6 @@ header {
 
 .btn:hover {
   background-color: skyblue;
-  /* background-color: aliceblue; */
 }
 
 .btn:active {
@@ -79,6 +96,6 @@ header {
   transform: scale(0.98);
 }
 
-footer{
+footer {
   margin-top: 1rem;
 }

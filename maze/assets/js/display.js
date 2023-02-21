@@ -1,6 +1,6 @@
 import { cols, rows, cellSize, color, width } from './config.js'
 
-export { display }
+export { displayMaze }
 
 // set canvas.
 const canvas = document.querySelector('.maze');
@@ -8,7 +8,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = cols * cellSize
 canvas.height = rows * cellSize
 
-const display = (grid) => {
+const displayMaze = (grid) => {
 
   // clear canvas.
   ctx.clearRect(0, 0, canvas.width, canvas.height);

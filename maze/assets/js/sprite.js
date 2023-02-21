@@ -1,5 +1,7 @@
 import { cols, rows, cellSize, sprite } from './config.js'
 
+const message = document.querySelector('#message')
+
 // set canvas
 const canvas = document.querySelector('.sprite')
 const ctx = canvas.getContext('2d')
@@ -46,86 +48,47 @@ const getNeighbors = (row, col, grid) => {
 }
 
 export class Sprite {
-  backwards = false
 
   constructor(col, row, grid) {
     this.col = col
     this.row = row
     this.grid = grid
-    // directions: 0 = up, 1 = left, 2 = right, 3 = down
-    this.direction = Math.floor(Math.random() * 4)
+    this.stack = []
   }
 
-  move() {
+  move(id) {
     display(this.col, this.row)
+
     // mark current cell visited.
     this.grid[this.row][this.col].visited = true
 
-    // collecting neighbors with no walls facing to current position.
+    // collect neighbors with no walls facing to current position.
     const neighbors = getNeighbors(this.row, this.col, this.grid)
-
-    // in a maze you can always go backwards. no need to check this.
-    // if (neighbors.length === 0) return
 
     let selected
 
-    // version_#1: moves to current direction until not possible.
-    do {
-      const nextCol = this.direction === 1 ?
-        this.col - 1 : this.direction === 2 ?
-          this.col + 1 : this.col
-      const nextRow = this.direction === 0 ?
-        this.row - 1 : this.direction === 3 ?
-          this.row + 1 : this.row
+    // collect not visited cells.
+    const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
 
-      selected = neighbors.find(cell => cell.row === nextRow && cell.col === nextCol)
+    if (notVisited.length > 0) {
+      selected = notVisited[Math.floor(Math.random() * notVisited.length)]
+      // save current position for backtrack.
+      this.stack.push({ row: this.row, col: this.col })
+    } else if (this.stack.length > 0) {
+      selected = this.stack.pop()
+    }
 
-      if (this.backwards) {
-        const escape = neighbors.filter(cell => cell.row !== nextRow && cell.col !== nextCol)
-        if (escape.length > 0) {
-          const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
-          if (notVisited.length > 0) {
-            selected = notVisited[Math.floor(Math.random() * notVisited.length)]
-            this.backwards = false
-          } else selected = escape[Math.floor(Math.random() * escape.length)]
-          //  turns away.
-          this.direction = selected.col === this.col ? 3 * (selected.row > this.row) : 1 + (selected.col > this.col)
-        }
-      }
-
-      if (!selected) {
-        const notVisited = neighbors.filter(cell => !this.grid[cell.row][cell.col].visited)
-        if (notVisited.length > 0) {
-          selected = notVisited[Math.floor(Math.random() * notVisited.length)]
-          //  turns away.
-          this.backwards = false
-          this.direction = selected.col === this.col ? 3 * (selected.row > this.row) : 1 + (selected.col > this.col)
-        } else {
-          // turn backwards.
-          switch (this.direction) {
-            case 0:
-              this.direction = 3
-              break
-            case 1:
-              this.direction = 2
-              break
-            case 2:
-              this.direction = 1
-              break
-            case 3:
-              this.direction = 0
-          }
-          this.backwards = true
-        }
-      }
-
-    } while (!selected)
-
-    // version_#2: every step random, "headless".
-    // const selected = neighbors[Math.floor(Math.random() * neighbors.length)]
-
-    this.col = selected.col
-    this.row = selected.row
+    if (selected) {
+      // set next position.
+      this.col = selected.col
+      this.row = selected.row
+    } else {
+      // show message.
+      message.textContent='Maze completed.'
+      message.classList.toggle('hidden')
+      // stop timeouts.
+      clearInterval(id)
+    }
 
   }
 
