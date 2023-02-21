@@ -13,9 +13,10 @@ const sprite = {
   size: cellSize / 3,
   startCol: 0,
   startRow: 0,
-  color: 'red',
+  color: 'orange',
   fill: 'yellow',
   time: 100,
+  traceColor: 'gray',
 }
 
 export {

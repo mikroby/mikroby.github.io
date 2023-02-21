@@ -1,4 +1,5 @@
 import { cols, rows, cellSize, sprite } from './config.js'
+import { leaveTrace } from './display.js'
 
 // set canvas
 const canvas = document.querySelector('.sprite')
@@ -65,6 +66,7 @@ export class Sprite {
 
   move(id) {
     display(this.col, this.row)
+    leaveTrace(this.col, this.row)
 
     // mark current cell visited.
     this.grid[this.row][this.col].visited = true

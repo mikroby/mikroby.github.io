@@ -1,6 +1,6 @@
-import { cols, rows, cellSize, color, width } from './config.js'
+import { cols, rows, cellSize, color, width, sprite } from './config.js'
 
-export { displayMaze }
+export { displayMaze, leaveTrace }
 
 // set canvas.
 const canvas = document.querySelector('.maze');
@@ -17,7 +17,7 @@ const displayMaze = (grid) => {
   ctx.lineWidth = width.grid;
 
   ctx.beginPath()
-  
+
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
       const x = j * cellSize;
@@ -53,4 +53,13 @@ const displayMaze = (grid) => {
   // draw all walls path at once.
   ctx.stroke();
 
+}
+
+const leaveTrace = (col, row) => {
+  ctx.beginPath()
+  ctx.strokeStyle = `${sprite.traceColor}`;
+  ctx.arc((col + 0.5) * cellSize, (row + 0.5) * cellSize, sprite.size / 20, 0, 2 * Math.PI);
+  // ctx.fillStyle = `${sprite.fill}`
+  // ctx.fill()
+  ctx.stroke();
 }
