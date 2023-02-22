@@ -65,8 +65,8 @@ export class Sprite {
   }
 
   move(id) {
+    if (!this.grid[this.row][this.col].visited) leaveTrace(this.col, this.row)
     display(this.col, this.row)
-    leaveTrace(this.col, this.row)
 
     // mark current cell visited.
     this.grid[this.row][this.col].visited = true

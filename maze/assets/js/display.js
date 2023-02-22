@@ -59,7 +59,5 @@ const leaveTrace = (col, row) => {
   ctx.beginPath()
   ctx.strokeStyle = `${sprite.traceColor}`;
   ctx.arc((col + 0.5) * cellSize, (row + 0.5) * cellSize, sprite.size / 20, 0, 2 * Math.PI);
-  // ctx.fillStyle = `${sprite.fill}`
-  // ctx.fill()
   ctx.stroke();
 }

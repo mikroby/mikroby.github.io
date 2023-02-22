@@ -64,7 +64,7 @@ header {
   background-color: dodgerblue;
   color:aliceblue;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-  transition: all 0.5s;
+  transition: all 0.75s;
 }
 
 .btn-box {

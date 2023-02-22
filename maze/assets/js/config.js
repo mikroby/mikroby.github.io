@@ -15,7 +15,7 @@ const sprite = {
   startRow: 0,
   color: 'orange',
   fill: 'yellow',
-  time: 100,
+  time: 80,
   traceColor: 'gray',
 }
 
