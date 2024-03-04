@@ -1,5 +1,7 @@
 
-import options from "./options.json" assert {type: 'json'};
+// import options from "./options.json" assert {type: 'json'};
+let options
+let signal
 
 const message = new SpeechSynthesisUtterance()
 message.rate = 0.6
@@ -8,7 +10,6 @@ message.volume = 1
 
 const form = document.querySelector('form')
 const image = document.querySelector('img')
-let signal
 
 const playSound = (event) => {
   event.preventDefault()
@@ -54,16 +55,20 @@ const initializer = (id, propName, elementType) => {
   });
 }
 
-initializer('#train-type', 'trainType', 'option')
-initializer('#track', 'track', 'option')
+fetch('./options.json').then(data => data.json()).then(parsed => {
+  options = parsed
 
-form.addEventListener("submit", playSound)
+  initializer('#train-type', 'trainType', 'option')
+  initializer('#track', 'track', 'option')
 
-message.addEventListener('end', () => {
-  form.button.value = 'start'
-  image.src = 'start.png'
+  form.addEventListener("submit", playSound)
+
+  message.addEventListener('end', () => {
+    form.button.value = 'start'
+    image.src = 'start.png'
+  })
+
 })
-
 // TODO:
 // modal az alert helyett.
 // modal a bemondás szövegével
