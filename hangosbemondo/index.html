@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H0 Hangosbemondó alkalmazás</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+
+<body>
+  <header>
+    <h1>
+      H0 Hangosbemondó alkalmazás
+    </h1>
+  </header>
+
+  <main>
+    <p>
+      Ez az alkalmazás használható a meglévő modellvasutunkhoz, ha nincs hangdekóderünk, illetve ha
+      analóg a vasutunk.
+    </p>
+
+    <form>
+      <div class="input-fields">
+        <label for="train-type">Vonatnem</label>
+        <select name="trainType" id="train-type">
+          <option value="">Válassz!</option>
+        </select>
+
+        <label for="arrive-depart">Indul/Érkezik</label>
+        <select name="verb" id="arrive-depart">
+          <option value="">Válassz!</option>
+          <option value="indul">Indul</option>
+          <option value="érkezik">Érkezik</option>
+        </select>
+
+        <label for="time">Idő</label>
+        <input type="time" name="time" id="time">
+
+        <label for="track">Vágányszám</label>
+        <select name="track" id="track">
+          <option value="">Válassz!</option>
+        </select>
+      </div>
+
+      <button type="submit" name="button" value="start" title="Bemondás">
+        <img src="start.png" alt="play">
+      </button>
+    </form>
+  </main>
+
+  <footer>
+    <span>&copy 2024 - RP</span>
+  </footer>
+
+  <script type="module">import './app.js'</script>
+</body>
+
+</html>
