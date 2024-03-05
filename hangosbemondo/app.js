@@ -1,10 +1,9 @@
+const synth = window.speechSynthesis;
+const voices = synth.getVoices();
 // check support for speechSynthesis
-const info1 = document.querySelector("#info1");
-const info2 = document.querySelector("#info2");
-info1.textContent = `speechSynthesis: ${Boolean(speechSynthesis)}`;
-info2.textContent = `window.speechSynthesis: ${Boolean(
-  window.speechSynthesis
-)}`;
+const info = document.querySelectorAll(".info");
+info[0].textContent = `window.speechSynthesis: ${Boolean(synth)}`;
+info[1].textContent = `${voices.join(",")}`;
 
 // import options from "./options.json" assert {type: 'json'};
 let options;
@@ -21,32 +20,39 @@ const image = document.querySelector("img");
 const playSound = (event) => {
   event.preventDefault();
 
-  if (Object.values(form).some(({ name }) => !form[name].value)) {
-    alert("Hiányzó adatok a bemondáshoz. Válassz értéket minden mezőhöz!");
-    return;
-  }
+  try {
+    if (Object.values(form).some(({ name }) => !form[name].value)) {
+      alert("Hiányzó adatok a bemondáshoz. Válassz értéket minden mezőhöz!");
+      return;
+    }
 
-  if (form.button.value === "start") {
-    form.button.value = "stop";
-    image.src = "stop.png";
-    signal = new Audio("mav_szignal.mp3");
-    signal.addEventListener("ended", () => {
-      window.speechSynthesis.speak(message);
-    });
-    signal.play();
-    const [trainType, verb, time, track] = Object.values(form).map(
-      ({ name }) => form[name].value
-    );
-    const hour = Number(time.slice(0, 2));
-    const minute = Number(time.slice(3, 5));
-    const trackAffix = options.affix[verb];
-    const prep = options.track.find((item) => item.value === track).prep;
+    if (form.button.value === "start") {
+      form.button.value = "stop";
+      image.src = "stop.png";
 
-    message.text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
-  } else {
-    form.button.value = "start";
-    image.src = "start.png";
-    signal.pause();
+      const [trainType, verb, time, track] = Object.values(form).map(
+        ({ name }) => form[name].value
+      );
+      const hour = Number(time.slice(0, 2));
+      const minute = Number(time.slice(3, 5));
+      const trackAffix = options.affix[verb];
+      const prep = options.track.find((item) => item.value === track).prep;
+
+      message.text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
+
+      signal = new Audio("mav_szignal.mp3");
+      signal.addEventListener("ended", () => {
+        synth.speak(message);
+      });
+      signal.play();
+    } else {
+      form.button.value = "start";
+      image.src = "start.png";
+      signal.pause();
+      synth.cancel();
+    }
+  } catch (error) {
+    info[2].textContent = `${error}`;
   }
 };
 

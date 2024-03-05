@@ -18,7 +18,7 @@ header {
 }
 
 main {
-  padding: 20px
+  padding: 20px;
 }
 
 footer {
@@ -28,6 +28,12 @@ footer {
 
 footer span {
   float: right;
+}
+
+footer .info {
+  display: inline;
+  float: left;
+  margin-right: 10px;
 }
 
 button {
@@ -52,7 +58,7 @@ form {
   margin: auto 0;
 }
 
-@media screen and (max-width:425px) {
+@media screen and (max-width: 425px) {
   form {
     flex-direction: column;
   }
