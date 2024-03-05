@@ -3,7 +3,7 @@ const voices = synth.getVoices();
 // check support for speechSynthesis
 const info = document.querySelectorAll(".info");
 info[0].textContent = `window.speechSynthesis: ${Boolean(synth)}`;
-info[1].textContent = `${voices.join(",")}`;
+info[1].textContent = JSON.stringify(voices);
 
 // import options from "./options.json" assert {type: 'json'};
 let options;
