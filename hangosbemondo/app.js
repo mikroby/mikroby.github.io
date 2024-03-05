@@ -39,10 +39,10 @@ const playSound = (event) => {
     );
     const hour = Number(time.slice(0, 2));
     const minute = Number(time.slice(3, 5));
+    const trackAffix = options.affix[verb];
+    const prep = options.track.find((item) => item.value === track).prep;
 
-    message.text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${
-      track === "2." || track === "Bé" ? "a" : "az"
-    } ${track} ${verb === "indul" ? "vágányról" : "vágányra"}`;
+    message.text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
   } else {
     form.button.value = "start";
     image.src = "start.png";
@@ -53,10 +53,10 @@ const playSound = (event) => {
 const welcomeSignal = new Audio("KISS_signal.wav");
 welcomeSignal.autoplay = true;
 
-const initializer = (id, propName, elementType) => {
+const initializer = (id, array, elementType) => {
   const parent = form.querySelector(id);
 
-  options[propName].forEach((item) => {
+  array.forEach((item) => {
     const newChild = document.createElement(elementType);
     newChild.value = item.value;
     newChild.textContent = item.text;
@@ -69,8 +69,8 @@ fetch("./options.json")
   .then((parsed) => {
     options = parsed;
 
-    initializer("#train-type", "trainType", "option");
-    initializer("#track", "track", "option");
+    initializer("#train-type", options.trainType, "option");
+    initializer("#track", options.track, "option");
 
     form.addEventListener("submit", playSound);
 

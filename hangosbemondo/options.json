@@ -4,14 +4,18 @@
     { "text": "Gyorsított személy", "value": "Gyorsított személyvonat" },
     { "text": "Zónázó", "value": "Zónázó vonat" },
     { "text": "IC", "value": "InterSziti vonat" },
-    { "text": "Gyorsvonat", "value": "Gyorsvonat"},
+    { "text": "Gyorsvonat", "value": "Gyorsvonat" },
     { "text": "Expresszvonat", "value": "Expresszvonat" },
     { "text": "EC", "value": "EuroSziti vonat" }
   ],
-  "track":[
-    {"text":"1", "value":"1."},
-    {"text":"2", "value":"2."},
-    {"text":"A", "value":"Á"},
-    {"text":"B", "value":"Bé"}
-  ]
+  "track": [
+    { "text": "1", "value": "1.", "prep": "az" },
+    { "text": "2", "value": "2.", "prep": "a" },
+    { "text": "A", "value": "Á", "prep": "az" },
+    { "text": "B", "value": "Bé", "prep": "a" }
+  ],
+  "affix": {
+    "indul": "vágányról",
+    "érkezik": "vágányra"
+  }
 }
