@@ -54,6 +54,10 @@ form {
   display: flex;
 }
 
+select {
+  font-size: 2rem;
+}
+
 .input-fields {
   margin: auto 0;
 }
