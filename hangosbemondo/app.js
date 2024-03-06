@@ -52,7 +52,7 @@ const playSound = (event) => {
       synth.cancel();
     }
   } catch (error) {
-    info[2].textContent = `${error}`;
+    info[2].textContent = `${error.message}`;
   }
 };
 
