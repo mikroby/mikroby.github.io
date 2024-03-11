@@ -1,9 +1,5 @@
 const synth = window.speechSynthesis;
 const voices = synth.getVoices();
-// check support for speechSynthesis
-const info = document.querySelectorAll(".info");
-info[0].textContent = `window.speechSynthesis: ${Boolean(synth)}`;
-info[1].textContent = JSON.stringify(voices);
 
 // import options from "./options.json" assert {type: 'json'};
 let options;
@@ -18,46 +14,41 @@ const rateSlider = document.querySelector("#rate");
 const playSound = (event) => {
   event.preventDefault();
 
-  try {
-    if (Object.values(form).some(({ name }) => !form[name].value)) {
-      alert("Hiányzó adatok a bemondáshoz. Válassz értéket minden mezőhöz!");
-      return;
-    }
+  if (Object.values(form).some(({ name }) => !form[name].value)) {
+    alert("Hiányzó adatok a bemondáshoz. Válassz értéket minden mezőhöz!");
+    return;
+  }
 
-    if (button.value === "start") {
-      toggleButton();
+  if (button.value === "start") {
+    toggleButton();
 
-      const [trainType, verb, time, track] = Object.values(form).map(
-        ({ name }) => form[name].value
-      );
-      const hour = Number(time.slice(0, 2));
-      const minute = Number(time.slice(3, 5));
-      const trackAffix = options.affix[verb];
-      const prep = options.track.find((item) => item.value === track).prep;
+    const [trainType, verb, time, track] = Object.values(form).map(
+      ({ name }) => form[name].value
+    );
+    const hour = Number(time.slice(0, 2));
+    const minute = Number(time.slice(3, 5));
+    const trackAffix = options.affix[verb];
+    const prep = options.track.find((item) => item.value === track).prep;
 
-      const text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
+    const text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
 
-      signal = new Audio("mav_szignal.mp3");
-      signal.addEventListener("ended", () => {
-        const message = new SpeechSynthesisUtterance();
-        message.rate = rateSlider.value / 100;
-        message.pitch = pitchSlider.value / 100;
-        message.voice = voices[1];
-        message.volume = 1;
-        message.text = text;
-        synth.speak(message);
-        message.addEventListener("end", () => {
-          toggleButton();
-        });
+    signal = new Audio("mav_szignal.mp3");
+    signal.addEventListener("ended", () => {
+      const message = new SpeechSynthesisUtterance(text);
+      message.rate = rateSlider.value / 100;
+      message.pitch = pitchSlider.value / 100;
+      message.voice = voices.find((item) => item.lang.includes("hu"));
+      message.volume = 1;
+      synth.speak(message);
+      message.addEventListener("end", () => {
+        toggleButton();
       });
-      signal.play();
-    } else {
-      toggleButton();
-      signal.pause();
-      synth.cancel();
-    }
-  } catch (error) {
-    info[2].textContent = `${error.message}`;
+    });
+    signal.play();
+  } else {
+    toggleButton();
+    signal.pause();
+    synth.cancel();
   }
 };
 
