@@ -17,5 +17,9 @@
   "affix": {
     "indul": "vágányról",
     "érkezik": "vágányra"
+  },
+  "config": {
+    "pitch": 50,
+    "rate": 85
   }
 }

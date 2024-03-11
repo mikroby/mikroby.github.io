@@ -10,12 +10,13 @@ let options;
 let signal;
 
 const message = new SpeechSynthesisUtterance();
-message.rate = 0.6;
-message.pitch = 0.5;
 message.volume = 1;
 
 const form = document.querySelector("form");
+const button = form.button;
 const image = document.querySelector("img");
+const pitchSlider = document.querySelector("#pitch");
+const rateSlider = document.querySelector("#rate");
 
 const playSound = (event) => {
   event.preventDefault();
@@ -26,9 +27,8 @@ const playSound = (event) => {
       return;
     }
 
-    if (form.button.value === "start") {
-      form.button.value = "stop";
-      image.src = "stop.png";
+    if (button.value === "start") {
+      toggleButton();
 
       const [trainType, verb, time, track] = Object.values(form).map(
         ({ name }) => form[name].value
@@ -42,12 +42,13 @@ const playSound = (event) => {
 
       signal = new Audio("mav_szignal.mp3");
       signal.addEventListener("ended", () => {
+        message.rate = rateSlider.value / 100;
+        message.pitch = pitchSlider.value / 100;
         synth.speak(message);
       });
       signal.play();
     } else {
-      form.button.value = "start";
-      image.src = "start.png";
+      toggleButton();
       signal.pause();
       synth.cancel();
     }
@@ -70,6 +71,16 @@ const initializer = (id, array, elementType) => {
   });
 };
 
+const toggleButton = () => {
+  if (button.value === "start") {
+    button.value = "stop";
+    image.src = "stop.png";
+  } else {
+    button.value = "start";
+    image.src = "start.png";
+  }
+};
+
 fetch("./options.json")
   .then((data) => data.json())
   .then((parsed) => {
@@ -78,11 +89,24 @@ fetch("./options.json")
     initializer("#train-type", options.trainType, "option");
     initializer("#track", options.track, "option");
 
+    const { rate, pitch } = options.config;
+    pitchSlider.value = pitch;
+    pitchSlider.after(pitch);
+    rateSlider.value = rate;
+    rateSlider.after(rate);
+
+    pitchSlider.addEventListener("input", (event) => {
+      pitchSlider.nextSibling.replaceWith(event.target.value);
+    });
+
+    rateSlider.addEventListener("input", (event) => {
+      rateSlider.nextSibling.replaceWith(event.target.value);
+    });
+
     form.addEventListener("submit", playSound);
 
     message.addEventListener("end", () => {
-      form.button.value = "start";
-      image.src = "start.png";
+      toggleButton();
     });
   });
 // TODO:
