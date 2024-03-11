@@ -9,9 +9,6 @@ info[1].textContent = JSON.stringify(voices);
 let options;
 let signal;
 
-const message = new SpeechSynthesisUtterance();
-message.volume = 1;
-
 const form = document.querySelector("form");
 const button = form.button;
 const image = document.querySelector("img");
@@ -38,13 +35,20 @@ const playSound = (event) => {
       const trackAffix = options.affix[verb];
       const prep = options.track.find((item) => item.value === track).prep;
 
-      message.text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
+      const text = `${trainType} ${verb} ${hour} óra ${minute} perckor ${prep} ${track} ${trackAffix}`;
 
       signal = new Audio("mav_szignal.mp3");
       signal.addEventListener("ended", () => {
+        const message = new SpeechSynthesisUtterance();
         message.rate = rateSlider.value / 100;
         message.pitch = pitchSlider.value / 100;
+        message.voice = voices[1];
+        message.volume = 1;
+        message.text = text;
         synth.speak(message);
+        message.addEventListener("end", () => {
+          toggleButton();
+        });
       });
       signal.play();
     } else {
@@ -104,10 +108,6 @@ fetch("./options.json")
     });
 
     form.addEventListener("submit", playSound);
-
-    message.addEventListener("end", () => {
-      toggleButton();
-    });
   });
 // TODO:
 // modal az alert helyett.
