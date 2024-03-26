@@ -75,9 +75,9 @@ export class Board {
 
   getNeighbors(figure) {
     let neighbors = [];
-    [...Board.ortho, ...Board.diag].forEach((pos) => {
-      if (pos.includes(figure.position)) {
-        neighbors.push(pos);
+    [...Board.ortho, ...Board.diag].forEach((line) => {
+      if (line.includes(figure.position)) {
+        neighbors.push(line);
       }
     });
 
