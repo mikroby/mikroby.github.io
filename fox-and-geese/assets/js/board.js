@@ -56,16 +56,16 @@ export class Board {
 
   setFigures(figures) {
     this.cells.forEach((cell) => {
-      const figure = figures.find(
+      const figureFound = figures.find(
         (figure) => figure.position === Number(cell.dataset.cell)
       );
 
-      if (!figure) {
+      if (!figureFound) {
         cell.classList.add("empty");
         return;
       }
 
-      if (figure instanceof Goose) {
+      if (figureFound instanceof Goose) {
         cell.classList.replace("empty", "goose");
       } else {
         cell.classList.replace("empty", "fox");
