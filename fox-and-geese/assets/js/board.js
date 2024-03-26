@@ -54,7 +54,7 @@ export class Board {
     this.cells = document.querySelectorAll(".cell");
   }
 
-  setFigures(figures) {
+  setFigures(...figures) {
     this.cells.forEach((cell) => {
       const figureFound = figures.find(
         (figure) => figure.position === Number(cell.dataset.cell)

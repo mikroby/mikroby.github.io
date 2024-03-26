@@ -169,7 +169,7 @@ const start = () => {
   const geese = new Array(13).fill(0).map(() => new Goose());
   const fox = new Fox();
 
-  board.setFigures([...geese, fox]);
+  board.setFigures(...geese, fox);
 
   initialize();
 
