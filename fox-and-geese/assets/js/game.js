@@ -163,20 +163,29 @@ const start = () => {
   checkEnd();
 };
 
+const getMoveableGeese = (geese, fox) =>
+  geese.filter(goose => Board.getEmptyNeighborPositions(goose, ...geese, fox).length > 0);
+
 // IIFE starter.
 (() => {
   const board = new Board();
   const geese = new Array(13).fill(0).map(() => new Goose());
-  const fox = new Fox();
+  const fox = new Fox(14);
 
   board.setFigures(...geese, fox);
 
   initialize();
 
-  board.getNeighbors(fox);
+  const allNeighbors = Board.getAllNeighborPositions(fox);
+  const emptyNeighbors = Board.getEmptyNeighborPositions(fox, ...geese);
 
-  // console.log(geese);
-  // console.log(fox);
+  console.log(fox);
+  console.log('all neighbors:', allNeighbors);
+  console.log('empty neighbors:', emptyNeighbors);
+  console.log('1st goose empty neighbors:', Board.getEmptyNeighborPositions(geese[0], ...geese, fox));
+
+  const moveableGeese = getMoveableGeese(geese, fox)
+  board.markMoveable(moveableGeese)
 
   // cells = document.querySelectorAll(".cell");
   // start();

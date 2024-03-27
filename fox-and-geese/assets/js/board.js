@@ -29,28 +29,28 @@ export class Board {
     [12, 18, 24, 28, 30],
   ];
 
-  static fieldPattern = [3, 3, 7, 7, 7, 3, 3];
+  static rowPattern = [3, 3, 7, 7, 7, 3, 3];
 
-  createField() {
+  #createBoard() {
     const template = [];
     let from = 0;
 
-    Board.fieldPattern.forEach((cols) => {
+    for (const cols of Board.rowPattern) {
       template.push(`<div class="row">`);
 
       for (let cell = from; cell < from + cols; cell++) {
         template.push(`<div class="cell empty" data-cell="${cell}"></div>`);
       }
 
-      from += cols;
       template.push(`</div>`);
-    });
+      from += cols;
+    };
 
-    document.querySelector(".field").innerHTML = template.join("");
+    document.querySelector(".board").innerHTML = template.join("");
   }
 
   constructor() {
-    this.createField();
+    this.#createBoard();
     this.cells = document.querySelectorAll(".cell");
   }
 
@@ -73,14 +73,29 @@ export class Board {
     });
   }
 
-  getNeighbors(figure) {
-    let neighbors = [];
+  static getAllNeighborPositions(figure) {
+    let neighborPositions = [];
     [...Board.ortho, ...Board.diag].forEach((line) => {
-      if (line.includes(figure.position)) {
-        neighbors.push(line);
+      const foundIndex = line.indexOf(figure.position)
+      if (foundIndex > -1) {
+        if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1])
+        if (foundIndex < line.length - 1) neighborPositions.push(line[foundIndex + 1])
       }
     });
 
-    console.log(neighbors);
+    return neighborPositions
   }
+
+  static getEmptyNeighborPositions(figure, ...otherFigures) {
+    const otherPositions = otherFigures.map(creature => creature.position)
+    return this.getAllNeighborPositions(figure).filter(position => !otherPositions.includes(position))
+  }
+
+  markMoveable(figures) {
+    figures.forEach(figure => {
+      const cell = this.cells[figure.position]
+      cell.classList.add("moveable");
+      cell.addEventListener("click", (event)=>console.log(event.target));
+    });
+  };
 }

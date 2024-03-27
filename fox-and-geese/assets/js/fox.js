@@ -1,3 +1,5 @@
 export class Fox {
-  position = 4;
+  constructor(position=4) {
+    this.position = position
+  }
 }
