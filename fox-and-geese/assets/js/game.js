@@ -25,50 +25,7 @@ const blinkInfo = () => {
   }, 1500);
 };
 
-const initialize = () => {
-  button.textContent = "A játék leírása";
-  button.onclick = () => {
-    window.location = "#playRules";
-  };
-  infoBox.textContent = "Jelölj ki egy libát!";
-  firstMove = true;
-};
 
-const markTransposables = (taken) => {
-  moves[taken.dataset.cell]
-    .filter((position) => cells[position].classList.contains("empty"))
-    .filter((position) =>
-      cells[commonNeighbor(taken.dataset.cell, position)].classList.contains(
-        "occupied"
-      )
-    )
-    .forEach((position) => {
-      cells[position].classList.toggle("transposable");
-      cells[position].addEventListener("click", transpose);
-    });
-};
-
-function transpose() {
-  if (firstMove) {
-    firstMove = false;
-    button.textContent = "Újrakezdés";
-    button.onclick = start;
-  }
-
-  const next = this.dataset.cell;
-  const taken = document.querySelector(".taken");
-  const current = taken.dataset.cell;
-
-  // removes the overtaken peg
-  cells[commonNeighbor(current, next)].classList.replace("occupied", "empty");
-
-  this.classList.replace("empty", "occupied");
-  taken.classList.replace("occupied", "empty");
-
-  animateHeader();
-  cleanup();
-  checkEnd();
-}
 
 const showInfo = (info) => {
   pegNumber.textContent = info;
@@ -107,46 +64,70 @@ const cleanup = () =>
     cell.classList.remove("transposable", "moveable", "taken");
   });
 
-const commonNeighbor = (first, second) => {
-  return neighbors[first].filter((neighborOfFirst) =>
-    neighbors[second].includes(neighborOfFirst)
-  )[0];
-};
-
-const getAllPosition = () => {
-  const positions = [];
-  document
-    .querySelectorAll(".empty")
-    .forEach((empty) =>
-      positions.push(
-        moves[empty.dataset.cell]
-          .filter((position) => cells[position].classList.contains("occupied"))
-          .filter((position) =>
-            cells[
-              commonNeighbor(empty.dataset.cell, position)
-            ].classList.contains("occupied")
-          )
-      )
-    );
-  // removes duplicated positions
-  return [...new Set(positions.flat())];
-};
 
 const start = () => {
-  initialize();
+  initializeUI();
   cleanup();
   checkEnd();
 };
 
-// IIFE starter.
-(() => {
-  const board = new Board();
-  const geese = new Array(13).fill(0).map(() => new Goose());
-  const fox = new Fox(16); // parameter as start position
+const initializeUI = () => {
+  button.textContent = "A játék leírása";
+  button.onclick = () => {
+    window.location = "#playRules";
+  };
+  infoBox.textContent = "Jelölj ki egy libát!";
+  firstMove = true;
+};
 
+let board, geese, fox, takenGoose
+
+const take = (event) => {
+  const element = event.target
+  const isNewTake = board.takeFigure(element, transpose)
+  if (isNewTake) {
+    const takenPosition = Number(element.dataset.cell)
+    takenGoose = geese.find(goose => goose.position === takenPosition)
+    const transposables = Goose.getTransposablePositions(takenGoose, geese, fox)
+    board.markTransposables(transposables, transpose)
+  }
+}
+
+const transpose = (event) => {
+  if (firstMove) {
+    firstMove = false;
+    button.textContent = "Újrakezdés";
+    button.onclick = start;
+  }
+
+  const nextPosition = Number(event.target.dataset.cell);
+  takenGoose.position = nextPosition
+
+  Board.removeAllTransposables(transpose)
   board.setFigures(...geese, fox);
 
-  initialize();
+  // const taken = document.querySelector(".taken");
+  // const current = taken.dataset.cell;
+
+
+  // this.classList.replace("empty", "occupied");
+  // taken.classList.replace("occupied", "empty");
+
+  animateHeader();
+  // cleanup();
+  checkEnd();
+}
+
+// IIFE starter.
+(() => {
+  board = new Board();
+  geese = new Array(13).fill(0).map(() => new Goose());
+  fox = new Fox(16); // parameter as start position
+
+  // set all figures to starting position
+  board.setFigures(...geese, fox);
+
+  initializeUI();
 
   const allNeighbors = Board.getAllNeighborPositions(fox);
   const emptyNeighbors = Board.getEmptyNeighborPositions(fox, ...geese);
@@ -160,7 +141,7 @@ const start = () => {
   );
 
   const moveableGeese = Goose.getMoveableGeese(geese, fox);
-  board.markMoveable(moveableGeese);
+  board.markMoveable(moveableGeese, take);
 
   // cells = document.querySelectorAll(".cell");
   // start();

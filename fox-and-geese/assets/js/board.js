@@ -91,43 +91,52 @@ export class Board {
 
   static getEmptyNeighborPositions(figure, ...otherFigures) {
     const otherPositions = otherFigures.map((creature) => creature.position);
-    return this.getAllNeighborPositions(figure).filter(
+    return Board.getAllNeighborPositions(figure).filter(
       (position) => !otherPositions.includes(position)
     );
   }
 
-  markMoveable(figures) {
+  markMoveable(figures, takeCallback) {
     figures.forEach((figure) => {
       const cell = this.cells[figure.position];
       cell.classList.add("moveable");
-      cell.addEventListener("click", (event) => this.takeFigure(event.target));
+      cell.addEventListener("click", takeCallback);
     });
   }
 
-  takeFigure(element) {
+  takeFigure(element, transposeCallback) {
     // select previously 'taken' or null
     const prevTaken = Board.#boardElement.querySelector(".taken");
 
     // noop if selected again
     if (element.isSameNode(prevTaken)) {
-      return;
+      return false;
     }
 
     // mark back previously 'taken' to 'moveable' if any
     if (prevTaken) {
       prevTaken.classList.replace("taken", "moveable");
 
-      // kill 'transposables' for previously 'taken'
-      Board.#boardElement.querySelectorAll(".transposable").forEach((cell) => {
-        cell.classList.remove("transposable");
-        cell.removeEventListener("click", transpose); // transpose???
-      });
+      Board.removeAllTransposables(transposeCallback)
     }
 
     // mark new element as 'taken'
     element.classList.replace("moveable", "taken");
 
-    // mark new 'transposables'
-    // this.markTransposables(element)
+    return true
+  }
+
+  markTransposables(positions, transposeCallback) {
+    positions.forEach(position => {
+      this.cells[position].classList.add('transposable')
+      this.cells[position].addEventListener('click', transposeCallback)
+    })
+  }
+
+  static removeAllTransposables(transposeCallback) {
+    Board.#boardElement.querySelectorAll(".transposable").forEach((cell) => {
+      cell.classList.remove("transposable");
+      cell.removeEventListener("click", transposeCallback);
+    });
   }
 }

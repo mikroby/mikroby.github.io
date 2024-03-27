@@ -15,4 +15,8 @@ export class Goose {
         Board.getEmptyNeighborPositions(goose, ...geese, fox).length > 0
     );
   }
+
+  static getTransposablePositions(goose, geese, fox) {
+    return Board.getEmptyNeighborPositions(goose, ...geese, fox)
+  }
 }
