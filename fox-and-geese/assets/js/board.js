@@ -31,6 +31,8 @@ export class Board {
 
   static rowPattern = [3, 3, 7, 7, 7, 3, 3];
 
+  static #boardElement = document.querySelector(".board");
+
   #createBoard() {
     const template = [];
     let from = 0;
@@ -44,9 +46,9 @@ export class Board {
 
       template.push(`</div>`);
       from += cols;
-    };
+    }
 
-    document.querySelector(".board").innerHTML = template.join("");
+    Board.#boardElement.innerHTML = template.join("");
   }
 
   constructor() {
@@ -76,26 +78,56 @@ export class Board {
   static getAllNeighborPositions(figure) {
     let neighborPositions = [];
     [...Board.ortho, ...Board.diag].forEach((line) => {
-      const foundIndex = line.indexOf(figure.position)
+      const foundIndex = line.indexOf(figure.position);
       if (foundIndex > -1) {
-        if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1])
-        if (foundIndex < line.length - 1) neighborPositions.push(line[foundIndex + 1])
+        if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1]);
+        if (foundIndex < line.length - 1)
+          neighborPositions.push(line[foundIndex + 1]);
       }
     });
 
-    return neighborPositions
+    return neighborPositions;
   }
 
   static getEmptyNeighborPositions(figure, ...otherFigures) {
-    const otherPositions = otherFigures.map(creature => creature.position)
-    return this.getAllNeighborPositions(figure).filter(position => !otherPositions.includes(position))
+    const otherPositions = otherFigures.map((creature) => creature.position);
+    return this.getAllNeighborPositions(figure).filter(
+      (position) => !otherPositions.includes(position)
+    );
   }
 
   markMoveable(figures) {
-    figures.forEach(figure => {
-      const cell = this.cells[figure.position]
+    figures.forEach((figure) => {
+      const cell = this.cells[figure.position];
       cell.classList.add("moveable");
-      cell.addEventListener("click", (event)=>console.log(event.target));
+      cell.addEventListener("click", (event) => this.takeFigure(event.target));
     });
-  };
+  }
+
+  takeFigure(element) {
+    // select previously 'taken' or null
+    const prevTaken = Board.#boardElement.querySelector(".taken");
+
+    // noop if selected again
+    if (element.isSameNode(prevTaken)) {
+      return;
+    }
+
+    // mark back previously 'taken' to 'moveable' if any
+    if (prevTaken) {
+      prevTaken.classList.replace("taken", "moveable");
+
+      // kill 'transposables' for previously 'taken'
+      Board.#boardElement.querySelectorAll(".transposable").forEach((cell) => {
+        cell.classList.remove("transposable");
+        cell.removeEventListener("click", transpose); // transpose???
+      });
+    }
+
+    // mark new element as 'taken'
+    element.classList.replace("moveable", "taken");
+
+    // mark new 'transposables'
+    // this.markTransposables(element)
+  }
 }

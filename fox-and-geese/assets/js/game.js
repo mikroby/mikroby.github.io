@@ -34,21 +34,6 @@ const initialize = () => {
   firstMove = true;
 };
 
-function take() {
-  const taken = document.querySelector(".taken");
-
-  if (taken) taken.classList.replace("taken", "moveable");
-
-  document.querySelectorAll(".transposable").forEach((cell) => {
-    cell.classList.remove("transposable");
-    cell.removeEventListener("click", transpose);
-  });
-
-  this.classList.replace("moveable", "taken");
-
-  markTransposables(this);
-}
-
 const markTransposables = (taken) => {
   moves[taken.dataset.cell]
     .filter((position) => cells[position].classList.contains("empty"))
@@ -122,16 +107,6 @@ const cleanup = () =>
     cell.classList.remove("transposable", "moveable", "taken");
   });
 
-const markMoveables = () => {
-  const allPosition = getAllPosition();
-  allPosition.forEach((position) => {
-    cells[position].classList.add("moveable");
-    cells[position].addEventListener("click", take);
-  });
-
-  return allPosition.length;
-};
-
 const commonNeighbor = (first, second) => {
   return neighbors[first].filter((neighborOfFirst) =>
     neighbors[second].includes(neighborOfFirst)
@@ -163,14 +138,11 @@ const start = () => {
   checkEnd();
 };
 
-const getMoveableGeese = (geese, fox) =>
-  geese.filter(goose => Board.getEmptyNeighborPositions(goose, ...geese, fox).length > 0);
-
 // IIFE starter.
 (() => {
   const board = new Board();
   const geese = new Array(13).fill(0).map(() => new Goose());
-  const fox = new Fox(14);
+  const fox = new Fox(16); // parameter as start position
 
   board.setFigures(...geese, fox);
 
@@ -180,27 +152,16 @@ const getMoveableGeese = (geese, fox) =>
   const emptyNeighbors = Board.getEmptyNeighborPositions(fox, ...geese);
 
   console.log(fox);
-  console.log('all neighbors:', allNeighbors);
-  console.log('empty neighbors:', emptyNeighbors);
-  console.log('1st goose empty neighbors:', Board.getEmptyNeighborPositions(geese[0], ...geese, fox));
+  console.log("all neighbors:", allNeighbors);
+  console.log("empty neighbors:", emptyNeighbors);
+  console.log(
+    "1st goose empty neighbors:",
+    Board.getEmptyNeighborPositions(geese[0], ...geese, fox)
+  );
 
-  const moveableGeese = getMoveableGeese(geese, fox)
-  board.markMoveable(moveableGeese)
+  const moveableGeese = Goose.getMoveableGeese(geese, fox);
+  board.markMoveable(moveableGeese);
 
   // cells = document.querySelectorAll(".cell");
   // start();
 })();
-
-// for testing graph objects:
-// tester()
-// function tester() {
-//   initialize()
-//   cells.forEach(cell => cell.addEventListener('click', toggleColor))
-// }
-// function toggleColor() {
-//   neighbors[this.dataset.cell].forEach(position =>
-//     cells[position].classList.toggle('transposable'))
-
-//   moves[this.dataset.cell].forEach(position =>
-//     cells[position].classList.toggle('moveable'))
-// }
