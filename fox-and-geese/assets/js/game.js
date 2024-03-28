@@ -115,7 +115,7 @@ const transpose = (event) => {
 
   animateHeader();
   // cleanup();
-  checkEnd();
+  // checkEnd();
 }
 
 // IIFE starter.
