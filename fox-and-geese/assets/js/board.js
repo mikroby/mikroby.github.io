@@ -1,7 +1,7 @@
 import { Goose } from "./goose.js";
 
 export class Board {
-  static ortho = [
+  static #ortho = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8, 9, 10, 11, 12],
@@ -19,7 +19,7 @@ export class Board {
     [12, 19, 26],
   ];
 
-  static diag = [
+  static #diag = [
     [0, 4, 10, 18, 26],
     [8, 16, 24],
     [6, 14, 22, 28, 32],
@@ -29,7 +29,7 @@ export class Board {
     [12, 18, 24, 28, 30],
   ];
 
-  static rowPattern = [3, 3, 7, 7, 7, 3, 3];
+  static #rowPattern = [3, 3, 7, 7, 7, 3, 3];
 
   static #boardElement = document.querySelector(".board");
 
@@ -37,7 +37,7 @@ export class Board {
     const template = [];
     let from = 0;
 
-    for (const cols of Board.rowPattern) {
+    for (const cols of Board.#rowPattern) {
       template.push(`<div class="row">`);
 
       for (let cell = from; cell < from + cols; cell++) {
@@ -75,9 +75,20 @@ export class Board {
     });
   }
 
+  cleanup(callbacks) {
+    this.cells.forEach((cell) => {
+      // cleanup for eventListeners
+      callbacks.forEach((callback) =>
+        cell.removeEventListener("click", callback)
+      );
+      // cleanup for classes
+      cell.classList.remove("taken", "moveable");
+    });
+  }
+
   static getAllNeighborPositions(figure) {
     let neighborPositions = [];
-    [...Board.ortho, ...Board.diag].forEach((line) => {
+    [...Board.#ortho, ...Board.#diag].forEach((line) => {
       const foundIndex = line.indexOf(figure.position);
       if (foundIndex > -1) {
         if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1]);
@@ -104,37 +115,26 @@ export class Board {
     });
   }
 
-  takeFigure(element, transposeCallback) {
-    // select previously 'taken' or null
-    const prevTaken = Board.#boardElement.querySelector(".taken");
-
-    // noop if selected again
-    if (element.isSameNode(prevTaken)) {
-      return false;
-    }
-
+  takeFigure(newPosition, transposeCallback, prevPosition) {
     // mark back previously 'taken' to 'moveable' if any
-    if (prevTaken) {
-      prevTaken.classList.replace("taken", "moveable");
-
-      Board.removeAllTransposables(transposeCallback)
+    if (prevPosition !== null) {
+      this.cells[prevPosition].classList.replace("taken", "moveable");
+      this.removeAllTransposables(transposeCallback);
     }
 
     // mark new element as 'taken'
-    element.classList.replace("moveable", "taken");
-
-    return true
+    this.cells[newPosition].classList.replace("moveable", "taken");
   }
 
   markTransposables(positions, transposeCallback) {
-    positions.forEach(position => {
-      this.cells[position].classList.add('transposable')
-      this.cells[position].addEventListener('click', transposeCallback)
-    })
+    positions.forEach((position) => {
+      this.cells[position].classList.add("transposable");
+      this.cells[position].addEventListener("click", transposeCallback);
+    });
   }
 
-  static removeAllTransposables(transposeCallback) {
-    Board.#boardElement.querySelectorAll(".transposable").forEach((cell) => {
+  removeAllTransposables(transposeCallback) {
+    this.cells.forEach((cell) => {
       cell.classList.remove("transposable");
       cell.removeEventListener("click", transposeCallback);
     });

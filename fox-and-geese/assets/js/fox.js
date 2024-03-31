@@ -1,5 +1,16 @@
+import { Board } from "./board.js";
+
 export class Fox {
-  constructor(position=4) {
-    this.position = position
+  transposablePositions = [];
+
+  constructor(position = 4) {
+    this.position = position;
+  }
+
+  findTransposablePositions(geese) {
+    this.transposablePositions = Board.getEmptyNeighborPositions(
+      this,
+      ...geese
+    );
   }
 }

@@ -6,9 +6,9 @@ import { Fox } from "./fox.js";
 
 const header = document.querySelector("#game__header");
 const infoBox = document.querySelector(".infoBox");
-const pegNumber = document.querySelector("#pegNumber");
+const geeseNumber = document.querySelector("#geeseNumber");
 const button = document.querySelector("#toText");
-let cells, firstMove, timerId;
+let firstMove, timerId;
 
 const animateHeader = () => {
   header.classList.add("shock-header");
@@ -25,25 +25,27 @@ const blinkInfo = () => {
   }, 1500);
 };
 
-
-
-const showInfo = (info) => {
-  pegNumber.textContent = info;
+const showGeeseNumber = () => {
+  geeseNumber.textContent = geese.length;
 };
 
 const checkEnd = () => {
-  const pegs = document.querySelectorAll(".occupied").length;
-  showInfo(pegs);
+  // Fox's state
+  fox.findTransposablePositions(geese);
+  console.log(fox);
+
+  // ez majd a róka lépése után kell
+  showGeeseNumber();
 
   infoBox.classList.add("blinkInfo");
 
-  if (pegs === 1) {
+  if (fox.transposablePositions.length === 0) {
     theEnd("Megnyerted a játékot!");
     return;
   }
 
-  if (markMoveables() === 0) {
-    theEnd("Vége a játéknak!");
+  if (geese.length === 0) {
+    theEnd("A róka nyerte a játszmát!");
     return;
   }
 
@@ -52,22 +54,14 @@ const checkEnd = () => {
 
 const theEnd = (text) => {
   clearTimeout(timerId);
+  board.cleanup([take, transpose]);
   infoBox.textContent = text;
   button.textContent = "Új játék";
   button.onclick = start;
 };
 
-const cleanup = () =>
-  cells.forEach((cell) => {
-    cell.removeEventListener("click", transpose);
-    cell.removeEventListener("click", take);
-    cell.classList.remove("transposable", "moveable", "taken");
-  });
-
-
 const start = () => {
   initializeUI();
-  cleanup();
   checkEnd();
 };
 
@@ -78,20 +72,22 @@ const initializeUI = () => {
   };
   infoBox.textContent = "Jelölj ki egy libát!";
   firstMove = true;
+  showGeeseNumber();
 };
 
-let board, geese, fox, takenGoose
+let board, geese, fox, takenGoose;
 
 const take = (event) => {
-  const element = event.target
-  const isNewTake = board.takeFigure(element, transpose)
+  const positionTaken = Number(event.target.dataset.cell);
+  const isNewTake = takenGoose ? positionTaken !== takenGoose.position : true;
   if (isNewTake) {
-    const takenPosition = Number(element.dataset.cell)
-    takenGoose = geese.find(goose => goose.position === takenPosition)
-    const transposables = Goose.getTransposablePositions(takenGoose, geese, fox)
-    board.markTransposables(transposables, transpose)
+    const prevPosition = takenGoose ? takenGoose.position : null;
+    board.takeFigure(positionTaken, transpose, prevPosition);
+    takenGoose = geese.find((goose) => goose.position === positionTaken);
+
+    board.markTransposables(takenGoose.transposablePositions, transpose);
   }
-}
+};
 
 const transpose = (event) => {
   if (firstMove) {
@@ -101,48 +97,37 @@ const transpose = (event) => {
   }
 
   const nextPosition = Number(event.target.dataset.cell);
-  takenGoose.position = nextPosition
+  takenGoose.position = nextPosition;
 
-  Board.removeAllTransposables(transpose)
-  board.setFigures(...geese, fox);
-
-  // const taken = document.querySelector(".taken");
-  // const current = taken.dataset.cell;
-
-
-  // this.classList.replace("empty", "occupied");
-  // taken.classList.replace("occupied", "empty");
+  board.removeAllTransposables(transpose);
+  setNewBoardState();
 
   animateHeader();
-  // cleanup();
-  // checkEnd();
-}
+  checkEnd();
+};
+
+const setNewBoardState = () => {
+  // cleanup eventListeners and classes
+  board.cleanup([take, transpose]);
+  // set all figures to new position
+  board.setFigures(...geese, fox);
+  // ez lehetne a getMoveableGeese-en belül is:
+  geese.forEach((goose) => goose.findTransposablePositions(fox, geese));
+  const moveableGeese = Goose.getMoveableGeese(geese);
+  board.markMoveable(moveableGeese, take);
+
+  takenGoose = null;
+};
 
 // IIFE starter.
 (() => {
   board = new Board();
   geese = new Array(13).fill(0).map(() => new Goose());
-  fox = new Fox(16); // parameter as start position
-
-  // set all figures to starting position
-  board.setFigures(...geese, fox);
+  fox = new Fox(9); // parameter as start position
 
   initializeUI();
 
-  const allNeighbors = Board.getAllNeighborPositions(fox);
-  const emptyNeighbors = Board.getEmptyNeighborPositions(fox, ...geese);
+  setNewBoardState();
 
-  console.log(fox);
-  console.log("all neighbors:", allNeighbors);
-  console.log("empty neighbors:", emptyNeighbors);
-  console.log(
-    "1st goose empty neighbors:",
-    Board.getEmptyNeighborPositions(geese[0], ...geese, fox)
-  );
-
-  const moveableGeese = Goose.getMoveableGeese(geese, fox);
-  board.markMoveable(moveableGeese, take);
-
-  // cells = document.querySelectorAll(".cell");
   // start();
 })();

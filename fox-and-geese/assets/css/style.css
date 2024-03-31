@@ -155,17 +155,17 @@ body {
   transform: scaleY(1);
 }
 
-.pegs {
+.geeseInfo {
   font-size: 3rem;
   font-weight: 600;
 }
 
-#pegText {
+#geeseText {
   font-size: 1.2rem;
   vertical-align: middle;
 }
 
-#pegNumber {
+#geeseNumber {
   margin: 0 0 0 1rem;
   color: rgb(82, 138, 187);
 }
