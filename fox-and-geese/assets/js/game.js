@@ -107,21 +107,20 @@ const initializeUI = () => {
   showGeeseNumber();
 };
 
-const start = () => {
-  initializeUI();
-  
+const start = () => {  
   // reset fox and geese to start position
-  geese.forEach((goose, index) => Goose.setToStartPosition(goose, index))
+  // geese.forEach((goose, index) => Goose.setToStartPosition(goose, index))
+  geese = new Array(13).fill(0).map(() => new Goose());
   fox.position = 9
   
-  firstMove = true;
+  initializeUI();
   setBoardState();
+  firstMove = true;
 };
 
 // IIFE starter.
 (() => {
   board = new Board();
-  geese = new Array(13).fill(0).map(() => new Goose());
   fox = new Fox();
   start();
 })();
