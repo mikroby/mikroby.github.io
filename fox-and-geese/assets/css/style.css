@@ -43,24 +43,6 @@ body {
   text-align: center;
 }
 
-.shock-header {
-  animation: shake 0.2s alternate 2;
-}
-
-@keyframes shake {
-  0% {
-    transform: translateX(0) rotate(0);
-  }
-
-  50% {
-    transform: translateX(0.625rem) rotate(10deg);
-  }
-
-  100% {
-    transform: translateX(-0.625rem) rotate(-10deg);
-  }
-}
-
 .board {
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
@@ -87,6 +69,11 @@ body {
   transform: scale(1);
 }
 
+.empty {
+  background: black;
+  box-shadow: none;
+}
+
 .goose {
   background: aliceblue;
 }
@@ -101,26 +88,11 @@ body {
     0 0.5rem 1rem rgba(0, 0, 0, 0.75);
 }
 
-.empty {
-  background: black;
-  box-shadow: none;
-}
-
-@keyframes smooth {
-  0% {
-    transform: scale(1);
-  }
-
-  100% {
-    transform: scale(1.15);
-  }
-}
-
-.moveable {
+.takeable {
   animation: smooth 0.3s alternate infinite ease-in-out;
 }
 
-.moveable:hover {
+.takeable:hover {
   background: dodgerblue;
   cursor: pointer;
 }
@@ -151,7 +123,7 @@ body {
   transform: scaleY(0);
 }
 
-.blinkInfo {
+.showUp {
   transform: scaleY(1);
 }
 
@@ -193,24 +165,35 @@ body {
     0 0 0.5rem rgba(0, 0, 0, 0.35);
 }
 
-h1 {
-  text-align: center;
+#playRules h1 {
   margin: 0 0 1rem;
 }
 
-p {
+#playRules p {
   width: 20rem;
   font-size: 1.2rem;
   text-align: justify;
 }
 
-a {
+#playRules a {
   text-decoration: none;
   color: black;
 }
 
+/* MEDIA QUERIES */
 @media screen and (max-width: 370px) {
   html {
     font-size: 13px;
+  }
+}
+
+/* ANIMATIONS */
+@keyframes smooth {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
   }
 }

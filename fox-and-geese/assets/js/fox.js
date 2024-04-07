@@ -2,9 +2,9 @@ import { Board } from "./board.js";
 
 export class Fox {
   transposablePositions = [];
+  position;
 
-  constructor(position = 4) {
-    this.position = position;
+  constructor() {
   }
 
   findTransposablePositions(geese) {
@@ -12,5 +12,9 @@ export class Fox {
       this,
       ...geese
     );
+  }
+
+  getNextPosition(){
+    
   }
 }

@@ -53,37 +53,7 @@ export class Board {
 
   constructor() {
     this.#createBoard();
-    this.cells = document.querySelectorAll(".cell");
-  }
-
-  setFigures(...figures) {
-    this.cells.forEach((cell) => {
-      const figureFound = figures.find(
-        (figure) => figure.position === Number(cell.dataset.cell)
-      );
-
-      if (!figureFound) {
-        cell.classList.add("empty");
-        return;
-      }
-
-      if (figureFound instanceof Goose) {
-        cell.classList.replace("empty", "goose");
-      } else {
-        cell.classList.replace("empty", "fox");
-      }
-    });
-  }
-
-  cleanup(callbacks) {
-    this.cells.forEach((cell) => {
-      // cleanup for eventListeners
-      callbacks.forEach((callback) =>
-        cell.removeEventListener("click", callback)
-      );
-      // cleanup for classes
-      cell.classList.remove("taken", "moveable");
-    });
+    this.cells = Board.#boardElement.querySelectorAll(".cell");
   }
 
   static getAllNeighborPositions(figure) {
@@ -107,23 +77,52 @@ export class Board {
     );
   }
 
-  markMoveable(figures, takeCallback) {
+  // cleanup eventListeners and classes
+  cleanup(callbacks) {
+    this.cells.forEach((cell) => {
+      callbacks.forEach((callback) =>
+        cell.removeEventListener("click", callback)
+      );
+      cell.classList.remove("taken", "takeable");
+    });
+  }
+
+  setFigures(...figures) {
+    this.cells.forEach((cell) => {
+      const figureFound = figures.find(
+        (figure) => figure.position === Number(cell.dataset.cell)
+      );
+
+      if (!figureFound) {
+        cell.className="cell empty";
+        return;
+      }
+
+      if (figureFound instanceof Goose) {
+        cell.classList.replace("empty", "goose");
+      } else {
+        cell.classList.replace("empty", "fox");
+      }
+    });
+  }
+
+  markTakeables(figures, takeCallback) {
     figures.forEach((figure) => {
       const cell = this.cells[figure.position];
-      cell.classList.add("moveable");
+      cell.classList.add("takeable");
       cell.addEventListener("click", takeCallback);
     });
   }
 
   takeFigure(newPosition, transposeCallback, prevPosition) {
-    // mark back previously 'taken' to 'moveable' if any
+    // mark back previously 'taken' to 'takeable' if any
     if (prevPosition !== null) {
-      this.cells[prevPosition].classList.replace("taken", "moveable");
+      this.cells[prevPosition].classList.replace("taken", "takeable");
       this.removeAllTransposables(transposeCallback);
     }
 
     // mark new element as 'taken'
-    this.cells[newPosition].classList.replace("moveable", "taken");
+    this.cells[newPosition].classList.replace("takeable", "taken");
   }
 
   markTransposables(positions, transposeCallback) {

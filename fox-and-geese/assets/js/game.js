@@ -4,24 +4,17 @@ import { Board } from "./board.js";
 import { Goose } from "./goose.js";
 import { Fox } from "./fox.js";
 
-const header = document.querySelector("#game__header");
 const infoBox = document.querySelector(".infoBox");
 const geeseNumber = document.querySelector("#geeseNumber");
-const button = document.querySelector("#toText");
-let firstMove, timerId;
+const button = document.querySelector(".btn");
 
-const animateHeader = () => {
-  header.classList.add("shock-header");
-  const id = setTimeout(() => {
-    clearTimeout(id);
-    header.classList.toggle("shock-header");
-  }, 510);
-};
+let board, geese, fox, takenGoose, firstMove, timerId
 
-const blinkInfo = () => {
+const blinkInfoBox = () => {
+  infoBox.classList.add("showUp");
   timerId = setTimeout(() => {
     clearTimeout(timerId);
-    infoBox.classList.remove("blinkInfo");
+    infoBox.classList.remove("showUp");
   }, 1500);
 };
 
@@ -37,8 +30,6 @@ const checkEnd = () => {
   // ez majd a róka lépése után kell
   showGeeseNumber();
 
-  infoBox.classList.add("blinkInfo");
-
   if (fox.transposablePositions.length === 0) {
     theEnd("Megnyerted a játékot!");
     return;
@@ -49,33 +40,19 @@ const checkEnd = () => {
     return;
   }
 
-  blinkInfo();
+  blinkInfoBox();
 };
 
 const theEnd = (text) => {
-  clearTimeout(timerId);
   board.cleanup([take, transpose]);
+
+  clearTimeout(timerId);
   infoBox.textContent = text;
+  infoBox.classList.add("showUp");
+
   button.textContent = "Új játék";
   button.onclick = start;
 };
-
-const start = () => {
-  initializeUI();
-  checkEnd();
-};
-
-const initializeUI = () => {
-  button.textContent = "A játék leírása";
-  button.onclick = () => {
-    window.location = "#playRules";
-  };
-  infoBox.textContent = "Jelölj ki egy libát!";
-  firstMove = true;
-  showGeeseNumber();
-};
-
-let board, geese, fox, takenGoose;
 
 const take = (event) => {
   const positionTaken = Number(event.target.dataset.cell);
@@ -100,34 +77,51 @@ const transpose = (event) => {
   takenGoose.position = nextPosition;
 
   board.removeAllTransposables(transpose);
-  setNewBoardState();
+  setBoardState();
 
-  animateHeader();
   checkEnd();
 };
 
-const setNewBoardState = () => {
+const setBoardState = () => {
   // cleanup eventListeners and classes
-  board.cleanup([take, transpose]);
+  if (!firstMove) board.cleanup([take, transpose]);
   // set all figures to new position
   board.setFigures(...geese, fox);
-  // ez lehetne a getMoveableGeese-en belül is:
-  geese.forEach((goose) => goose.findTransposablePositions(fox, geese));
-  const moveableGeese = Goose.getMoveableGeese(geese);
-  board.markMoveable(moveableGeese, take);
+  // ez lehetne a getTakeableGeese-en belül is:
+  geese.forEach((goose) => Goose.findTransposablePositions(goose, fox, geese));
+  const takeableGeese = Goose.getTakeableGeese(geese);
+  board.markTakeables(takeableGeese, take);
 
   takenGoose = null;
+};
+
+const initializeUI = () => {
+  button.textContent = "A játék leírása";
+  button.onclick = () => {
+    window.location = "#playRules";
+  };
+
+  infoBox.textContent = "Jelölj ki egy libát!";
+  blinkInfoBox();
+
+  showGeeseNumber();
+};
+
+const start = () => {
+  initializeUI();
+  
+  // reset fox and geese to start position
+  geese.forEach((goose, index) => Goose.setToStartPosition(goose, index))
+  fox.position = 9
+  
+  firstMove = true;
+  setBoardState();
 };
 
 // IIFE starter.
 (() => {
   board = new Board();
   geese = new Array(13).fill(0).map(() => new Goose());
-  fox = new Fox(9); // parameter as start position
-
-  initializeUI();
-
-  setNewBoardState();
-
-  // start();
+  fox = new Fox();
+  start();
 })();
