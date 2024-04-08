@@ -4,8 +4,7 @@ export class Fox {
   transposablePositions = [];
   position;
 
-  constructor() {
-  }
+  constructor() {}
 
   findTransposablePositions(geese) {
     this.transposablePositions = Board.getEmptyNeighborPositions(
@@ -15,8 +14,12 @@ export class Fox {
   }
 
   getNextPosition() {
-    if (this.transposablePositions.length === 0) return 
-    const random = Math.floor(Math.random() * this.transposablePositions.length)
-    return this.transposablePositions[random]
+    if (this.transposablePositions.length === 0) {
+      return;
+    }
+    const random = Math.floor(
+      Math.random() * this.transposablePositions.length
+    );
+    return this.transposablePositions[random];
   }
 }

@@ -99,19 +99,20 @@ export class Board {
 
   setFigures(...figures) {
     this.cells.forEach((cell) => {
+      const currentCellPosition = Number(cell.dataset.cell);
       const figureFound = figures.find(
-        (figure) => figure.position === Number(cell.dataset.cell)
+        (figure) => figure.position === currentCellPosition
       );
 
       if (!figureFound) {
-        cell.className="cell empty";
+        cell.className = "cell empty";
         return;
       }
 
       if (figureFound instanceof Goose) {
-        cell.classList.replace("empty", "goose");
+        cell.className = "cell goose";
       } else {
-        cell.classList.replace("empty", "fox");
+        cell.className = "cell fox";
       }
     });
   }
