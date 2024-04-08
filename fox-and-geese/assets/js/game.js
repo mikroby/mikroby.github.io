@@ -27,9 +27,6 @@ const isEnd = () => {
   fox.findTransposablePositions(geese);
   console.log(fox);
 
-  // ez majd a róka lépése után kell
-  showGeeseNumber();
-
   if (fox.transposablePositions.length === 0) {
     theEnd("A libák nyertek!");
     return true;
@@ -58,6 +55,8 @@ const theEnd = (text) => {
 const foxTurn = () => {
   fox.position = fox.getNextPosition()
   setBoardState()
+  // captured geese?
+  showGeeseNumber();
   isEnd()
 }
 
