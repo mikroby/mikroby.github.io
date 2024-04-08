@@ -22,7 +22,7 @@ const showGeeseNumber = () => {
   geeseNumber.textContent = geese.length;
 };
 
-const checkEnd = () => {
+const isEnd = () => {
   // Fox's state
   fox.findTransposablePositions(geese);
   console.log(fox);
@@ -31,16 +31,17 @@ const checkEnd = () => {
   showGeeseNumber();
 
   if (fox.transposablePositions.length === 0) {
-    theEnd("Megnyerted a játékot!");
-    return;
+    theEnd("A libák nyertek!");
+    return true;
   }
 
   if (geese.length === 0) {
     theEnd("A róka nyerte a játszmát!");
-    return;
+    return true;
   }
 
   blinkInfoBox();
+  return false
 };
 
 const theEnd = (text) => {
@@ -53,6 +54,12 @@ const theEnd = (text) => {
   button.textContent = "Új játék";
   button.onclick = start;
 };
+
+const foxTurn = () => {
+  fox.position = fox.getNextPosition()
+  setBoardState()
+  isEnd()
+}
 
 const take = (event) => {
   const positionTaken = Number(event.target.dataset.cell);
@@ -76,10 +83,13 @@ const transpose = (event) => {
   const nextPosition = Number(event.target.dataset.cell);
   takenGoose.position = nextPosition;
 
+  // refine?
   board.removeAllTransposables(transpose);
   setBoardState();
 
-  checkEnd();
+  if (!isEnd()) {
+    foxTurn()
+  }
 };
 
 const setBoardState = () => {
@@ -87,7 +97,7 @@ const setBoardState = () => {
   if (!firstMove) board.cleanup([take, transpose]);
   // set all figures to new position
   board.setFigures(...geese, fox);
-  // ez lehetne a getTakeableGeese-en belül is:
+  // find takeable geese
   geese.forEach((goose) => Goose.findTransposablePositions(goose, fox, geese));
   const takeableGeese = Goose.getTakeableGeese(geese);
   board.markTakeables(takeableGeese, take);
@@ -107,12 +117,12 @@ const initializeUI = () => {
   showGeeseNumber();
 };
 
-const start = () => {  
+const start = () => {
   // reset fox and geese to start position
   // geese.forEach((goose, index) => Goose.setToStartPosition(goose, index))
   geese = new Array(13).fill(0).map(() => new Goose());
   fox.position = 9
-  
+
   initializeUI();
   setBoardState();
   firstMove = true;

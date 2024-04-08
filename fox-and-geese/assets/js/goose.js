@@ -5,7 +5,7 @@ export class Goose {
   static #index = 0;
 
   transposablePositions = [];
-  position;
+  // position;
 
   constructor() {
     if (Goose.#index === Goose.#startPattern.length) {

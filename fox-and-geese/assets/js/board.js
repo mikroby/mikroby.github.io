@@ -128,6 +128,7 @@ export class Board {
     // mark back previously 'taken' to 'takeable' if any
     if (prevPosition !== null) {
       this.cells[prevPosition].classList.replace("taken", "takeable");
+      // refine?
       this.removeAllTransposables(transposeCallback);
     }
 
@@ -142,6 +143,7 @@ export class Board {
     });
   }
 
+  // TODO: refine with only necessary cells to clean. param for cells ?
   removeAllTransposables(transposeCallback) {
     this.cells.forEach((cell) => {
       cell.classList.remove("transposable");

@@ -14,7 +14,9 @@ export class Fox {
     );
   }
 
-  getNextPosition(){
-    
+  getNextPosition() {
+    if (this.transposablePositions.length === 0) return 
+    const random = Math.floor(Math.random() * this.transposablePositions.length)
+    return this.transposablePositions[random]
   }
 }
