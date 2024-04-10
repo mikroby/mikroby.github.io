@@ -135,7 +135,7 @@ body {
   font-weight: 600;
 }
 
-#geeseText {
+.geeseText {
   vertical-align: middle;
   font-size: 1.2rem;
 }

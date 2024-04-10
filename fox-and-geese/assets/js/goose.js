@@ -5,29 +5,21 @@ export class Goose {
   static #index = 0;
 
   transposablePositions = [];
-  // position;
 
   constructor() {
+    // when reassigned at a new game, #index is set to default zero.
     if (Goose.#index === Goose.#startPattern.length) {
-      Goose.#index = 0
+      Goose.#index = 0;
     }
     this.position = Goose.#startPattern[Goose.#index];
     Goose.#index++;
   }
 
-  // static setToStartPosition(goose, index){
-  //   goose.position = Goose.#startPattern[index]
-  // } 
-
-  static getTakeableGeese(geese) {
-    return geese.filter((goose) => goose.transposablePositions.length > 0);
-  }
+  // static getTakeableGeese(geese) {
+  //   return geese.filter((goose) => goose.transposablePositions.length > 0);
+  // }
 
   static findTransposablePositions(goose, fox, geese) {
-    goose.transposablePositions = Board.getEmptyNeighborPositions(
-      goose,
-      ...geese,
-      fox
-    );
+    return Board.getEmptyNeighborPositions(goose, ...geese, fox);
   }
 }

@@ -87,16 +87,6 @@ export class Board {
     );
   }
 
-  // cleanup eventListeners and classes
-  cleanup(callbacks) {
-    this.cells.forEach((cell) => {
-      callbacks.forEach((callback) =>
-        cell.removeEventListener("click", callback)
-      );
-      cell.classList.remove("taken", "takeable");
-    });
-  }
-
   setFigures(...figures) {
     this.cells.forEach((cell) => {
       const currentCellPosition = Number(cell.dataset.cell);
@@ -117,38 +107,21 @@ export class Board {
     });
   }
 
-  markTakeables(figures, takeCallback) {
-    figures.forEach((figure) => {
-      const cell = this.cells[figure.position];
-      cell.classList.add("takeable");
-      cell.addEventListener("click", takeCallback);
-    });
-  }
-
-  takeFigure(newPosition, transposeCallback, prevPosition) {
-    // mark back previously 'taken' to 'takeable' if any
+  takeFigure(newPosition, prevPosition) {
+    // mark back previously 'taken' to 'takeable' if existed.
     if (prevPosition !== null) {
       this.cells[prevPosition].classList.replace("taken", "takeable");
-      // refine?
-      this.removeAllTransposables(transposeCallback);
     }
 
     // mark new element as 'taken'
     this.cells[newPosition].classList.replace("takeable", "taken");
   }
 
-  markTransposables(positions, transposeCallback) {
+  updateCellsAttributes(positions, method, classes, callback) {
     positions.forEach((position) => {
-      this.cells[position].classList.add("transposable");
-      this.cells[position].addEventListener("click", transposeCallback);
-    });
-  }
-
-  // TODO: refine with only necessary cells to clean. param for cells ?
-  removeAllTransposables(transposeCallback) {
-    this.cells.forEach((cell) => {
-      cell.classList.remove("transposable");
-      cell.removeEventListener("click", transposeCallback);
+      const cell = this.cells[position];
+      cell.classList[method](...classes);
+      cell[`${method}EventListener`]("click", callback);
     });
   }
 }
