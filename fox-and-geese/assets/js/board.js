@@ -1,4 +1,8 @@
 import { Goose } from "./goose.js";
+import { take, transpose } from "./game.js";
+
+const takeCallback = (ev) => take(ev);
+const transposeCallback = (ev) => transpose(ev);
 
 // ----- B O A R D -----
 //        0  1  2
@@ -11,7 +15,7 @@ import { Goose } from "./goose.js";
 // ---------------------
 
 export class Board {
-  static #ortho = [
+  static #orthogonals = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8, 9, 10, 11, 12],
@@ -29,7 +33,7 @@ export class Board {
     [12, 19, 26],
   ];
 
-  static #diag = [
+  static #diagonals = [
     [0, 4, 10, 18, 26],
     [8, 16, 24],
     [6, 14, 22, 28, 32],
@@ -66,9 +70,9 @@ export class Board {
     this.cells = Board.#boardElement.querySelectorAll(".cell");
   }
 
-  static getAllNeighborPositions(figure) {
+  static #getAllNeighborPositions(figure) {
     let neighborPositions = [];
-    [...Board.#ortho, ...Board.#diag].forEach((line) => {
+    [...Board.#orthogonals, ...Board.#diagonals].forEach((line) => {
       const foundIndex = line.indexOf(figure.position);
       if (foundIndex > -1) {
         if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1]);
@@ -82,7 +86,7 @@ export class Board {
 
   static getEmptyNeighborPositions(figure, ...otherFigures) {
     const otherPositions = otherFigures.map((creature) => creature.position);
-    return Board.getAllNeighborPositions(figure).filter(
+    return Board.#getAllNeighborPositions(figure).filter(
       (position) => !otherPositions.includes(position)
     );
   }
@@ -110,20 +114,37 @@ export class Board {
   }
 
   takeFigure(newPosition, prevPosition) {
-    // mark back previously 'taken' to 'takeable' if existed.
+    // mark previously 'taken' to 'takeable' if existed.
     if (prevPosition !== null) {
       this.cells[prevPosition].classList.replace("taken", "takeable");
     }
 
-    // mark new element as 'taken'
+    // mark new as 'taken'
     this.cells[newPosition].classList.replace("takeable", "taken");
   }
 
-  updateCellsAttributes(positions, method, classes, callback) {
+  #updateCells(positions, method, classes, callback) {
     positions.forEach((position) => {
       const cell = this.cells[position];
       cell.classList[method](...classes);
       cell[`${method}EventListener`]("click", callback);
+      console.log(method, ":", callback);
     });
+  }
+
+  addTransposables(positions) {
+    this.#updateCells(positions, "add", ["transposable"], transposeCallback);
+  }
+
+  removeTransposables(positions) {
+    this.#updateCells(positions, "remove", ["transposable"], transposeCallback);
+  }
+
+  addTakeables(positions) {
+    this.#updateCells(positions, "add", ["takeable"], takeCallback);
+  }
+
+  removeTakeables(positions) {
+    this.#updateCells(positions, "remove", ["takeable", "taken"], takeCallback);
   }
 }

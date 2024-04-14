@@ -6,11 +6,8 @@ export class Fox {
 
   constructor() {}
 
-  findTransposablePositions(geese) {
-    this.transposablePositions = Board.getEmptyNeighborPositions(
-      this,
-      ...geese
-    );
+  getTransposablePositions(geese) {
+    return Board.getEmptyNeighborPositions(this, ...geese);
   }
 
   getNextPosition() {

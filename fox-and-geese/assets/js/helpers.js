@@ -8,6 +8,7 @@ export const showInfoBoxWithTimeout = (text, timeout = 1500) => {
   if (timerId) {
     clearTimeout(timerId);
   }
+
   infoBox.textContent = text;
   infoBox.classList.add("showUp");
 
@@ -29,6 +30,6 @@ export const buttonHandler = (text, onClickCallback) => {
   }
 };
 
-export const showGeeseNumber = (num) => {
-  geeseNumber.textContent = num;
+export const showGeeseNumber = (value) => {
+  geeseNumber.textContent = value;
 };

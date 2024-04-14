@@ -15,11 +15,27 @@ export class Goose {
     Goose.#index++;
   }
 
-  // static getTakeableGeese(geese) {
-  //   return geese.filter((goose) => goose.transposablePositions.length > 0);
-  // }
+  static getTakeableGeesePositions(geese, fox) {
+    const takeablePositions = [];
+    // update all the geese's transposablePositions array
+    geese.forEach((goose) => {
+      const transposablePositions = Goose.getTransposablePositions(
+        goose,
+        fox,
+        geese
+      );
 
-  static findTransposablePositions(goose, fox, geese) {
+      goose.transposablePositions = transposablePositions;
+
+      if (transposablePositions.length > 0) {
+        takeablePositions.push(goose.position);
+      }
+    });
+
+    return takeablePositions;
+  }
+
+  static getTransposablePositions(goose, fox, geese) {
     return Board.getEmptyNeighborPositions(goose, ...geese, fox);
   }
 }
