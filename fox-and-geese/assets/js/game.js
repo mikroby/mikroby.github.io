@@ -97,11 +97,11 @@ const transpose = (event) => {
     buttonHandler("Újrakezdés", startGame);
   }
 
-  const nextPosition = Number(event.target.dataset.cell);
-  takenGoose.position = nextPosition;
-
   removeTransposables(takenGoose.transposablePositions);
   removeTakeables();
+
+  const nextPosition = Number(event.target.dataset.cell);
+  takenGoose.position = nextPosition;
 
   setBoardState();
 
@@ -113,7 +113,6 @@ const transpose = (event) => {
 const setBoardState = () => {
   // set all figures to new position
   board.setFigures(...geese, fox);
-
   showGeeseNumber(geese.length);
   takenGoose = null;
 };
