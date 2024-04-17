@@ -16,9 +16,9 @@ const fox = new Fox();
 let geese, takeablePositions, takenGoose, firstMove;
 
 const theEnd = (text) => {
+  // clean up all takeable cells to stop further playing.
+  board.removeTakeables(...takeablePositions);
   showInfoBoxWithTimeout(text, Infinity);
-  buttonHandler("Új játék");
-  // TODO: probably remove all takeable cells.
 };
 
 const isWinner = (figureName) => {
@@ -26,9 +26,8 @@ const isWinner = (figureName) => {
 
   switch (figureName) {
     case "geese":
-      // update Fox's state
-      const transposablePositions = fox.getTransposablePositions(geese);
-      fox.transposablePositions = transposablePositions;
+      // update and check Fox's state
+      fox.getTransposablePositions(geese);
       console.log(fox);
       if (fox.transposablePositions.length === 0) {
         theEnd("A libák nyertek!");
@@ -36,6 +35,7 @@ const isWinner = (figureName) => {
       }
       break;
     case "fox":
+      // check minimum geese sufficient to win.
       if (geese.length < 4) {
         theEnd("A róka nyerte a játszmát!");
         checkResult = true;
@@ -65,12 +65,18 @@ export const take = (event) => {
 export const transpose = (event) => {
   if (firstMove) {
     firstMove = false;
-    buttonHandler("Újrakezdés", startGame);
+    buttonHandler("Új játék", () => {
+      if (takenGoose) {
+        board.removeTransposables(takenGoose.transposablePositions);
+      }
+      board.removeTakeables(...takeablePositions);
+      startGame();
+    });
   }
 
+  // clean up the currently transposed cell.
   board.removeTransposables(takenGoose.transposablePositions);
-  // TODO: optimize removes only for transposed cell.
-  board.removeTakeables(takeablePositions);
+  board.removeTakeables(takenGoose.position);
 
   const nextPosition = Number(event.target.dataset.cell);
   takenGoose.position = nextPosition;
@@ -83,7 +89,6 @@ export const transpose = (event) => {
 };
 
 const setBoardState = () => {
-  // set all figures to new position
   board.setFigures(...geese, fox);
   showGeeseNumber(geese.length);
 };
@@ -91,23 +96,39 @@ const setBoardState = () => {
 const geeseTurn = () => {
   takenGoose = null;
   showInfoBoxWithTimeout("Jelölj ki egy libát!");
-  // add takeable geese
+
+  // manage only changes in takeable geese
+  const prevPositions = takeablePositions;
   takeablePositions = Goose.getTakeableGeesePositions(geese, fox);
-  // TODO: optimize adding only new takeable cells.
-  board.addTakeables(takeablePositions);
+
+  if (firstMove) {
+    board.addTakeables(takeablePositions);
+    return;
+  }
+
+  const positionsToRemove = prevPositions.filter(
+    (position) => !takeablePositions.includes(position)
+  );
+  board.removeTakeables(...positionsToRemove);
+
+  const positionsToAdd = takeablePositions.filter(
+    (position) => !prevPositions.includes(position)
+  );
+  board.addTakeables(positionsToAdd);
 };
 
 const foxTurn = () => {
-  fox.position = fox.getNextPosition();
+  fox.getNextPosition(geese);
+  // TODO: chcek captured geese?
   setBoardState();
-  // captured geese?
+
   if (!isWinner("fox")) {
     geeseTurn();
   }
 };
 
 const startGame = () => {
-  // reset fox to start position and recreate geese.
+  // reset fox to start position and redefine geese.
   geese = new Array(13).fill(0).map(() => new Goose());
   fox.position = 9;
   firstMove = true;

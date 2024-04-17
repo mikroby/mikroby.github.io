@@ -54,6 +54,7 @@ body {
   flex-direction: column;
   background-clip: content-box;
   background-color: rgb(82, 138, 187);
+  background-image: url(../lines.svg);
 }
 
 .row {

@@ -19,15 +19,13 @@ export class Goose {
     const takeablePositions = [];
     // update all the geese's transposablePositions array
     geese.forEach((goose) => {
-      const transposablePositions = Goose.getTransposablePositions(
+      goose.transposablePositions = Goose.getTransposablePositions(
         goose,
         fox,
         geese
       );
 
-      goose.transposablePositions = transposablePositions;
-
-      if (transposablePositions.length > 0) {
+      if (goose.transposablePositions.length > 0) {
         takeablePositions.push(goose.position);
       }
     });

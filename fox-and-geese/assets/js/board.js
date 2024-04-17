@@ -1,8 +1,8 @@
 import { Goose } from "./goose.js";
 import { take, transpose } from "./game.js";
 
-const takeCallback = (ev) => take(ev);
-const transposeCallback = (ev) => transpose(ev);
+const takeCallback = (event) => take(event);
+const transposeCallback = (event) => transpose(event);
 
 // ----- B O A R D -----
 //        0  1  2
@@ -55,7 +55,7 @@ export class Board {
       template.push(`<div class="row">`);
 
       for (let cell = from; cell < from + cols; cell++) {
-        template.push(`<div class="cell empty" data-cell="${cell}"></div>`);
+        template.push(`<div class="cell" data-cell="${cell}"></div>`);
       }
 
       template.push(`</div>`);
@@ -63,6 +63,7 @@ export class Board {
     }
 
     Board.#boardElement.innerHTML = template.join("");
+    // TODO: create diagonal and orthogonal lines connecting neighbor cells.
   }
 
   constructor() {
@@ -91,6 +92,7 @@ export class Board {
     );
   }
 
+  /** set figures to their current position */
   setFigures(...figures) {
     this.cells.forEach((cell) => {
       const currentCellPosition = Number(cell.dataset.cell);
@@ -98,7 +100,7 @@ export class Board {
         (figure) => figure.position === currentCellPosition
       );
 
-      cell.className = "cell";
+      cell.classList.remove("empty", "goose", "fox");
 
       if (!figureFound) {
         cell.classList.add("empty");
@@ -113,22 +115,21 @@ export class Board {
     });
   }
 
+  /** handle class between 'taken' & 'takeable' states */
   takeFigure(newPosition, prevPosition) {
-    // mark previously 'taken' to 'takeable' if existed.
     if (prevPosition !== null) {
       this.cells[prevPosition].classList.replace("taken", "takeable");
     }
 
-    // mark new as 'taken'
     this.cells[newPosition].classList.replace("takeable", "taken");
   }
 
+  /** add or remove classes and click EventListener by given method*/
   #updateCells(positions, method, classes, callback) {
     positions.forEach((position) => {
       const cell = this.cells[position];
       cell.classList[method](...classes);
       cell[`${method}EventListener`]("click", callback);
-      console.log(method, ":", callback);
     });
   }
 
@@ -144,7 +145,7 @@ export class Board {
     this.#updateCells(positions, "add", ["takeable"], takeCallback);
   }
 
-  removeTakeables(positions) {
+  removeTakeables(...positions) {
     this.#updateCells(positions, "remove", ["takeable", "taken"], takeCallback);
   }
 }
