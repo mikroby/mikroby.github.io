@@ -1,6 +1,6 @@
 const infoBox = document.querySelector(".infoBox");
 const geeseNumber = document.querySelector("#geeseNumber");
-const button = document.querySelector(".btn");
+const button = document.querySelector("#button");
 
 let timerId;
 
@@ -32,4 +32,12 @@ export const buttonHandler = (text, onClickCallback) => {
 
 export const showGeeseNumber = (value) => {
   geeseNumber.textContent = value;
+};
+
+export const texts = {
+  geeseTurn: "Jelölj ki egy libát!",
+  geeseWon: "A libák nyertek!",
+  foxWon: "A róka nyerte a játszmát!",
+  gameInfo: "A játék leírása",
+  newGame: "Új játék",
 };

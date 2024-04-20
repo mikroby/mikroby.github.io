@@ -7,15 +7,14 @@ import {
   showGeeseNumber,
   showInfoBoxWithTimeout,
   buttonHandler,
+  texts,
 } from "./helpers.js";
 
-// IIFE starter after page refresh/reload.
-// (() => {
 const board = new Board();
 const fox = new Fox();
 let geese, takeablePositions, takenGoose, firstMove;
 
-const theEnd = (text) => {
+const endGame = (text) => {
   // clean up all takeable cells to stop further playing.
   board.removeTakeables(...takeablePositions);
   showInfoBoxWithTimeout(text, Infinity);
@@ -30,14 +29,14 @@ const isWinner = (figureName) => {
       fox.getTransposablePositions(geese);
       console.log(fox);
       if (fox.transposablePositions.length === 0) {
-        theEnd("A libák nyertek!");
+        endGame(texts.geeseWon);
         checkResult = true;
       }
       break;
     case "fox":
       // check minimum geese sufficient to win.
       if (geese.length < 4) {
-        theEnd("A róka nyerte a játszmát!");
+        endGame(texts.foxWon);
         checkResult = true;
       }
   }
@@ -47,25 +46,34 @@ const isWinner = (figureName) => {
 
 export const take = (event) => {
   const positionTaken = Number(event.target.dataset.cell);
-  const isNewTake = takenGoose ? positionTaken !== takenGoose.position : true;
+  const isNewPositionTaken = takenGoose
+    ? positionTaken !== takenGoose.position
+    : true;
 
-  if (!isNewTake) return;
+  if (!isNewPositionTaken) return;
 
+  // clean up transposables for previously taken
   if (takenGoose) {
     board.removeTransposables(takenGoose.transposablePositions);
   }
 
+  // change taken figures
   const prevPosition = takenGoose ? takenGoose.position : null;
   board.takeFigure(positionTaken, prevPosition);
 
+  // set new taken and related transposables
   takenGoose = geese.find((goose) => goose.position === positionTaken);
-  board.addTransposables(takenGoose.transposablePositions);
+  // needed for correct rendering
+  const id = setTimeout(() => {
+    clearTimeout(id);
+    board.addTransposables(takenGoose.transposablePositions);
+  }, 0);
 };
 
 export const transpose = (event) => {
   if (firstMove) {
     firstMove = false;
-    buttonHandler("Új játék", () => {
+    buttonHandler(texts.newGame, () => {
       if (takenGoose) {
         board.removeTransposables(takenGoose.transposablePositions);
       }
@@ -81,21 +89,21 @@ export const transpose = (event) => {
   const nextPosition = Number(event.target.dataset.cell);
   takenGoose.position = nextPosition;
 
-  setBoardState();
+  updateBoardState();
 
   if (!isWinner("geese")) {
     foxTurn();
   }
 };
 
-const setBoardState = () => {
+const updateBoardState = () => {
   board.setFigures(...geese, fox);
   showGeeseNumber(geese.length);
 };
 
 const geeseTurn = () => {
   takenGoose = null;
-  showInfoBoxWithTimeout("Jelölj ki egy libát!");
+  showInfoBoxWithTimeout(texts.geeseTurn);
 
   // manage only changes in takeable geese
   const prevPositions = takeablePositions;
@@ -118,9 +126,9 @@ const geeseTurn = () => {
 };
 
 const foxTurn = () => {
-  fox.getNextPosition(geese);
+  fox.setNextPosition(geese);
   // TODO: chcek captured geese?
-  setBoardState();
+  updateBoardState();
 
   if (!isWinner("fox")) {
     geeseTurn();
@@ -128,17 +136,19 @@ const foxTurn = () => {
 };
 
 const startGame = () => {
-  // reset fox to start position and redefine geese.
+  // reset fox to start position and redefine geese to default.
   geese = new Array(13).fill(0).map(() => new Goose());
   fox.position = 9;
   firstMove = true;
 
-  buttonHandler("A játék leírása", () => {
+  buttonHandler(texts.gameInfo, () => {
     window.location = "#playRules";
   });
-  setBoardState();
+  updateBoardState();
   geeseTurn();
 };
 
-startGame();
-// })();
+// IIFE starter after page refresh/reload - does it add to security?
+(() => {
+  startGame();
+})();

@@ -1,5 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 
+:root {
+  --bg-sheet: rgb(209, 220, 221);
+  --bg-board: rgb(82, 138, 187);
+  --bg-goose: aliceblue;
+  --bg-fox: orangered;
+  --bg-empty: black;
+  --bg-takeable: dodgerblue;
+  --bg-transposable: greenyellow;
+  --bg-button: transparent;
+  /* --bg-button: rgb(219, 222, 224); */
+  --bg-button-hover: aliceblue;
+
+  --color-game_header: rgba(0, 0, 0, 0.5);
+  --color-infoBox: black;
+  --color-button: black;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -13,7 +30,7 @@ html {
 
 body {
   margin: 0;
-  background-color: rgb(209, 220, 221);
+  background-color: var(--bg-sheet);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +48,7 @@ body {
 }
 
 #game__header {
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--color-game_header);
   margin: 0 0 1.25rem;
   font-size: 3rem;
   font-weight: 600;
@@ -39,21 +56,21 @@ body {
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
-.version {
+#version {
   display: block;
   text-align: center;
 }
 
 /* BOARD ELEMENTS */
-.board {
+#board {
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   width: 21rem;
   height: 21rem;
   display: flex;
   flex-direction: column;
-  background-clip: content-box;
-  background-color: rgb(82, 138, 187);
+  /* background-clip: content-box; */
+  background-color: var(--bg-board);
   background-image: url(../lines.svg);
 }
 
@@ -68,22 +85,22 @@ body {
   width: 2rem;
   margin: 0.5rem;
   border-radius: 50%;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.5s ease-in-out;
   transform: scale(1);
 }
 
 .empty {
-  background: black;
+  background-color: var(--bg-empty);
   box-shadow: none;
 }
 
 /* GAME FIGURES */
 .goose {
-  background: aliceblue;
+  background-color: var(--bg-goose);
 }
 
 .fox {
-  background: orangered;
+  background-color: var(--bg-fox);
 }
 
 .goose,
@@ -93,27 +110,27 @@ body {
 }
 
 .takeable {
-  animation: smooth 0.3s alternate infinite ease-in-out;
+  animation: changeScale 0.5s alternate infinite ease-in-out;
 }
 
 .takeable:hover {
-  background: dodgerblue;
+  background-color: var(--bg-takeable);
   cursor: pointer;
 }
 
 .taken {
   cursor: pointer;
-  background: blue;
+  background-color: var(--bg-takeable);
   transform: scale(1.3);
 }
 
 .transposable {
-  background: greenyellow;
   cursor: pointer;
+  animation: changeColor 1s alternate infinite ease;
 }
 
 /* INFORMATIONS */
-.showReport {
+#showReport {
   margin: 1.25rem 0 0;
   text-align: center;
 }
@@ -122,9 +139,9 @@ body {
   height: 2.5rem;
   font-size: 2rem;
   font-weight: 600;
-  color: black;
+  color: var(--color-infoBox);
   text-align: center;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.5s ease-in-out;
   transform: scaleY(0);
 }
 
@@ -132,20 +149,18 @@ body {
   transform: scaleY(1);
 }
 
-.geeseInfo {
+#geeseText {
   font-weight: 600;
-}
-
-.geeseText {
   vertical-align: middle;
   font-size: 1.2rem;
 }
 
 #geeseNumber {
+  font-weight: 600;
   vertical-align: middle;
   font-size: 3rem;
   margin: 0 0 0 1rem;
-  color: rgb(82, 138, 187);
+  color: var(--bg-board);
 }
 
 .btn {
@@ -158,12 +173,13 @@ body {
   padding: 0.5rem 0.75rem;
   display: inline-block;
   text-align: center;
-  transition: all 0.3s;
-  background-color: rgb(219, 222, 224);
+  transition: all 0.3s ease;
+  background-color: var(--bg-button);
+  color: var(--color-button);
 }
 
 .btn:hover {
-  background-color: aliceblue;
+  background-color: var(--bg-button-hover);
 }
 
 .btn:active {
@@ -183,17 +199,27 @@ body {
 
 #playRules a {
   text-decoration: none;
-  color: black;
+  color: var(--color-button);
 }
 
 /* ANIMATIONS */
-@keyframes smooth {
+@keyframes changeScale {
   0% {
     transform: scale(1);
   }
 
   100% {
     transform: scale(1.15);
+  }
+}
+
+@keyframes changeColor {
+  0% {
+    background-color: var(--bg-empty);
+  }
+
+  100% {
+    background-color: var(--bg-transposable);
   }
 }
 

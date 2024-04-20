@@ -4,15 +4,15 @@ import { take, transpose } from "./game.js";
 const takeCallback = (event) => take(event);
 const transposeCallback = (event) => transpose(event);
 
-// ----- B O A R D -----
-//        0  1  2
-//        3  4  5
-//  6  7  8  9 10 11 12
-// 13 14 15 16 17 18 19
-// 20 21 22 23 24 25 26
-//       27 28 29
-//       30 31 32
-// ---------------------
+// ┌───── B O A R D ────┐
+// │       0  1  2      │
+// │       3  4  5      │
+// │ 6  7  8  9 10 11 12│
+// │13 14 15 16 17 18 19│
+// │20 21 22 23 24 25 26│
+// │      27 28 29      │
+// │      30 31 32      │
+// └────────────────────┘
 
 export class Board {
   static #orthogonals = [
@@ -32,7 +32,6 @@ export class Board {
     [11, 18, 25],
     [12, 19, 26],
   ];
-
   static #diagonals = [
     [0, 4, 10, 18, 26],
     [8, 16, 24],
@@ -42,10 +41,9 @@ export class Board {
     [10, 16, 22],
     [12, 18, 24, 28, 30],
   ];
-
+  static #lines = [...Board.#orthogonals, ...Board.#diagonals];
   static #rowPattern = [3, 3, 7, 7, 7, 3, 3];
-
-  static #boardElement = document.querySelector(".board");
+  static #boardElement = document.querySelector("#board");
 
   #createBoard() {
     const template = [];
@@ -63,7 +61,6 @@ export class Board {
     }
 
     Board.#boardElement.innerHTML = template.join("");
-    // TODO: create diagonal and orthogonal lines connecting neighbor cells.
   }
 
   constructor() {
@@ -73,7 +70,7 @@ export class Board {
 
   static #getAllNeighborPositions(figure) {
     let neighborPositions = [];
-    [...Board.#orthogonals, ...Board.#diagonals].forEach((line) => {
+    Board.#lines.forEach((line) => {
       const foundIndex = line.indexOf(figure.position);
       if (foundIndex > -1) {
         if (foundIndex > 0) neighborPositions.push(line[foundIndex - 1]);
