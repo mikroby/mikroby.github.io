@@ -71,7 +71,7 @@ body {
   flex-direction: column;
   /* background-clip: content-box; */
   background-color: var(--bg-board);
-  background-image: url(../lines.svg);
+  background-image: url(./lines.svg);
 }
 
 .row {
@@ -197,7 +197,7 @@ body {
   text-align: justify;
 }
 
-#playRules a {
+#backToTop {
   text-decoration: none;
   color: var(--color-button);
 }

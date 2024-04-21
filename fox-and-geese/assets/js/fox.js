@@ -1,7 +1,8 @@
 import { Board } from "./board.js";
 
 /** return a random index of the collection */
-const getRandom = (positions) => Math.floor(Math.random() * positions.length);
+const getRandomIndex = (positions) =>
+  Math.floor(Math.random() * positions.length);
 
 export class Fox {
   transposablePositions = [];
@@ -16,25 +17,25 @@ export class Fox {
     );
   }
 
-  /** get positions by maximum freedom */
-  getMaxFreedom(geese) {
+  getPositionsByMaxFreedom(geese) {
     const positions = this.transposablePositions.map((position) => ({
       position,
       freedom: Board.getEmptyNeighborPositions({ position }, ...geese).length,
     }));
-    const sortedDescending = positions.sort((a, b) => b.freedom - a.freedom);
-    const highestFreedom = sortedDescending[0].freedom;
-    const highestCollection = sortedDescending.filter(
-      (item) => item.freedom === highestFreedom
+    // sorted descending by 'freedom'
+    positions.sort((a, b) => b.freedom - a.freedom);
+    const highestValue = positions[0].freedom;
+    const collectionOfEqualValue = positions.filter(
+      (item) => item.freedom === highestValue
     );
 
-    return highestCollection.map((item) => item.position);
+    return collectionOfEqualValue.map((item) => item.position);
   }
 
   setNextPosition(geese) {
-    const positions = this.getMaxFreedom(geese);
+    const positions = this.getPositionsByMaxFreedom(geese);
 
-    this.position =
-      positions.length > 1 ? positions[getRandom(positions)] : positions[0];
+    const selected = positions.length === 1 ? 0 : getRandomIndex(positions);
+    this.position = positions[selected];
   }
 }

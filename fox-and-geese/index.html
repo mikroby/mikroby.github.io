@@ -7,55 +7,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./assets/css/style.css">
-  <title>Róka és Libák</title>
+  <title></title>
 </head>
 
 <body>
 
   <div class="Page_1" id="top">
-    <header id="game__header">
-      Róka és Libák
-    </header>
-
-    <small id="version">v0.1.1</small>
-
+    <header id="game__header"></header>
+    <small id="version"></small>
     <div id="board"></div>
-
     <div id="showReport">
       <div class="infoBox"></div>
-
       <div>
-        <span id="geeseText">Libák száma:</span>
+        <span id="geeseText"></span>
         <span id="geeseNumber"></span>
       </div>
-
       <div id="button" class="btn"></div>
     </div>
   </div>
 
   <div class="Page_2" id="playRules">
-    <h1>Róka és Libák játék</h1>
-    <p>
-      A játék során a libáknak be kell szorítaniuk a rókát.
-      Míg a róka célja, a libák elfogása, ill. szabadságának megőrzése.
-    </p>
-    <p>
-      Mindegyik figura csak a vonalakkal jelzett irányok mentén mozoghat:
-      A libák csak szomszédos üres mezőre léphetnek.
-      A róka átugorhatja a libákat, ha ott üres mező található.
-      Az átlépett - azaz elfogott - liba eltűnik a tábláról.
-    </p>
-    <p>
-      A játékos egy lépésben csak egy libát mozdíthat el.
-      A gép jelzi mely libák mozoghatnak szabályosan és
-      mutatja a kiválasztott elem lehetséges lépéseit is.
-    </p>
-
     <a href="#top">
-      <div class="btn">vissza a táblához</div>
+      <div class="btn" id="backToTop"></div>
     </a>
   </div>
-
 
   <script type="module" src="./assets/js/game.js"></script>
 

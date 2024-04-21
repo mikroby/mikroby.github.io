@@ -7,8 +7,8 @@ import {
   showGeeseNumber,
   showInfoBoxWithTimeout,
   buttonHandler,
-  texts,
 } from "./helpers.js";
+import { texts, setUItexts } from "./texts.js";
 
 const board = new Board();
 const fox = new Fox();
@@ -127,7 +127,7 @@ const geeseTurn = () => {
 
 const foxTurn = () => {
   fox.setNextPosition(geese);
-  // TODO: chcek captured geese?
+  // TODO: check captured geese?
   updateBoardState();
 
   if (!isWinner("fox")) {
@@ -150,5 +150,6 @@ const startGame = () => {
 
 // IIFE starter after page refresh/reload - does it add to security?
 (() => {
+  setUItexts();
   startGame();
 })();
