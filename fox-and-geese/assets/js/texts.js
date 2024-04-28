@@ -5,6 +5,7 @@ export const texts = {
   foxWon: "A róka nyerte a játszmát!",
   gameInfo: "A játék leírása",
   newGame: "Új játék",
+  captureGoose: "A róka elkapott egy libát!"
 };
 
 const DOMelements = {
@@ -29,7 +30,7 @@ const UItexts = {
     "A játék során a libáknak be kell szorítaniuk a rókát. Míg a róka célja, a libák elfogása, ill. szabadságának megőrzése.",
     "</p>",
     "<p>",
-    "Mindegyik figura csak a vonalakkal jelzett irányok mentén mozoghat: A libák csak szomszédos üres mezőre léphetnek. A róka átugorhatja a libákat, ha ott üres mező található. Az átlépett - azaz elfogott - liba eltűnik a tábláról.",
+    "Mindegyik figura csak a vonalakkal jelzett irányok mentén mozoghat: A libák csak szomszédos üres mezőre léphetnek. A róka átugorhatja a libát, ha ott üres mező található. Az átlépett - azaz elfogott - liba eltűnik a tábláról.",
     "</p>",
     "<p>",
     "A játékos egy lépésben csak egy libát mozdíthat el. A gép jelzi mely libák mozoghatnak szabályosan és mutatja a kiválasztott elem lehetséges lépéseit is.",

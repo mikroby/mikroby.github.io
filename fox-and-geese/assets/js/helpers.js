@@ -2,9 +2,17 @@ const infoBox = document.querySelector(".infoBox");
 const geeseNumber = document.querySelector("#geeseNumber");
 const button = document.querySelector("#button");
 
-let timerId;
+let timerId, keepPrevMessage;
 
-export const showInfoBoxWithTimeout = (text, timeout = 1500) => {
+export const showInfoBoxWithTimeout = (text, timeout = 1500, action) => {
+  if (keepPrevMessage) {
+    return
+  }
+
+  if (action === 'keep') {
+    keepPrevMessage = true
+  }
+
   if (timerId) {
     clearTimeout(timerId);
   }
@@ -19,6 +27,7 @@ export const showInfoBoxWithTimeout = (text, timeout = 1500) => {
   timerId = setTimeout(() => {
     clearTimeout(timerId);
     timerId = null;
+    keepPrevMessage = false
     infoBox.classList.remove("showUp");
   }, timeout);
 };

@@ -89,6 +89,26 @@ export class Board {
     );
   }
 
+  static getInLineEmptyNeighborPositions(figure, ...otherFigures) {
+    const emptyNeighbors = Board.getEmptyNeighborPositions(figure, ...otherFigures)
+
+    if (emptyNeighbors.length < 2) { return undefined}
+
+    const crossingLines = Board.#lines.filter(line => line.includes(figure.position))
+
+    const inLineEmptyPairs = []
+
+    crossingLines.forEach(line => {
+      const matchedNeighbors = emptyNeighbors.filter(position => line.includes(position))
+      
+      if (matchedNeighbors.length === 2) {
+        inLineEmptyPairs.push(matchedNeighbors)
+      }
+    })
+
+    return inLineEmptyPairs.length > 0 ? inLineEmptyPairs : undefined
+  }
+
   /** set figures to their current position */
   setFigures(...figures) {
     this.cells.forEach((cell) => {

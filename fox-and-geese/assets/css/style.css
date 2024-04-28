@@ -52,17 +52,16 @@ body {
   margin: 0 0 1.25rem;
   font-size: 3rem;
   font-weight: 600;
-  text-align: center;
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
 }
 
 #version {
   display: block;
-  text-align: center;
 }
 
 /* BOARD ELEMENTS */
 #board {
+  align-self: center;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   width: 21rem;
@@ -224,8 +223,14 @@ body {
 }
 
 /* MEDIA QUERIES */
-@media screen and (max-width: 370px) {
+@media (max-width: 370px) {
   html {
     font-size: 13px;
+  }
+}
+
+@media (min-width: 371px) and (max-width: 600px) {
+  html {
+    font-size: 14px;
   }
 }

@@ -126,8 +126,17 @@ const geeseTurn = () => {
 };
 
 const foxTurn = () => {
-  fox.setNextPosition(geese);
-  // TODO: check captured geese?
+  const { position, gooseToCapture } = fox.getNextPosition(geese);
+
+  fox.position = position
+  console.log(fox.position);
+
+  if (gooseToCapture) {
+    showInfoBoxWithTimeout(texts.captureGoose, undefined, 'keep')
+    const indexOfCaptured = geese.findIndex(goose => goose.position === gooseToCapture)
+    geese.splice(indexOfCaptured, 1)
+  }
+
   updateBoardState();
 
   if (!isWinner("fox")) {
