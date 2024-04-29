@@ -5,7 +5,7 @@ export const texts = {
   foxWon: "A róka nyerte a játszmát!",
   gameInfo: "A játék leírása",
   newGame: "Új játék",
-  captureGoose: "A róka elkapott egy libát!"
+  captureGoose: "A róka elkapott egyet!",
 };
 
 const DOMelements = {
@@ -20,7 +20,7 @@ const DOMelements = {
 const UItexts = {
   title: "Róka és Libák",
   header: "Róka és Libák",
-  version: "v0.1.2",
+  version: "v0.1.3",
   geeseText: "Libák száma:",
   playRules: [
     "<h1>",

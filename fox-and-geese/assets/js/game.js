@@ -17,7 +17,7 @@ let geese, takeablePositions, takenGoose, firstMove;
 const endGame = (text) => {
   // clean up all takeable cells to stop further playing.
   board.removeTakeables(...takeablePositions);
-  showInfoBoxWithTimeout(text, Infinity);
+  showInfoBoxWithTimeout(text, Infinity, "override");
 };
 
 const isWinner = (figureName) => {
@@ -27,7 +27,7 @@ const isWinner = (figureName) => {
     case "geese":
       // update and check Fox's state
       fox.getTransposablePositions(geese);
-      console.log(fox);
+
       if (fox.transposablePositions.length === 0) {
         endGame(texts.geeseWon);
         checkResult = true;
@@ -105,7 +105,7 @@ const geeseTurn = () => {
   takenGoose = null;
   showInfoBoxWithTimeout(texts.geeseTurn);
 
-  // manage only changes in takeable geese
+  // manage changes in takeable geese only
   const prevPositions = takeablePositions;
   takeablePositions = Goose.getTakeableGeesePositions(geese, fox);
 
@@ -125,16 +125,21 @@ const geeseTurn = () => {
   board.addTakeables(positionsToAdd);
 };
 
+const captureGoose = (gooseToCapture) => {
+  showInfoBoxWithTimeout(texts.captureGoose, undefined, "no_override");
+  const indexOfCaptured = geese.findIndex(
+    (goose) => goose.position === gooseToCapture
+  );
+  geese.splice(indexOfCaptured, 1);
+};
+
 const foxTurn = () => {
   const { position, gooseToCapture } = fox.getNextPosition(geese);
 
-  fox.position = position
-  console.log(fox.position);
+  fox.position = position;
 
   if (gooseToCapture) {
-    showInfoBoxWithTimeout(texts.captureGoose, undefined, 'keep')
-    const indexOfCaptured = geese.findIndex(goose => goose.position === gooseToCapture)
-    geese.splice(indexOfCaptured, 1)
+    captureGoose(gooseToCapture);
   }
 
   updateBoardState();
