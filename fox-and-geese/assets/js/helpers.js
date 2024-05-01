@@ -2,15 +2,22 @@ const infoBox = document.querySelector(".infoBox");
 const geeseNumber = document.querySelector("#geeseNumber");
 const button = document.querySelector("#button");
 
-let timerId, keepPrevMessage;
+let timerId,
+  overrideEnabled = true;
 
 export const showInfoBoxWithTimeout = (text, timeout = 1500, action) => {
-  if (keepPrevMessage) {
-    return
+  switch (action) {
+    case "no_override":
+      overrideEnabled = false;
+      break;
+    case "override":
+      overrideEnabled = true;
+      break;
+    default:
   }
 
-  if (action === 'keep') {
-    keepPrevMessage = true
+  if (!overrideEnabled && action !== "no_override") {
+    return;
   }
 
   if (timerId) {
@@ -27,7 +34,7 @@ export const showInfoBoxWithTimeout = (text, timeout = 1500, action) => {
   timerId = setTimeout(() => {
     clearTimeout(timerId);
     timerId = null;
-    keepPrevMessage = false
+    overrideEnabled = true;
     infoBox.classList.remove("showUp");
   }, timeout);
 };

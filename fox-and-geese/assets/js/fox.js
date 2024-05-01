@@ -7,9 +7,8 @@ const getRandomIndex = (positions) =>
 export class Fox {
   transposablePositions = [];
   position;
-  geeseToCapture;
 
-  constructor() { }
+  constructor() {}
 
   getTransposablePositions(geese) {
     this.transposablePositions = Board.getEmptyNeighborPositions(
@@ -34,60 +33,70 @@ export class Fox {
   }
 
   getUndefended(geese) {
-    const undefendeds = []
+    const undefendeds = [];
 
-    geese.forEach(goose => {
-      const emptyPairs = Board.getInLineEmptyNeighborPositions(goose, ...geese)
+    geese.forEach((goose) => {
+      const emptyPairs = Board.getInLineEmptyNeighborPositions(goose, ...geese);
       if (emptyPairs) {
-        undefendeds.push({ goosePosition: goose.position, emptyPairs })
+        undefendeds.push({ goosePosition: goose.position, emptyPairs });
       }
-    })
+    });
 
-    return undefendeds.length > 0 ? undefendeds : undefined
+    return undefendeds.length > 0 ? undefendeds : undefined;
   }
 
   getCaptureables(undefendeds) {
-    const captureables = undefendeds.map(({ goosePosition, emptyPairs }) => {
-      const pair = emptyPairs.filter(pair => pair.includes(this.position))
-      const position = pair.length > 0 ? pair[0].find(position => position !== this.position) : undefined
+    const captureables = undefendeds
+      .map(({ goosePosition, emptyPairs }) => {
+        const pair = emptyPairs.filter((pair) => pair.includes(this.position));
+        const position =
+          pair.length > 0
+            ? pair[0].find((position) => position !== this.position)
+            : undefined;
 
-      return position ? { gooseToCapture: goosePosition, position } : undefined
-    }).filter(data => data !== undefined)
+        return position
+          ? { gooseToCapture: goosePosition, position }
+          : undefined;
+      })
+      .filter((data) => data !== undefined);
 
-    return captureables.length > 0 ? captureables : undefined
+    return captureables.length > 0 ? captureables : undefined;
   }
 
   getAttackables(undefendeds) {
-    const attackables = undefendeds.map(({ goosePosition, emptyPairs }) => {
-      const pair = emptyPairs.filter(pair => pair.some(position => this.transposablePositions.includes(position)))
-      const position = pair.length > 0 ? pair[0].find(position => this.transposablePositions.includes(position)) : undefined
+    const attackables = undefendeds
+      .map(({ goosePosition, emptyPairs }) => {
+        const pair = emptyPairs.filter((pair) =>
+          pair.some((position) => this.transposablePositions.includes(position))
+        );
+        const position =
+          pair.length > 0
+            ? pair[0].find((position) =>
+                this.transposablePositions.includes(position)
+              )
+            : undefined;
 
-      return position ? { goosePosition, position } : undefined
-    }).filter(data => data !== undefined)
+        return position ? { goosePosition, position } : undefined;
+      })
+      .filter((data) => data !== undefined);
 
-    return attackables.length > 0 ? attackables : undefined
+    return attackables.length > 0 ? attackables : undefined;
   }
 
-  /** fox's actual logic to select next step*/
+  /** fox's actual logic to select next step */
   getNextPosition(geese) {
     let positions = this.getMaxFreedom(geese);
 
-    const undefendedGeese = this.getUndefended(geese)
-
-    console.log('undefendedGeese:', undefendedGeese);
+    const undefendedGeese = this.getUndefended(geese);
 
     if (undefendedGeese) {
-
-      const captureableGeese = this.getCaptureables(undefendedGeese)
-      const attackableGeese = this.getAttackables(undefendedGeese)
-
-      console.log('captureableGeese:', captureableGeese);
-      console.log('attackableGeese:', attackableGeese);
+      const captureableGeese = this.getCaptureables(undefendedGeese);
+      const attackableGeese = this.getAttackables(undefendedGeese);
 
       if (captureableGeese) {
-        positions = captureableGeese
+        positions = captureableGeese;
       } else if (attackableGeese) {
-        positions = attackableGeese
+        positions = attackableGeese;
       }
     }
 

@@ -44,7 +44,7 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  text-align: center;
+  align-items: center;
 }
 
 #game__header {
@@ -61,7 +61,6 @@ body {
 
 /* BOARD ELEMENTS */
 #board {
-  align-self: center;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   width: 21rem;
