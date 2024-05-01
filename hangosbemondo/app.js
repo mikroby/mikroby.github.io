@@ -69,8 +69,8 @@ const playSound = () => {
   signal.play();
 };
 
-const initializeForm = (id, array, elementType) => {
-  const parent = form.querySelector(id);
+const fillElement = (container, id, array, elementType) => {
+  const parent = container.querySelector(id);
 
   array.forEach((item) => {
     const newChild = document.createElement(elementType);
@@ -80,17 +80,11 @@ const initializeForm = (id, array, elementType) => {
   });
 };
 
-const initializeSliders = ({ rate, pitch }) => {
-  pitchSlider.value = pitch;
-  pitchSlider.after(pitch);
-  pitchSlider.addEventListener("input", (event) => {
-    pitchSlider.nextSibling.replaceWith(event.target.value);
-  });
-
-  rateSlider.value = rate;
-  rateSlider.after(rate);
-  rateSlider.addEventListener("input", (event) => {
-    rateSlider.nextSibling.replaceWith(event.target.value);
+const initializeSlider = ({ slider, value }) => {
+  slider.value = value;
+  slider.after(value);
+  slider.addEventListener("input", (event) => {
+    slider.nextSibling.replaceWith(event.target.value);
   });
 }
 
@@ -102,11 +96,16 @@ const initializeSliders = ({ rate, pitch }) => {
   fetch("./options.json").then((data) => data.json()).then((parsedData) => {
     options = parsedData;
 
-    initializeForm("#train-type", options.trainType, "option");
-    initializeForm("#verb", options.verb, "option");
-    initializeForm("#track", options.track, "option");
+    [
+      { id: "#train-type", value: options.trainType, },
+      { id: "#verb", value: options.verb, },
+      { id: "#track", value: options.track, }
+    ].forEach(({ id, value }) => fillElement(form, id, value, "option"));
 
-    initializeSliders(options.config)
+    [
+      { slider: pitchSlider, value: options.config.pitch },
+      { slider: rateSlider, value: options.config.rate }
+    ].forEach(item => initializeSlider(item));
 
     toggleButton()
   });
