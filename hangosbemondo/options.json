@@ -8,6 +8,10 @@
     { "text": "Expresszvonat", "value": "Expresszvonat" },
     { "text": "EC", "value": "Eurosziti vonat" }
   ],
+  "verb": [
+    { "text": "Indul", "value": "indul" },
+    { "text": "Érkezik", "value": "érkezik" }
+  ],
   "track": [
     { "text": "1", "value": "az 1." },
     { "text": "2", "value": "a 2." },

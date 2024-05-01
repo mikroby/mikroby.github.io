@@ -103,6 +103,7 @@ const initializeSliders = ({ rate, pitch }) => {
     options = parsedData;
 
     initializeForm("#train-type", options.trainType, "option");
+    initializeForm("#verb", options.verb, "option");
     initializeForm("#track", options.track, "option");
 
     initializeSliders(options.config)
