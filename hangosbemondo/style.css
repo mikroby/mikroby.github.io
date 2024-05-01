@@ -4,7 +4,8 @@ html {
 }
 
 body {
-  background-image: url(hatter.JPG);
+  background-image: url(./assets/hatter.JPG);
+  background-attachment: fixed;
   background-size: cover;
   color: aliceblue;
   margin: 0;
@@ -76,10 +77,11 @@ form input {
   form {
     flex-direction: column;
   }
-
+  
   .input-fields {
     display: flex;
     flex-direction: column;
+    gap:10px;
   }
 
   button {
