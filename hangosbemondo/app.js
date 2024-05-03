@@ -18,6 +18,7 @@ const button = document.querySelector("button");
 const buttonImage = button.querySelector("img");
 const pitchSlider = document.querySelector("#pitch");
 const rateSlider = document.querySelector("#rate");
+const info = document.querySelector('#info');
 
 const toggleButton = () => {
   if (buttonImage.src.includes("start")) {
@@ -40,7 +41,12 @@ const sayIt = (sentence) => {
   message.voice = voices.find((item) => item.lang.toLocaleLowerCase().includes("hu"));
   message.volume = 1;
   synth.cancel();
-  synth.speak(message);
+  try {    
+    synth.speak(message);
+    info.textContent = 'OKÉ'
+  } catch (error) {
+    info.textContent = error
+  }
   message.addEventListener("end", toggleButton, { once: true });
 }
 
@@ -76,6 +82,7 @@ const playSound = () => {
 
   stationSignal.load();
   stationSignal.play();
+  info.textContent = 'SAY?'
 };
 
 const fillElement = (container, id, array, elementType) => {
