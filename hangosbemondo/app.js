@@ -5,7 +5,7 @@ const startImageURL = assetsURL + "start.png"
 const stopImageURL = assetsURL + "stop.png"
 
 const stationSignal = new Audio(stationSignalURL);
-const synth = speechSynthesis;
+const synth = window.speechSynthesis;
 const voices = synth.getVoices();
 
 let affixes, controller;
