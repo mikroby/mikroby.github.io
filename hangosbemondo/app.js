@@ -126,6 +126,8 @@ const initializeSlider = ({ slider, value }) => {
     ].forEach(item => initializeSlider(item));
 
     toggleButton()
+
+    info.textContent = Boolean(synth);
   });
 })();
 // TODO:
