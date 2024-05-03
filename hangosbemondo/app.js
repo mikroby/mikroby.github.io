@@ -21,6 +21,8 @@ const rateSlider = document.querySelector("#rate");
 const info = document.querySelector('#info');
 
 const toggleButton = () => {
+  info.textContent = synth ? 'supported' : 'not supported';
+
   if (buttonImage.src.includes("start")) {
     buttonImage.src = stopImageURL;
     button.onclick = stopSound;
@@ -126,8 +128,6 @@ const initializeSlider = ({ slider, value }) => {
     ].forEach(item => initializeSlider(item));
 
     toggleButton()
-
-    info.textContent = Boolean(synth);
   });
 })();
 // TODO:
