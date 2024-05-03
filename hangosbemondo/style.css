@@ -7,24 +7,37 @@ body {
   background-image: url(./assets/hatter.JPG);
   background-attachment: fixed;
   background-size: cover;
+  background-position: center;
   color: aliceblue;
   margin: 0;
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 }
 
 header {
-  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header h1 {
+  margin: 0;
 }
 
 main {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+main p {
+  margin-bottom: 0;
 }
 
 footer {
   margin-top: auto;
-  padding: 20px;
 }
 
 footer span {
@@ -32,14 +45,15 @@ footer span {
 }
 
 button {
-  margin-left: 25px;
   background-color: seagreen;
   border-radius: 10px;
   box-shadow: 0px 0px 5px 5px rgba(255, 255, 255, 0.5);
   width: 50px;
   height: 50px;
   padding: 5px;
+  align-self: center;
 }
+
 button img {
   height: 100%;
   width: 100%;
@@ -47,54 +61,47 @@ button img {
 
 form {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 form select,
 form input {
   font-size: 1rem;
   padding: 5px;
-}
-
-.input-fields {
-  margin: auto 0;
+  border-radius: 10px;
+  border-style: none;
+  outline: none;
 }
 
 .slider {
   display: flex;
-  margin: 25px 0;
-  align-content: center;
   font-size: 1.2rem;
 }
+
+.slider label {
+  width: 20%;
+}
+
 .slider input {
-  width: 50%;
+  flex: 1 1;
   margin: 0 10px;
 }
-.slider label {
-  width: 25%;
-}
 
-@media screen and (max-width: 425px) {
+
+@media (max-width: 767px) {
   form {
     flex-direction: column;
-  }
-  
-  .input-fields {
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-  }
-
-  button {
-    margin: 25px auto;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .slider {
     flex-direction: column;
   }
-  .slider input {
-    width: auto;
-  }
+
   .slider label {
     width: auto;
   }
+
 }

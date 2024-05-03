@@ -1,15 +1,17 @@
 const assetsURL = "./assets/";
-const signalURL = assetsURL + "mav_szignal.mp3"
+const stationSignalURL = assetsURL + "mav_szignal.mp3"
 const welcomeSignalURL = assetsURL + "KISS_signal.wav"
 const startImageURL = assetsURL + "start.png"
 const stopImageURL = assetsURL + "stop.png"
 
-const synth = window.speechSynthesis;
+const stationSignal = new Audio(stationSignalURL);
+const synth = speechSynthesis;
 const voices = synth.getVoices();
 
-// import options from "./options.json" assert {type: 'json'};
-let options;
-let signal;
+let affixes, controller;
+
+// it does not work on mobile:
+// import parsedData from "./options.json" assert {type: 'json'};
 
 const form = document.querySelector("form");
 const button = document.querySelector("button");
@@ -20,26 +22,37 @@ const rateSlider = document.querySelector("#rate");
 const toggleButton = () => {
   if (buttonImage.src.includes("start")) {
     buttonImage.src = stopImageURL;
-    button.removeEventListener("click", playSound);
-    button.addEventListener("click", stopSound);
+    button.onclick = stopSound;
+    // button.removeEventListener("click", playSound);
+    // button.addEventListener("click", stopSound);
   } else {
     buttonImage.src = startImageURL;
-    button.removeEventListener("click", stopSound);
-    button.addEventListener("click", playSound);
+    button.onclick = playSound;
+    // button.removeEventListener("click", stopSound);
+    // button.addEventListener("click", playSound);
   }
 };
 
+const sayIt = (sentence) => {
+  const message = new SpeechSynthesisUtterance(sentence);
+  message.rate = rateSlider.value / 100;
+  message.pitch = pitchSlider.value / 100;
+  message.voice = voices.find((item) => item.lang.toLocaleLowerCase().includes("hu"));
+  message.volume = 1;
+  synth.cancel();
+  synth.speak(message);
+  message.addEventListener("end", toggleButton, { once: true });
+}
+
 const stopSound = () => {
   toggleButton();
-  signal.pause();
-  signal = null;
+  controller.abort()
+  stationSignal.pause();
   synth.cancel();
 }
 
 const playSound = () => {
-  const formValues = Object.values(form).map(({ name }) => name ? form[name].value : null)
-  // omit the value of the button in the form.
-  formValues.pop()
+  const formValues = Object.values(form).map(({ name }) => form[name].value)
 
   if (formValues.some(value => !value)) {
     alert("Hiányzó adatok a bemondáshoz. Válassz értéket minden mezőhöz!");
@@ -51,22 +64,18 @@ const playSound = () => {
   const [trainType, verb, time, track] = formValues;
   const hour = Number(time.slice(0, 2));
   const minute = Number(time.slice(3, 5));
-  const trackAffix = options.affix[verb];
+  const trackAffix = affixes[verb];
 
   const sentence = `${trainType} ${verb} ${hour} óra ${minute} perckor ${track} ${trackAffix}`;
 
-  signal = new Audio(signalURL);
-  signal.addEventListener("ended", () => {
-    const message = new SpeechSynthesisUtterance(sentence);
-    message.rate = rateSlider.value / 100;
-    message.pitch = pitchSlider.value / 100;
-    message.voice = voices.find((item) => item.lang.includes("hu"));
-    message.volume = 1;
-    synth.speak(message);
-    message.addEventListener("end", stopSound);
-  });
+  controller = new AbortController();
 
-  signal.play();
+  stationSignal.addEventListener("ended", () => {
+    sayIt(sentence)
+  }, { once: true, signal: controller.signal });
+
+  stationSignal.load();
+  stationSignal.play();
 };
 
 const fillElement = (container, id, array, elementType) => {
@@ -94,7 +103,9 @@ const initializeSlider = ({ slider, value }) => {
   welcomeSignal.autoplay = true;
 
   fetch("./options.json").then((data) => data.json()).then((parsedData) => {
-    options = parsedData;
+    const { options, config } = parsedData;
+    const { pitch, rate } = config;
+    affixes = options.affix;
 
     [
       { id: "#train-type", value: options.trainType, },
@@ -103,14 +114,13 @@ const initializeSlider = ({ slider, value }) => {
     ].forEach(({ id, value }) => fillElement(form, id, value, "option"));
 
     [
-      { slider: pitchSlider, value: options.config.pitch },
-      { slider: rateSlider, value: options.config.rate }
+      { slider: pitchSlider, value: pitch },
+      { slider: rateSlider, value: rate }
     ].forEach(item => initializeSlider(item));
 
     toggleButton()
   });
 })();
 // TODO:
-// modal az alert helyett.
-// modal a bemondás szövegével
-// modal animációja
+// modal instead of alert
+// modal with animation
