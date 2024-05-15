@@ -8,7 +8,7 @@ const stationSignal = new Audio(stationSignalURL);
 const synth = window.speechSynthesis;
 const message = new SpeechSynthesisUtterance();
 
-let affixes, controller;
+let affixes, controller, voicesHUN;
 
 // it does not work on mobile:
 // import parsedData from "./options.json" assert {type: 'json'};
@@ -37,19 +37,16 @@ const toggleButton = () => {
 const sayIt = (sentence) => {
   message.text = sentence;
   message.lang = 'hu-HU';
+  message.voice = voicesHUN[0];
   message.rate = rateSlider.value / 100;
   message.pitch = pitchSlider.value / 100;
   message.volume = 1;
-
-  const voicesAll = synth.getVoices();
-  const voicesHUN = voicesAll.filter(item => item.lang.toLowerCase().includes("hu"));
-  message.voice = voicesHUN[0];
 
   synth.cancel();
 
   try {
     synth.speak(message);
-    info.textContent = `${voicesAll.length}:${voicesHUN.length}:${message.voice.name}`
+    info.textContent = `${voicesHUN.length}:${message.voice.name}`
   } catch (error) {
     info.textContent = error
   }
@@ -112,6 +109,11 @@ const initializeSlider = ({ slider, value }) => {
 
 // START IIFE
 (async () => {
+  synth.addEventListener('voiceschanged', () => {
+    const voicesAll = synth.getVoices();
+    voicesHUN = voicesAll.filter(item => item.lang.toLowerCase().includes("hu"));
+  })
+
   const welcomeSignal = new Audio(welcomeSignalURL);
   welcomeSignal.autoplay = true;
 
