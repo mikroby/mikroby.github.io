@@ -6,7 +6,6 @@ const stopImageURL = assetsURL + "stop.png"
 
 const stationSignal = new Audio(stationSignalURL);
 const synth = window.speechSynthesis;
-const voices = synth.getVoices();
 
 let affixes, controller;
 
@@ -20,9 +19,9 @@ const pitchSlider = document.querySelector("#pitch");
 const rateSlider = document.querySelector("#rate");
 const info = document.querySelector('#info');
 
-const toggleButton = () => {
-  info.textContent = synth ? 'supported' : 'not supported';
+info.textContent = synth ? 'synth supported' : 'synth not supported';
 
+const toggleButton = () => {
   if (buttonImage.src.includes("start")) {
     buttonImage.src = stopImageURL;
     button.onclick = stopSound;
@@ -40,12 +39,16 @@ const sayIt = (sentence) => {
   const message = new SpeechSynthesisUtterance(sentence);
   message.rate = rateSlider.value / 100;
   message.pitch = pitchSlider.value / 100;
-  message.voice = voices.find((item) => item.lang.toLocaleLowerCase().includes("hu"));
+
+  const voices = synth.getVoices();
+
+  message.voice = voices.find((item) => item.lang.toLowerCase().includes("hu"));
+  message.lang = 'hu-HU';
   message.volume = 1;
   synth.cancel();
-  try {    
+  try {
     synth.speak(message);
-    info.textContent = 'OKÉ'
+    info.textContent = voices.length + message.voice.name
   } catch (error) {
     info.textContent = error
   }
@@ -84,7 +87,6 @@ const playSound = () => {
 
   stationSignal.load();
   stationSignal.play();
-  info.textContent = 'SAY?'
 };
 
 const fillElement = (container, id, array, elementType) => {
@@ -107,28 +109,28 @@ const initializeSlider = ({ slider, value }) => {
 }
 
 // START IIFE
-(() => {
+(async () => {
   const welcomeSignal = new Audio(welcomeSignalURL);
   welcomeSignal.autoplay = true;
 
-  fetch("./options.json").then((data) => data.json()).then((parsedData) => {
-    const { options, config } = parsedData;
-    const { pitch, rate } = config;
-    affixes = options.affix;
+  const data = await fetch("./options.json");
+  const { options, config } = await data.json();
+  const { pitch, rate } = config;
+  affixes = options.affix;
 
-    [
-      { id: "#train-type", value: options.trainType, },
-      { id: "#verb", value: options.verb, },
-      { id: "#track", value: options.track, }
-    ].forEach(({ id, value }) => fillElement(form, id, value, "option"));
+  [
+    { id: "#train-type", value: options.trainType, },
+    { id: "#verb", value: options.verb, },
+    { id: "#track", value: options.track, }
+  ].forEach(({ id, value }) => fillElement(form, id, value, "option"));
 
-    [
-      { slider: pitchSlider, value: pitch },
-      { slider: rateSlider, value: rate }
-    ].forEach(item => initializeSlider(item));
+  [
+    { slider: pitchSlider, value: pitch },
+    { slider: rateSlider, value: rate }
+  ].forEach(item => initializeSlider(item));
 
-    toggleButton()
-  });
+  toggleButton();
+
 })();
 // TODO:
 // modal instead of alert
