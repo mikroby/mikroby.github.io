@@ -35,16 +35,15 @@ const toggleButton = () => {
 };
 
 const sayIt = (sentence) => {
-  message.text = sentence;
-  message.lang = 'hu-HU';
-  message.voice = voicesHUN[0];
-  message.rate = rateSlider.value / 100;
-  message.pitch = pitchSlider.value / 100;
-  message.volume = 1;
-
-  synth.cancel();
-
   try {
+    message.text = sentence;
+    message.lang = 'hu-HU';
+    message.voice = voicesHUN.length > 0 ? voicesHUN[0] : message.voice;
+    message.rate = rateSlider.value / 100;
+    message.pitch = pitchSlider.value / 100;
+    message.volume = 1;
+
+    synth.cancel();
     synth.speak(message);
   } catch (error) {
     info.textContent = error
@@ -111,6 +110,7 @@ const initializeSlider = ({ slider, value }) => {
   synth.addEventListener('voiceschanged', () => {
     const voicesAll = synth.getVoices();
     voicesHUN = voicesAll.filter(item => item.lang.toLowerCase().includes("hu"));
+
     info.textContent = `${voicesHUN.length}:${voicesHUN[0].name}`
   })
 
