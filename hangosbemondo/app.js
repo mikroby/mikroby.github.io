@@ -6,6 +6,7 @@ const stopImageURL = assetsURL + "stop.png"
 
 const stationSignal = new Audio(stationSignalURL);
 const synth = window.speechSynthesis;
+const message = new SpeechSynthesisUtterance();
 
 let affixes, controller;
 
@@ -18,8 +19,6 @@ const buttonImage = button.querySelector("img");
 const pitchSlider = document.querySelector("#pitch");
 const rateSlider = document.querySelector("#rate");
 const info = document.querySelector('#info');
-
-info.textContent = synth ? 'synth supported' : 'synth not supported';
 
 const toggleButton = () => {
   if (buttonImage.src.includes("start")) {
@@ -36,22 +35,25 @@ const toggleButton = () => {
 };
 
 const sayIt = (sentence) => {
-  const message = new SpeechSynthesisUtterance(sentence);
+  message.text = sentence;
+  message.lang = 'hu-HU';
   message.rate = rateSlider.value / 100;
   message.pitch = pitchSlider.value / 100;
-
-  const voices = synth.getVoices();
-
-  message.voice = voices.find((item) => item.lang.toLowerCase().includes("hu"));
-  message.lang = 'hu-HU';
   message.volume = 1;
+
+  const voicesAll = synth.getVoices();
+  const voicesHUN = voicesAll.filter(item => item.lang.toLowerCase().includes("hu"));
+  message.voice = voicesHUN[0];
+
   synth.cancel();
+
   try {
     synth.speak(message);
-    info.textContent = voices.length + message.voice.name
+    info.textContent = `${voicesAll.length}:${voicesHUN.length}:${message.voice.name}`
   } catch (error) {
     info.textContent = error
   }
+
   message.addEventListener("end", toggleButton, { once: true });
 }
 
