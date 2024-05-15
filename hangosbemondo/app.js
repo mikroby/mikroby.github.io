@@ -46,7 +46,6 @@ const sayIt = (sentence) => {
 
   try {
     synth.speak(message);
-    info.textContent = `${voicesHUN.length}:${message.voice.name}`
   } catch (error) {
     info.textContent = error
   }
@@ -112,6 +111,7 @@ const initializeSlider = ({ slider, value }) => {
   synth.addEventListener('voiceschanged', () => {
     const voicesAll = synth.getVoices();
     voicesHUN = voicesAll.filter(item => item.lang.toLowerCase().includes("hu"));
+    info.textContent = `${voicesHUN.length}:${voicesHUN[0].name}`
   })
 
   const welcomeSignal = new Audio(welcomeSignalURL);
