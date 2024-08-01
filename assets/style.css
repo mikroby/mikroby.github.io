@@ -1,17 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+
+@import "./animations.css";
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   user-select: none;
   font-size: 16px;
 }
 
 body {
   margin: 0;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  background-image: url("./hatter.bmp");
+  background-attachment: fixed;
 }
 
 * {
@@ -19,9 +22,7 @@ body {
 }
 
 #content {
-  max-width: 100vw;
-  min-height: 100vh;
-  background-image: url('./hatter.bmp');
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,41 +40,30 @@ body {
   /* display: none; */
 }
 
-@keyframes spin {
-  0% {
-    transform: rotateZ(0deg);
-  }
-
-  100% {
-    transform: rotateZ(360deg);
-  }
-}
-
 .fa-spinner {
   animation: spin 1s infinite ease;
 }
-
 
 a {
   text-decoration-line: none;
   color: black;
 }
 
-@keyframes moveHeader {
-  0% {
-    transform: translateY(-100%);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
+header {
+  position: relative;
+  height: 6rem;
+  width: 100%;
 }
 
 .main__header {
-  font-family: 'Fredericka the Great', sans-serif;
+  position: absolute;
+  top: 0;
+  font-family: "Fredericka the Great", sans-serif;
   font-weight: 300;
   font-size: 3rem;
-  margin: 1rem 0 1.75rem;
+  line-height: 1;
+  margin: 0;
+  /* margin: 0.75rem 0 1rem; */
   animation: moveHeader 0.75s;
   animation-fill-mode: forwards;
 }
@@ -90,21 +80,8 @@ a {
 }
 
 .skill {
-  transition: all 0.2s ease-in-out;
   margin: 1rem;
   width: 3rem;
-}
-
-@keyframes moveSkill {
-  0% {
-    transform: translateX(-150%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateX(0%);
-    opacity: 1;
-  }
 }
 
 [class^="m0"] {
@@ -152,58 +129,32 @@ a {
   animation-fill-mode: forwards;
 }
 
-@keyframes moveImage {
-  0% {
-    opacity: 0;
-    transform: translateX(50%);
-  }
-  
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-}
-
 .portrait__box {
   position: fixed;
-  height: 100%;
-  width: 30%;
+  height: 100vh;
+  width: 30vw;
   right: 0;
+  top: 0;
   animation: moveImage 2s;
   animation-fill-mode: forwards;
+  z-index: -10;
 }
 
-.portrait__box img {  
+.portrait__box img {
   filter: contrast(50%);
   height: 100%;
-  /* width: 100%; */
   object-fit: scale-down;
   object-position: right;
-}
-
-section {
-  position: fixed;
-  top: 12%;
-}
-
-@keyframes moveList {
-  0% {
-    transform: translateY(200%);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
 }
 
 .list__box {
   border-radius: 0.25rem;
   box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
-  background-color: transparent;
   backdrop-filter: blur(5px);
   padding: 1.25rem;
   animation: moveList 1s;
   animation-fill-mode: forwards;
+  overflow-y: scroll;
 }
 
 .link {
@@ -226,34 +177,26 @@ small {
   padding: 0 0 0 1.5rem;
 }
 
-@keyframes moveFooter {
-  0% {
-    transform: translateY(200%);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
-}
-
 footer {
-  position: fixed;
-  bottom: -1.25rem;
+  position: relative;
+  height: 4rem;
+  width: 100%;
 }
 
-.footer__text {
-  transform: translateY(200%);
+.footer__content {
+  margin: 0 auto 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: absolute;
+  transform: translateY(100%);
   font-weight: 300;
   font-size: 1rem;
-  margin-bottom: 1.5rem;
   animation: moveFooter 1s 1.2s;
   animation-fill-mode: forwards;
 }
 
-.badge {
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0 0.75rem 0;
+.grow {
   transition: all 0.2s ease-in-out;
 }
 
@@ -261,19 +204,19 @@ footer {
   transform: scale(1.2);
 }
 
-@media screen and (max-width:424px) {
+@media screen and (max-width: 424px) {
   html {
     font-size: 14px;
   }
 }
 
-@media screen and (max-width:374px) {
+@media screen and (max-width: 374px) {
   html {
     font-size: 12px;
   }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width: 320px) {
   html {
     font-size: 10px;
   }

@@ -22,7 +22,7 @@ body {
   align-items: center;
 }
 
-#game__header {
+header {
   margin: 1.5rem 0;
   font-size: 3rem;
   font-weight: 600;
@@ -124,11 +124,11 @@ body {
 }
 
 
-.showReport {
+.report {
   margin: 1.5rem 0 0;
 }
 
-#info {
+#message {
   height: 2rem;
   font-size: 2rem;
   font-weight: 600;
@@ -139,7 +139,7 @@ body {
 
 }
 
-.shots, .hits, .sunks {
+.info {
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 3rem;

@@ -1,28 +1,22 @@
 'use strict';
 
+import { shipMark, shootMark, shipsToLocate, maxCell, maxShots, sounds } from "./config.js";
 import { hideShips } from "./hideShips.js"
 
-const shipMark = '<i class="fas fa-square"></i>';
-const shootMark = '<i class="fas fa-times"></i>';
-
-const header = document.querySelector('#game__header');
-const info = document.querySelector('#info');
+const header = document.querySelector('header');
+const message = document.querySelector('#message');
 const shotNumber = document.querySelector('#shotNumber');
 const hitNumber = document.querySelector('#hitNumber');
 const sunkNumber = document.querySelector('#sunkNumber');
-const button = document.querySelector('.btn');
+const button = document.querySelector('#game_control');
 const field = document.querySelector('.field');
 
-const shipsToLocate = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
-const maxCell = 10;
-const maxShots = 45;
-let cells,shots, hits, sunks, ships;
-
+let cells, shots, hits, sunks, ships;
 
 const initialize = () => {
   button.textContent = 'A játék leírása';
   button.onclick = function () { window.location = "#playRules" };
-  info.textContent = '';
+  message.textContent = '';
 
   cells.forEach(cell => {
     cell.addEventListener('click', shoot);
@@ -40,23 +34,28 @@ const showInfo = () => {
   sunkNumber.textContent = sunks;
 }
 
+const playSound = (name) => {
+  const { url, volume } = sounds[name];
+  const audio = new Audio(url);
+  audio.volume = volume;
+  audio.play();
+}
+
 const hit = (cell) => {
   animateField();
-  const hitSound = new Audio('assets/sound/hit.wav');
-  hitSound.volume = 0.5;
-  hitSound.play();
+  playSound('hit');
   hits++;
   cell.classList.add('hit');
   cell.innerHTML = shipMark;
-  info.textContent = 'Talált!';
+  message.textContent = 'Talált!';
 }
 
 const missed = (cell) => {
-  new Audio('assets/sound/missed.wav').play();
   animateHeader();
+  playSound('missed');
   cell.classList.add('missed');
   cell.innerHTML = shootMark;
-  info.textContent = '';
+  message.textContent = '';
 }
 
 const evaluateShot = (cell) => {
@@ -65,10 +64,10 @@ const evaluateShot = (cell) => {
 }
 
 const sunk = (ship) => {
-  new Audio('assets/sound/sunk.wav').play();
+  playSound('sunk');
   sunks++;
   ship.forEach(cell => cell.classList.replace('hit', 'sunk'));
-  info.textContent = 'Talált, Süllyedt!';
+  message.textContent = 'Talált, Süllyedt!';
 }
 
 const checkSunk = () => {
@@ -100,12 +99,12 @@ const theEnd = () => {
 
 const checkEnd = () => {
   if (shots === 0) {
-    info.textContent = 'Elfogyott a lőszer...';
+    message.textContent = 'Elfogyott a lőszer...';
     showAliveShips();
     theEnd();
   }
   if (sunks === shipsToLocate.length) {
-    info.textContent = 'Minden hajó elsüllyedt!';
+    message.textContent = 'Minden hajó elsüllyedt!';
     theEnd();
   }
 }
@@ -154,11 +153,9 @@ const createField = () => {
   field.innerHTML = template.join('');
 }
 
-// IIFE starter.
+// IIFE starter. run on page load or on refresh.
 (() => {
   createField();
   cells = document.querySelectorAll('.cell');
   start();
 })();
-
-export { shipsToLocate, maxCell };

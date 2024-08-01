@@ -1,56 +1,57 @@
 'use strict';
 
-import { shipsToLocate, maxCell } from "./main.js";
+import { shipsToLocate, maxCell } from "./config.js";
 
-const hideShips = () => {
+let field;
 
-  const checkChanceIn = {
-    'rows'(x, y, ship) {
-      for (let row = y - 1; row <= y + 1; row++) {
-        if (row < 0 || row >= maxCell) { continue }
+const checkChanceIn = {
+  'rows'(x, y, ship) {
+    for (let row = y - 1; row <= y + 1; row++) {
+      if (row < 0 || row >= maxCell) { continue }
 
-        for (let col = x - 1; col <= x + ship; col++) {
-          if (col < 0 || col >= maxCell) { continue }
-
-          if (field[row][col] !== 0) { return false }
-        }
-      }
-      return true;
-    },
-    'cols'(x, y, ship) {
-      for (let col = x - 1; col <= x + 1; col++) {
+      for (let col = x - 1; col <= x + ship; col++) {
         if (col < 0 || col >= maxCell) { continue }
 
-        for (let row = y - 1; row <= y + ship; row++) {
-          if (row < 0 || row >= maxCell) { continue }
-
-          if (field[row][col] !== 0) { return false }
-        }
+        if (field[row][col] !== 0) { return false }
       }
-      return true;
     }
-  }
+    return true;
+  },
+  'cols'(x, y, ship) {
+    for (let col = x - 1; col <= x + 1; col++) {
+      if (col < 0 || col >= maxCell) { continue }
 
-  const locateShipIn = {
-    'rows'(ship, row, col) {
-      const array = [];
-      for (let i = 0; i < ship; i++) {
-        field[row][col + i] = ship;
-        array.push(document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`));
+      for (let row = y - 1; row <= y + ship; row++) {
+        if (row < 0 || row >= maxCell) { continue }
+
+        if (field[row][col] !== 0) { return false }
       }
-      return array;
-    },
-    'cols'(ship, row, col) {
-      const array = [];
-      for (let i = 0; i < ship; i++) {
-        field[row + i][col] = ship;
-        array.push(document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`));
-      }
-      return array;
     }
+    return true;
   }
+}
 
-  const field = Array(maxCell).fill().map(() => Array(maxCell).fill(0));
+const locateShipIn = {
+  'rows'(ship, row, col) {
+    const array = [];
+    for (let i = 0; i < ship; i++) {
+      field[row][col + i] = ship;
+      array.push(document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`));
+    }
+    return array;
+  },
+  'cols'(ship, row, col) {
+    const array = [];
+    for (let i = 0; i < ship; i++) {
+      field[row + i][col] = ship;
+      array.push(document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`));
+    }
+    return array;
+  }
+}
+
+export const hideShips = () => {
+  field = Array(maxCell).fill().map(() => Array(maxCell).fill(0));
   const ships = [];
   let chances, direction, counter;
 
@@ -67,7 +68,7 @@ const hideShips = () => {
 
       for (let y = 0; y < maxY; y++) {
         for (let x = 0; x < maxX; x++) {
-          if (checkChanceIn[direction](x, y, ship)) {
+          if (checkChanceIn[direction](x, y, ship, field, maxCell)) {
             chances.push([x, y]);
           }
         }
@@ -87,10 +88,8 @@ const hideShips = () => {
     const selection = Math.trunc(Math.random() * chances.length);
     const row = chances[selection][1];
     const col = chances[selection][0];
-    ships.push(locateShipIn[direction](ship, row, col));
+    ships.push(locateShipIn[direction](ship, row, col, field));
   });
 
   return ships;
 }
-
-export { hideShips };
