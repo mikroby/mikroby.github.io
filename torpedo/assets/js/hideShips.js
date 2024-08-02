@@ -7,24 +7,36 @@ let field;
 const checkChanceIn = {
   'rows'(x, y, ship) {
     for (let row = y - 1; row <= y + 1; row++) {
-      if (row < 0 || row >= maxCell) { continue }
+      if (row < 0 || row >= maxCell) {
+        continue
+      }
 
       for (let col = x - 1; col <= x + ship; col++) {
-        if (col < 0 || col >= maxCell) { continue }
+        if (col < 0 || col >= maxCell) {
+          continue
+        }
 
-        if (field[row][col] !== 0) { return false }
+        if (field[row][col] !== 0) {
+          return false
+        }
       }
     }
     return true;
   },
   'cols'(x, y, ship) {
     for (let col = x - 1; col <= x + 1; col++) {
-      if (col < 0 || col >= maxCell) { continue }
+      if (col < 0 || col >= maxCell) {
+        continue
+      }
 
       for (let row = y - 1; row <= y + ship; row++) {
-        if (row < 0 || row >= maxCell) { continue }
+        if (row < 0 || row >= maxCell) {
+          continue
+        }
 
-        if (field[row][col] !== 0) { return false }
+        if (field[row][col] !== 0) {
+          return false
+        }
       }
     }
     return true;
@@ -80,8 +92,9 @@ export const hideShips = () => {
         direction = direction === 'rows' ? 'cols' : 'rows';
         counter++;
       }
+      
       if (counter === 3) {
-        throw `nem helyezhető el a ${ship} méretű hajó`;
+        throw `nem helyezhető el a(z) ${ship} elem hosszúságú hajó`;
       }
 
     } while (chances.length === 0);

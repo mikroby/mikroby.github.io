@@ -19,7 +19,7 @@ const initialize = () => {
   message.textContent = '';
 
   cells.forEach(cell => {
-    cell.addEventListener('click', shootCallback, {once: true});
+    cell.addEventListener('click', shootCallback, { once: true });
     cell.innerHTML = '';
     cell.className = 'cell';
   });
@@ -59,8 +59,12 @@ const missed = (cell) => {
 }
 
 const evaluateShot = (cell) => {
-  if (ships.flat().includes(cell)) { hit(cell) }
-  else { missed(cell) };
+  if (ships.flat().includes(cell)) {
+    hit(cell)
+  }
+  else {
+    missed(cell)
+  };
 }
 
 const sunk = (ship) => {
@@ -70,13 +74,11 @@ const sunk = (ship) => {
   message.textContent = 'Talált, Süllyedt!';
 }
 
-const checkSunk = () => {
-  ships.forEach(ship => {
-    if (ship.every(cell => cell.classList.contains('hit'))) {
-      sunk(ship);
-    }
-  })
-}
+const checkForSunk = () => ships.forEach(ship => {
+  if (ship.every(cell => cell.classList.contains('hit'))) {
+    sunk(ship);
+  }
+})
 
 const showAliveShips = () => {
   ships.flat().forEach(cell => {
@@ -115,7 +117,7 @@ const shoot = (cell) => {
   shots--;
   cell.classList.add('shot');
   evaluateShot(cell);
-  checkSunk();
+  checkForSunk();
   showInfo();
   checkEnd();
 }
