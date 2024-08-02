@@ -1,148 +1,155 @@
-'use strict';
+"use strict";
 
-import { shipMark, shootMark, shipsToLocate, maxCell, maxShots, sounds } from "./config.js";
-import { hideShips } from "./hideShips.js"
+import {
+  shipMark,
+  shootMark,
+  shipsToAccomodate,
+  maxCell,
+  maxShots,
+  sounds,
+} from "./config.js";
+import { hideShips } from "./hideShips.js";
 
-const header = document.querySelector('header');
-const field = document.querySelector('#field');
-const message = document.querySelector('#message');
-const shotNumber = document.querySelector('#shotNumber');
-const hitNumber = document.querySelector('#hitNumber');
-const sunkNumber = document.querySelector('#sunkNumber');
-const button = document.querySelector('#game_control');
+const header = document.querySelector("header");
+const field = document.querySelector("#field");
+const message = document.querySelector("#message");
+const shotNumber = document.querySelector("#shotNumber");
+const hitNumber = document.querySelector("#hitNumber");
+const sunkNumber = document.querySelector("#sunkNumber");
+const button = document.querySelector("#game_control");
 
 let cells, shots, hits, sunks, ships;
 
 const initialize = () => {
-  button.textContent = 'A játék leírása';
-  button.onclick = () => window.location = "#playRules";
-  message.textContent = '';
+  button.textContent = "A játék leírása";
+  button.onclick = () => (window.location = "#playRules");
+  message.textContent = "";
 
-  cells.forEach(cell => {
-    cell.addEventListener('click', shootCallback, { once: true });
-    cell.innerHTML = '';
-    cell.className = 'cell';
+  cells.forEach((cell) => {
+    cell.addEventListener("click", shootCallback, { once: true });
+    cell.innerHTML = "";
+    cell.className = "cell";
   });
   shots = maxShots;
   hits = 0;
   sunks = 0;
-}
+};
 
 const report = () => {
   shotNumber.textContent = shots;
   hitNumber.textContent = hits;
   sunkNumber.textContent = sunks;
-}
+};
 
 const playSound = (name) => {
   const { url, volume } = sounds[name];
   const audio = new Audio(url);
   audio.volume = volume;
   audio.play();
-}
+};
 
 const hit = (cell) => {
   animateField();
-  playSound('hit');
+  playSound("hit");
   hits++;
-  cell.classList.add('hit');
+  cell.classList.add("hit");
   cell.innerHTML = shipMark;
-  message.textContent = 'Talált!';
-}
+  message.textContent = "Talált!";
+};
 
 const missed = (cell) => {
   animateHeader();
-  playSound('missed');
-  cell.classList.add('missed');
+  playSound("missed");
+  cell.classList.add("missed");
   cell.innerHTML = shootMark;
-  message.textContent = '';
-}
+  message.textContent = "";
+};
 
 const evaluateShot = (cell) => {
   if (ships.flat().includes(cell)) {
-    hit(cell)
+    hit(cell);
+  } else {
+    missed(cell);
   }
-  else {
-    missed(cell)
-  };
-}
+};
 
 const sunk = (ship) => {
-  playSound('sunk');
+  playSound("sunk");
   sunks++;
-  ship.forEach(cell => cell.classList.replace('hit', 'sunk'));
-  message.textContent = 'Talált, Süllyedt!';
-}
+  ship.forEach((cell) => cell.classList.replace("hit", "sunk"));
+  message.textContent = "Talált, Süllyedt!";
+};
 
-const checkForSunk = () => ships.forEach(ship => {
-  if (ship.every(cell => cell.classList.contains('hit'))) {
-    sunk(ship);
-  }
-})
+const checkForSunk = () =>
+  ships.forEach((ship) => {
+    if (ship.every((cell) => cell.classList.contains("hit"))) {
+      sunk(ship);
+    }
+  });
 
 const showAliveShips = () => {
-  ships.flat().forEach(cell => {
-    if (cell.className === 'cell') {
-      cell.classList.add('alive');
+  ships.flat().forEach((cell) => {
+    if (cell.className === "cell") {
+      cell.classList.add("alive");
       cell.innerHTML = shipMark;
     }
   });
-}
+};
 
 const theEnd = () => {
-  document.querySelectorAll('.cell:not(.shot)').forEach(cell => {
-    cell.removeEventListener('click', shootCallback);
-    cell.classList.add('shot');
-  })
+  document.querySelectorAll(".cell:not(.shot)").forEach((cell) => {
+    cell.removeEventListener("click", shootCallback);
+    cell.classList.add("shot");
+  });
 
-  button.textContent = 'Új játék';
+  button.textContent = "Új játék";
   button.onclick = start;
-}
+};
 
 const checkEnd = () => {
   if (shots === 0) {
-    message.textContent = 'Elfogyott a lőszer...';
+    message.textContent = "Elfogyott a lőszer...";
     showAliveShips();
     theEnd();
   }
-  if (sunks === shipsToLocate.length) {
-    message.textContent = 'Minden hajó elsüllyedt!';
+  if (sunks === shipsToAccomodate.length) {
+    message.textContent = "Minden hajó elsüllyedt!";
     theEnd();
   }
-}
+};
 
 const shootCallback = (event) => shoot(event.target);
 
 const shoot = (cell) => {
   shots--;
-  cell.classList.add('shot');
+  cell.classList.add("shot");
   evaluateShot(cell);
   checkForSunk();
   report();
   checkEnd();
-}
+};
 
 const animateHeader = () => {
-  header.classList.add('shock-header');
+  header.classList.add("shock-header");
   const id = setTimeout(() => {
     clearTimeout(id);
-    header.classList.toggle('shock-header');
+    header.classList.toggle("shock-header");
   }, 510);
-}
+};
 
 const animateField = () => {
-  field.classList.add('shock-field');
+  field.classList.add("shock-field");
   const id = setTimeout(() => {
     clearTimeout(id);
-    field.classList.toggle('shock-field');
+    field.classList.toggle("shock-field");
   }, 410);
-}
+};
 
 const start = () => {
   initialize();
   report();
   ships = hideShips();
-}
+};
 
 const createField = () => {
   const template = [];
@@ -153,12 +160,12 @@ const createField = () => {
     }
     template.push(`</div>`);
   }
-  field.innerHTML = template.join('');
-}
+  field.innerHTML = template.join("");
+};
 
 // IIFE starter. run on page load or on refresh.
 (() => {
   createField();
-  cells = document.querySelectorAll('.cell');
+  cells = document.querySelectorAll(".cell");
   start();
 })();

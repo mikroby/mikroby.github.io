@@ -1,108 +1,128 @@
-'use strict';
+"use strict";
 
-import { shipsToLocate, maxCell } from "./config.js";
+import { shipsToAccomodate, maxCell } from "./config.js";
 
 let field;
 
-const checkChanceIn = {
-  'rows'(x, y, ship) {
+const isShipPlaceableBy = {
+  row(x, y, ship) {
     for (let row = y - 1; row <= y + 1; row++) {
       if (row < 0 || row >= maxCell) {
-        continue
+        continue;
       }
 
       for (let col = x - 1; col <= x + ship; col++) {
         if (col < 0 || col >= maxCell) {
-          continue
+          continue;
         }
 
         if (field[row][col] !== 0) {
-          return false
+          return false;
         }
       }
     }
     return true;
   },
-  'cols'(x, y, ship) {
+
+  col(x, y, ship) {
     for (let col = x - 1; col <= x + 1; col++) {
       if (col < 0 || col >= maxCell) {
-        continue
+        continue;
       }
 
       for (let row = y - 1; row <= y + ship; row++) {
         if (row < 0 || row >= maxCell) {
-          continue
+          continue;
         }
 
         if (field[row][col] !== 0) {
-          return false
+          return false;
         }
       }
     }
     return true;
-  }
-}
+  },
+};
 
-const locateShipIn = {
-  'rows'(ship, row, col) {
-    const array = [];
+const placeShipIntoFieldBy = (direction, ship, row, col) => {
+  const cells = [];
+
+  if (direction === "row") {
     for (let i = 0; i < ship; i++) {
       field[row][col + i] = ship;
-      array.push(document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`));
+      cells.push(
+        document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`)
+      );
     }
-    return array;
-  },
-  'cols'(ship, row, col) {
-    const array = [];
+  } else {
     for (let i = 0; i < ship; i++) {
       field[row + i][col] = ship;
-      array.push(document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`));
+      cells.push(
+        document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`)
+      );
     }
-    return array;
   }
-}
+  return cells;
+};
+
+const getRandomIntegerLessThan = (value) => Math.trunc(Math.random() * value);
+
+const changeDirection = (direction) => (direction === "row" ? "col" : "row");
+
+const getMaxFitCoords = (direction, shipSize) => ({
+  maxY: direction === "row" ? maxCell : maxCell - shipSize,
+  maxX: direction === "col" ? maxCell : maxCell - shipSize,
+});
+
+const fillSizedMatrixWith = (size, value) =>
+  Array(size)
+    .fill()
+    .map(() => Array(size).fill(value));
 
 export const hideShips = () => {
-  field = Array(maxCell).fill().map(() => Array(maxCell).fill(0));
-  const ships = [];
-  let chances, direction, counter;
+  field = fillSizedMatrixWith(maxCell, 0);
 
-  shipsToLocate.forEach((ship) => {
-    direction = Math.trunc(Math.random() * 2) === 0 ? 'rows' : 'cols';
-    counter = 1;
+  const accomodatedShips = [];
+  let freePlacesForShip, direction, iteration;
+
+  shipsToAccomodate.forEach((ship) => {
+    direction = getRandomIntegerLessThan(2) === 0 ? "row" : "col";
+    iteration = 1;
 
     do {
-      chances = [];
-      // console.log(ship, direction);
+      freePlacesForShip = [];
 
-      const maxY = direction === 'rows' ? maxCell : maxCell - ship;
-      const maxX = direction === 'cols' ? maxCell : maxCell - ship;
+      const { maxX, maxY } = getMaxFitCoords(direction, ship);
 
       for (let y = 0; y < maxY; y++) {
         for (let x = 0; x < maxX; x++) {
-          if (checkChanceIn[direction](x, y, ship)) {
-            chances.push([x, y]);
+          if (isShipPlaceableBy[direction](x, y, ship)) {
+            freePlacesForShip.push([x, y]);
           }
         }
       }
 
-      // in case of 0 chance function tries other direction...but not likely to happen.
-      if (chances.length === 0) {
-        direction = direction === 'rows' ? 'cols' : 'rows';
-        alert(`Trying in ${direction} direction to locate the ${ship} element(s) long ship.`);
-        counter++;
+      // in case there is no free place for the ship,
+      // iterates the other direction...but not likely to happen.
+      if (freePlacesForShip.length === 0) {
+        direction = changeDirection(direction);
+        alert(
+          `Trying to place the ${ship} element(s) ship in ${direction} direction.`
+        );
+        iteration++;
       }
 
-      if (counter === 3) {
-        throw `Can not be located the ${ship} element(s) long ship.`;
+      // there is problem with the config constants.
+      if (iteration > 2) {
+        throw `The ${ship} element(s) ship can not be placed. Check config constants.`;
       }
+    } while (freePlacesForShip.length === 0);
 
-    } while (chances.length === 0);
-    const selection = Math.trunc(Math.random() * chances.length);
-    const row = chances[selection][1];
-    const col = chances[selection][0];
-    ships.push(locateShipIn[direction](ship, row, col));
+    const randomIndex = getRandomIntegerLessThan(freePlacesForShip.length);
+    const [col, row] = freePlacesForShip[randomIndex];
+    const shipCells = placeShipIntoFieldBy(direction, ship, row, col);
+    accomodatedShips.push(shipCells);
   });
 
-  return ships;
-}
+  return accomodatedShips;
+};
