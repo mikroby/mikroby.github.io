@@ -9,17 +9,17 @@ const shotNumber = document.querySelector('#shotNumber');
 const hitNumber = document.querySelector('#hitNumber');
 const sunkNumber = document.querySelector('#sunkNumber');
 const button = document.querySelector('#game_control');
-const field = document.querySelector('.field');
+const field = document.querySelector('#field');
 
 let cells, shots, hits, sunks, ships;
 
 const initialize = () => {
   button.textContent = 'A játék leírása';
-  button.onclick = function () { window.location = "#playRules" };
+  button.onclick = () => window.location = "#playRules";
   message.textContent = '';
 
   cells.forEach(cell => {
-    cell.addEventListener('click', shoot);
+    cell.addEventListener('click', shootCallback, {once: true});
     cell.innerHTML = '';
     cell.className = 'cell';
   });
@@ -89,7 +89,7 @@ const showAliveShips = () => {
 
 const theEnd = () => {
   document.querySelectorAll('.cell:not(.shot)').forEach(cell => {
-    cell.removeEventListener('click', shoot);
+    cell.removeEventListener('click', shootCallback);
     cell.classList.add('shot');
   })
 
@@ -109,11 +109,12 @@ const checkEnd = () => {
   }
 }
 
-function shoot() {
+const shootCallback = (event) => shoot(event.target);
+
+const shoot = (cell) => {
   shots--;
-  this.removeEventListener('click', shoot);
-  this.classList.add('shot');
-  evaluateShot(this);
+  cell.classList.add('shot');
+  evaluateShot(cell);
   checkSunk();
   showInfo();
   checkEnd();

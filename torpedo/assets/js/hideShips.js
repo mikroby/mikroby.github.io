@@ -68,7 +68,7 @@ export const hideShips = () => {
 
       for (let y = 0; y < maxY; y++) {
         for (let x = 0; x < maxX; x++) {
-          if (checkChanceIn[direction](x, y, ship, field, maxCell)) {
+          if (checkChanceIn[direction](x, y, ship)) {
             chances.push([x, y]);
           }
         }
@@ -88,7 +88,7 @@ export const hideShips = () => {
     const selection = Math.trunc(Math.random() * chances.length);
     const row = chances[selection][1];
     const col = chances[selection][0];
-    ships.push(locateShipIn[direction](ship, row, col, field));
+    ships.push(locateShipIn[direction](ship, row, col));
   });
 
   return ships;
