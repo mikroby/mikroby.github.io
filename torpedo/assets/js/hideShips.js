@@ -88,13 +88,13 @@ export const hideShips = () => {
 
       // in case of 0 chance function tries other direction...but not likely to happen.
       if (chances.length === 0) {
-        alert(`megpróbálom másik irányban elhelyezni a ${ship} méretű hajót!`);
         direction = direction === 'rows' ? 'cols' : 'rows';
+        alert(`Trying in ${direction} direction to locate the ${ship} element(s) long ship.`);
         counter++;
       }
-      
+
       if (counter === 3) {
-        throw `nem helyezhető el a(z) ${ship} elem hosszúságú hajó`;
+        throw `Can not be located the ${ship} element(s) long ship.`;
       }
 
     } while (chances.length === 0);

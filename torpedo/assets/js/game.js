@@ -4,12 +4,12 @@ import { shipMark, shootMark, shipsToLocate, maxCell, maxShots, sounds } from ".
 import { hideShips } from "./hideShips.js"
 
 const header = document.querySelector('header');
+const field = document.querySelector('#field');
 const message = document.querySelector('#message');
 const shotNumber = document.querySelector('#shotNumber');
 const hitNumber = document.querySelector('#hitNumber');
 const sunkNumber = document.querySelector('#sunkNumber');
 const button = document.querySelector('#game_control');
-const field = document.querySelector('#field');
 
 let cells, shots, hits, sunks, ships;
 
@@ -28,7 +28,7 @@ const initialize = () => {
   sunks = 0;
 }
 
-const showInfo = () => {
+const report = () => {
   shotNumber.textContent = shots;
   hitNumber.textContent = hits;
   sunkNumber.textContent = sunks;
@@ -118,7 +118,7 @@ const shoot = (cell) => {
   cell.classList.add('shot');
   evaluateShot(cell);
   checkForSunk();
-  showInfo();
+  report();
   checkEnd();
 }
 
@@ -140,7 +140,7 @@ const animateField = () => {
 
 const start = () => {
   initialize();
-  showInfo();
+  report();
   ships = hideShips();
 }
 
