@@ -1,10 +1,18 @@
 "use strict";
 
 import { shipsToAccomodate, maxCell } from "./config.js";
+import {
+  fillMatrixWith,
+  getRandomElementFrom,
+  getMaxFitCoords,
+  swapValue,
+} from "./helpers.js";
 
 let field;
 
 const isShipPlaceableBy = {
+  isOccupied: (row, col) => field[row][col] !== 0,
+
   row(x, y, ship) {
     for (let row = y - 1; row <= y + 1; row++) {
       if (row < 0 || row >= maxCell) {
@@ -16,7 +24,7 @@ const isShipPlaceableBy = {
           continue;
         }
 
-        if (field[row][col] !== 0) {
+        if (this.isOccupied(row, col)) {
           return false;
         }
       }
@@ -35,7 +43,7 @@ const isShipPlaceableBy = {
           continue;
         }
 
-        if (field[row][col] !== 0) {
+        if (this.isOccupied(row, col)) {
           return false;
         }
       }
@@ -65,34 +73,20 @@ const placeShipIntoFieldBy = (direction, ship, row, col) => {
   return cells;
 };
 
-const getRandomIntegerLessThan = (value) => Math.trunc(Math.random() * value);
-
-const changeDirection = (direction) => (direction === "row" ? "col" : "row");
-
-const getMaxFitCoords = (direction, shipSize) => ({
-  maxY: direction === "row" ? maxCell : maxCell - shipSize,
-  maxX: direction === "col" ? maxCell : maxCell - shipSize,
-});
-
-const fillSizedMatrixWith = (size, value) =>
-  Array(size)
-    .fill()
-    .map(() => Array(size).fill(value));
-
 export const hideShips = () => {
-  field = fillSizedMatrixWith(maxCell, 0);
+  field = fillMatrixWith({ rows: maxCell, cols: maxCell, value: 0 });
 
   const accomodatedShips = [];
   let freePlacesForShip, direction, iteration;
 
   shipsToAccomodate.forEach((ship) => {
-    direction = getRandomIntegerLessThan(2) === 0 ? "row" : "col";
+    direction = getRandomElementFrom(["row", "col"]);
     iteration = 1;
 
     do {
       freePlacesForShip = [];
 
-      const { maxX, maxY } = getMaxFitCoords(direction, ship);
+      const { maxX, maxY } = getMaxFitCoords(direction, ship, maxCell);
 
       for (let y = 0; y < maxY; y++) {
         for (let x = 0; x < maxX; x++) {
@@ -103,9 +97,9 @@ export const hideShips = () => {
       }
 
       // in case there is no free place for the ship,
-      // iterates the other direction...but not likely to happen.
+      // iterates with the swapped direction...but not likely to happen.
       if (freePlacesForShip.length === 0) {
-        direction = changeDirection(direction);
+        direction = swapValue(direction);
         alert(
           `Trying to place the ${ship} element(s) ship in ${direction} direction.`
         );
@@ -118,8 +112,7 @@ export const hideShips = () => {
       }
     } while (freePlacesForShip.length === 0);
 
-    const randomIndex = getRandomIntegerLessThan(freePlacesForShip.length);
-    const [col, row] = freePlacesForShip[randomIndex];
+    const [col, row] = getRandomElementFrom(freePlacesForShip);
     const shipCells = placeShipIntoFieldBy(direction, ship, row, col);
     accomodatedShips.push(shipCells);
   });

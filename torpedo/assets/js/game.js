@@ -87,7 +87,7 @@ const checkForSunk = () =>
     }
   });
 
-const showAliveShips = () => {
+const revealAliveShips = () => {
   ships.flat().forEach((cell) => {
     if (cell.className === "cell") {
       cell.classList.add("alive");
@@ -109,7 +109,7 @@ const theEnd = () => {
 const checkEnd = () => {
   if (shots === 0) {
     message.textContent = "Elfogyott a lőszer...";
-    showAliveShips();
+    revealAliveShips();
     theEnd();
   }
   if (sunks === shipsToAccomodate.length) {
@@ -149,6 +149,7 @@ const start = () => {
   initialize();
   report();
   ships = hideShips();
+  // revealAliveShips();
 };
 
 const createField = () => {
