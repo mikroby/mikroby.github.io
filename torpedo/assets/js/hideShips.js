@@ -4,7 +4,7 @@ import { shipsToAccomodate, maxCell } from "./config.js";
 import {
   fillMatrixWith,
   getRandomElementFrom,
-  getMaxFitCoords,
+  getMaxFitCoords as getMaxFitRectSizes,
   swapValue,
 } from "./helpers.js";
 
@@ -55,15 +55,13 @@ const isShipPlaceableBy = {
 const placeShipIntoFieldBy = (direction, ship, row, col) => {
   const cells = [];
 
-  if (direction === "row") {
-    for (let i = 0; i < ship; i++) {
+  for (let i = 0; i < ship; i++) {
+    if (direction === 'row') {
       field[row][col + i] = ship;
       cells.push(
         document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`)
       );
-    }
-  } else {
-    for (let i = 0; i < ship; i++) {
+    } else {
       field[row + i][col] = ship;
       cells.push(
         document.querySelector(`[data-y='${row + i}'] [data-x='${col}'`)
@@ -71,7 +69,7 @@ const placeShipIntoFieldBy = (direction, ship, row, col) => {
     }
   }
   return cells;
-};
+}
 
 export const hideShips = () => {
   field = fillMatrixWith({ rows: maxCell, cols: maxCell, value: 0 });
@@ -86,7 +84,7 @@ export const hideShips = () => {
     do {
       freePlacesForShip = [];
 
-      const { maxX, maxY } = getMaxFitCoords(direction, ship, maxCell);
+      const { maxX, maxY } = getMaxFitRectSizes(direction, ship, maxCell);
 
       for (let y = 0; y < maxY; y++) {
         for (let x = 0; x < maxX; x++) {

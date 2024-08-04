@@ -7,8 +7,11 @@ import {
   maxCell,
   maxShots,
   sounds,
+  texts,
+  languages
 } from "./config.js";
 import { hideShips } from "./hideShips.js";
+import { playSound } from './helpers.js'
 
 const header = document.querySelector("header");
 const field = document.querySelector("#field");
@@ -18,22 +21,26 @@ const hitNumber = document.querySelector("#hitNumber");
 const sunkNumber = document.querySelector("#sunkNumber");
 const button = document.querySelector("#game_control");
 
+const language = languages[0];
+
 let cells, shots, hits, sunks, ships;
 
-const initialize = () => {
-  button.textContent = "A játék leírása";
-  button.onclick = () => (window.location = "#playRules");
-  message.textContent = "";
-
-  cells.forEach((cell) => {
-    cell.addEventListener("click", shootCallback, { once: true });
-    cell.innerHTML = "";
-    cell.className = "cell";
-  });
-  shots = maxShots;
-  hits = 0;
-  sunks = 0;
+const animateHeader = () => {
+  header.classList.add("sway");
+  const id = setTimeout(() => {
+    clearTimeout(id);
+    header.classList.toggle("sway");
+  }, 510);
 };
+
+const animateField = () => {
+  field.classList.add("blast");
+  const id = setTimeout(() => {
+    clearTimeout(id);
+    field.classList.toggle("blast");
+  }, 410);
+};
+
 
 const report = () => {
   shotNumber.textContent = shots;
@@ -41,25 +48,18 @@ const report = () => {
   sunkNumber.textContent = sunks;
 };
 
-const playSound = (name) => {
-  const { url, volume } = sounds[name];
-  const audio = new Audio(url);
-  audio.volume = volume;
-  audio.play();
-};
-
 const hit = (cell) => {
   animateField();
-  playSound("hit");
+  playSound(sounds.hit);
   hits++;
   cell.classList.add("hit");
   cell.innerHTML = shipMark;
-  message.textContent = "Talált!";
+  message.textContent = texts[language].hit;
 };
 
 const missed = (cell) => {
   animateHeader();
-  playSound("missed");
+  playSound(sounds.missed);
   cell.classList.add("missed");
   cell.innerHTML = shootMark;
   message.textContent = "";
@@ -74,10 +74,11 @@ const evaluateShot = (cell) => {
 };
 
 const sunk = (ship) => {
-  playSound("sunk");
+  playSound(sounds.sunk);
   sunks++;
+  shots++;
   ship.forEach((cell) => cell.classList.replace("hit", "sunk"));
-  message.textContent = "Talált, Süllyedt!";
+  message.textContent = texts[language].sunk;
 };
 
 const checkForSunk = () =>
@@ -98,27 +99,27 @@ const revealAliveShips = () => {
 
 const theEnd = () => {
   document.querySelectorAll(".cell:not(.shot)").forEach((cell) => {
-    cell.removeEventListener("click", shootCallback);
+    cell.removeEventListener("click", clickHandlerCallback);
     cell.classList.add("shot");
   });
 
-  button.textContent = "Új játék";
+  button.textContent = texts[language].newGame;
   button.onclick = start;
 };
 
 const checkEnd = () => {
   if (shots === 0) {
-    message.textContent = "Elfogyott a lőszer...";
+    message.textContent = texts[language].lost;
     revealAliveShips();
     theEnd();
   }
   if (sunks === shipsToAccomodate.length) {
-    message.textContent = "Minden hajó elsüllyedt!";
+    message.textContent = texts[language].won;
     theEnd();
   }
 };
 
-const shootCallback = (event) => shoot(event.target);
+const clickHandlerCallback = (event) => shoot(event.target);
 
 const shoot = (cell) => {
   shots--;
@@ -129,27 +130,26 @@ const shoot = (cell) => {
   checkEnd();
 };
 
-const animateHeader = () => {
-  header.classList.add("shock-header");
-  const id = setTimeout(() => {
-    clearTimeout(id);
-    header.classList.toggle("shock-header");
-  }, 510);
-};
+const initialize = () => {
+  button.textContent = texts[language].rules;
+  button.onclick = () => (window.location = "#playRules");
+  message.textContent = "";
 
-const animateField = () => {
-  field.classList.add("shock-field");
-  const id = setTimeout(() => {
-    clearTimeout(id);
-    field.classList.toggle("shock-field");
-  }, 410);
+  cells.forEach((cell) => {
+    cell.addEventListener("click", clickHandlerCallback, { once: true });
+    cell.innerHTML = "";
+    cell.className = "cell";
+  });
+  shots = maxShots;
+  hits = 0;
+  sunks = 0;
 };
 
 const start = () => {
   initialize();
   report();
   ships = hideShips();
-  // revealAliveShips();
+  // revealAliveShips(); // for testing the ships in the field
 };
 
 const createField = () => {

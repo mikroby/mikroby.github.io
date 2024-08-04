@@ -16,3 +16,9 @@ export const fillMatrixWith = ({ rows, cols, value }) =>
   Array(rows)
     .fill()
     .map(() => Array(cols).fill(value));
+
+export const playSound = ({ url, volume }) => {
+  const audio = new Audio(url);
+  audio.volume = volume;
+  audio.play();
+};

@@ -7,12 +7,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./assets/css/style.css">
-  <link rel="icon" type="image/png" href="./assets/icon/missile.png">
-  <title>Torpedó játék</title>
+  <link rel="icon" type="image/png" href="./assets/icon/torpedo3.png">
+  <link rel="manifest" href="./assets/pwa/manifest.webmanifest">
+  <title>Torpedó</title>
 </head>
 
 <body id="top">
-
   <header>
     TORPEDÓ
   </header>
@@ -36,10 +36,9 @@
       Elsüllyedt hajók:
       <span id="sunkNumber"></span>
     </div>
-
-    <div id="game_control" class="btn"></div>
   </div>
 
+  <div id="game_control" class="btn"></div>
 
   <div id="playRules">
     <h1>Torpedó játék</h1>
@@ -54,18 +53,19 @@
       <li>álló egységet.</li>
     </ul>
     <p>
-      A hajók csak egyenesvonalú függőleges vagy vízszintes alakzatok lehetnek és
+      A hajók egyenesvonalú függőleges vagy vízszintes alakzatok és
       sem oldalaik, sem csúcsaik mentén nem érintkeznek.
     </p>
     <p>
-      A játék az első leadott lövéssel kezdődik.
-      A gép eltérő színű karakterekkel jelzi a találatot és az elvétett célzást.
+      Lövést leadni a tábla kívánt mezőjére kattintva lehet.
+      Minden elsüllyesztett hajóért egy bónusz torpedó jár.
+      A gép eltérő színű karakterekkel jelzi a találatot és az elvétett lövést.
       A játék végén a sértetlen hajóelemek is megjelennek.
     </p>
 
     <a href="#top">
       <div class="btn">
-        vissza a táblához
+        Vissza a táblához
       </div>
     </a>
   </div>
