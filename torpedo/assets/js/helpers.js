@@ -7,7 +7,7 @@ export const getRandomElementFrom = (list) =>
 
 export const swapValue = (direction) => (direction === "row" ? "col" : "row");
 
-export const getMaxFitCoords = (direction, size, maxSize) => ({
+export const getMaxFitRectSizes = (direction, size, maxSize) => ({
   maxY: direction === "row" ? maxSize : maxSize - size,
   maxX: direction === "col" ? maxSize : maxSize - size,
 });

@@ -1,4 +1,11 @@
 [ ] add versioning
-[ ] add languages
+
+[X] add languages
+
 [ ] add PWA content
-[ ] add HTML content populating
+
+[X] add HTML content populating
+
+[ ] add CSS variables
+
+[ ] separate some logic into app.js

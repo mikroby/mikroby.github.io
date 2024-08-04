@@ -1,10 +1,10 @@
 "use strict";
 
-import { shipsToAccomodate, maxCell } from "./config.js";
+import { maxCell } from "./config.js";
 import {
   fillMatrixWith,
   getRandomElementFrom,
-  getMaxFitCoords as getMaxFitRectSizes,
+  getMaxFitRectSizes,
   swapValue,
 } from "./helpers.js";
 
@@ -52,11 +52,12 @@ const isShipPlaceableBy = {
   },
 };
 
-const placeShipIntoFieldBy = (direction, ship, row, col) => {
+/** Occupy field with the ship, returns cells of related DOM elements */
+const occupyFieldBy = (direction, ship, row, col) => {
   const cells = [];
 
   for (let i = 0; i < ship; i++) {
-    if (direction === 'row') {
+    if (direction === "row") {
       field[row][col + i] = ship;
       cells.push(
         document.querySelector(`[data-y='${row}'] [data-x='${col + i}'`)
@@ -69,9 +70,9 @@ const placeShipIntoFieldBy = (direction, ship, row, col) => {
     }
   }
   return cells;
-}
+};
 
-export const hideShips = () => {
+export const hideShips = (shipsToAccomodate) => {
   field = fillMatrixWith({ rows: maxCell, cols: maxCell, value: 0 });
 
   const accomodatedShips = [];
@@ -111,7 +112,7 @@ export const hideShips = () => {
     } while (freePlacesForShip.length === 0);
 
     const [col, row] = getRandomElementFrom(freePlacesForShip);
-    const shipCells = placeShipIntoFieldBy(direction, ship, row, col);
+    const shipCells = occupyFieldBy(direction, ship, row, col);
     accomodatedShips.push(shipCells);
   });
 

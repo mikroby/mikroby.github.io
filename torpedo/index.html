@@ -9,13 +9,14 @@
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="icon" type="image/png" href="./assets/icon/torpedo3.png">
   <link rel="manifest" href="./assets/pwa/manifest.webmanifest">
-  <title>Torpedó</title>
+  <script type="module" src="./assets/js/game.js"></script>
+  <title></title>
 </head>
 
 <body id="top">
-  <header>
-    TORPEDÓ
-  </header>
+  <div class="banners"></div>
+
+  <header></header>
 
   <div id="field"></div>
 
@@ -23,57 +24,21 @@
     <div id="message"></div>
 
     <div class="info">
-      Lövések száma:
       <span id="shotNumber"></span>
     </div>
 
     <div class="info">
-      Találatok száma:
       <span id="hitNumber"></span>
     </div>
 
     <div class="info">
-      Elsüllyedt hajók:
       <span id="sunkNumber"></span>
     </div>
   </div>
 
   <div id="game_control" class="btn"></div>
 
-  <div id="playRules">
-    <h1>Torpedó játék</h1>
-    <p>Süllyeszd el a táblán elrejtett hajókat!<br>
-      A számítógép véletlenszerűen elrejt 10 hajót a négyzethálós táblán:
-    </p>
-    <ul>
-      <li>1db 4 elemből,</li>
-      <li>2db 3 elemből,</li>
-      <li>3db 2 elemből,</li>
-      <li>4db 1 elemből</li>
-      <li>álló egységet.</li>
-    </ul>
-    <p>
-      A hajók egyenesvonalú függőleges vagy vízszintes alakzatok és
-      sem oldalaik, sem csúcsaik mentén nem érintkeznek.
-    </p>
-    <p>
-      Lövést leadni a tábla kívánt mezőjére kattintva lehet.
-      Minden elsüllyesztett hajóért egy bónusz torpedó jár.
-      A gép eltérő színű karakterekkel jelzi a találatot és az elvétett lövést.
-      A játék végén a sértetlen hajóelemek is megjelennek.
-    </p>
-
-    <a href="#top">
-      <div class="btn">
-        Vissza a táblához
-      </div>
-    </a>
-  </div>
-
-
-  <script type="module" src="./assets/js/game.js">
-  </script>
-
+  <div id="instructions"></div>
 </body>
 
 </html>
