@@ -1,6 +1,7 @@
 "use strict";
 
 import {
+  version,
   texts,
   languages,
   banners,
@@ -24,6 +25,13 @@ export const hitNumber = document.querySelector("#hitNumber");
 export const sunkNumber = document.querySelector("#sunkNumber");
 export const button = document.querySelector("#game_control");
 
+const allLanguageTexts = languages
+  .map((lang) => Object.entries(texts[lang]))
+  .flat();
+
+const matchingPair = (content) =>
+  allLanguageTexts.find((keyValuePair) => keyValuePair.includes(content));
+
 const fillUIContentBy = (language) => {
   const {
     title: titleText,
@@ -38,22 +46,19 @@ const fillUIContentBy = (language) => {
 
   header.textContent = titleText;
 
-  message.textContent = "";
+  const messagePair = matchingPair(message.textContent);
+
+  message.textContent = messagePair ? texts[language][messagePair[0]] : "";
 
   infos.forEach(
     (info, index) => (info.firstChild.textContent = infoTexts[index])
   );
 
-  const allTextsFlatten = languages
-    .map((lang) => Object.entries(texts[lang]).flat())
-    .flat();
-  const index = allTextsFlatten.findIndex(
-    (item) => item === button.textContent
-  );
-  button.textContent =
-    index > 0
-      ? texts[language][allTextsFlatten[index - 1]]
-      : texts[language].instructions;
+  const buttonPair = matchingPair(button.textContent);
+
+  button.textContent = buttonPair
+    ? texts[language][buttonPair[0]]
+    : texts[language].instructions;
 
   instructions.innerHTML = `
   <h1>${headline}</h1>
@@ -89,6 +94,8 @@ const fillUIContentBy = (language) => {
         localStorage.setItem(storageItemName, JSON.stringify(selectedLanguage));
       })
   );
+
+  board.dataset.version = `v${version}`;
 
   const defaultLanguage =
     JSON.parse(localStorage.getItem(storageItemName)) || languages[0];

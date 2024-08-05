@@ -1,3 +1,5 @@
+export const version = "1.0.0";
+
 export const shipMark = '<i class="fas fa-square"></i>';
 export const shootMark = '<i class="fas fa-times"></i>';
 

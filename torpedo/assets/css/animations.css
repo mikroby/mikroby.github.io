@@ -18,10 +18,10 @@
   }
 
   50% {
-    transform: translateX(0.625rem) rotate(10deg);
+    transform: translateX(0.625rem) rotate(5deg);
   }
 
   100% {
-    transform: translateX(-0.625rem) rotate(-10deg);
+    transform: translateX(-0.625rem) rotate(-5deg);
   }
 }

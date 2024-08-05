@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
 @import url("./animations.css");
 
+:root {
+}
+
 * {
   box-sizing: border-box;
 }
@@ -42,7 +45,8 @@ body {
 }
 
 header {
-  margin: 1.5rem 0;
+  position: relative;
+  margin: 1.25rem 0;
   font-size: 3rem;
   font-weight: 600;
   text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
@@ -61,6 +65,15 @@ header {
   flex-direction: column;
   background-clip: content-box;
   background-color: rgb(82, 138, 187);
+  position: relative;
+}
+
+#board::before {
+  content: attr(data-version);
+  position: absolute;
+  top: -1.5rem;
+  right: 0;
+  font-size: 1rem;
 }
 
 .blast {
@@ -117,6 +130,7 @@ header {
 
 .report {
   margin: 1.5rem 0 0;
+  width: 16rem;
 }
 
 #message {
@@ -124,7 +138,9 @@ header {
   font-size: 2rem;
   font-weight: 600;
   color: black;
-  margin: 0 0 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: -100%;
+  margin-right: -100%;
   text-align: center;
 }
 
@@ -132,7 +148,7 @@ header {
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 3rem;
-  margin: 1rem 0;
+  margin: 0 0 1rem;
 }
 
 #shotNumber,
@@ -199,6 +215,12 @@ ul {
 a {
   margin: 0 auto;
   text-decoration: none;
+}
+
+footer {
+  font-size: 1rem;
+  align-self: flex-end;
+  margin: 0 1rem 1rem 0;
 }
 
 @media screen and (max-width: 370px) {

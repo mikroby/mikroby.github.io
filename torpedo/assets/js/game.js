@@ -146,7 +146,6 @@ const startNewGame = () => {
   initialize();
   report();
   ships = hideShips(shipsToAccomodate);
-  // revealAliveShips(); // for testing the ships in the board
 };
 
 const createBoard = () => {
