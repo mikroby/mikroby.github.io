@@ -8,22 +8,18 @@ import {
   maxShots,
   sounds,
   texts,
-  languages,
-  banners,
-  bannerURL,
-  storageItemName,
 } from "./config.js";
 import { hideShips } from "./hideShips.js";
 import { playSound } from "./helpers.js";
-
-// dynamic DOM elements
-const header = document.querySelector("header");
-const field = document.querySelector("#field");
-const message = document.querySelector("#message");
-const shotNumber = document.querySelector("#shotNumber");
-const hitNumber = document.querySelector("#hitNumber");
-const sunkNumber = document.querySelector("#sunkNumber");
-const button = document.querySelector("#game_control");
+import {
+  header,
+  board,
+  message,
+  shotNumber,
+  hitNumber,
+  sunkNumber,
+  button,
+} from "./app.js";
 
 let language, cells, shots, hits, sunks, ships;
 
@@ -35,11 +31,11 @@ const animateHeader = () => {
   }, 510);
 };
 
-const animateField = () => {
-  field.classList.add("blast");
+const animateBoard = () => {
+  board.classList.add("blast");
   const id = setTimeout(() => {
     clearTimeout(id);
-    field.classList.toggle("blast");
+    board.classList.toggle("blast");
   }, 410);
 };
 
@@ -50,7 +46,7 @@ const report = () => {
 };
 
 const hit = (cell) => {
-  animateField();
+  animateBoard();
   playSound(sounds.hit);
   hits++;
   cell.classList.add("hit");
@@ -150,10 +146,10 @@ const startNewGame = () => {
   initialize();
   report();
   ships = hideShips(shipsToAccomodate);
-  // revealAliveShips(); // for testing the ships in the field
+  // revealAliveShips(); // for testing the ships in the board
 };
 
-const createField = () => {
+const createBoard = () => {
   const template = [];
   for (let y = 0; y < maxCell; y++) {
     template.push(`<div class="row" data-y="${y}">`);
@@ -162,77 +158,13 @@ const createField = () => {
     }
     template.push(`</div>`);
   }
-  field.innerHTML = template.join("");
+  board.innerHTML = template.join("");
 };
 
-const startFirstGame = () => {
-  createField();
+export const startFirstGame = () => {
+  createBoard();
   cells = document.querySelectorAll(".cell");
   startNewGame();
 };
 
-const setLanguage = (newLanguage) => (language = newLanguage);
-
-// ------------------- outsource from here as app.js? --------------------------
-
-// static DOM elements
-const title = document.querySelector("title");
-const infos = document.querySelectorAll(".info");
-const instructions = document.querySelector("#instructions");
-
-const fillUIContentBy = (language) => {
-  const {
-    title: titleText,
-    infos: infoTexts,
-    instructions: instructionsText,
-  } = texts[language].static;
-
-  title.textContent = titleText;
-  header.textContent = titleText;
-  message.textContent = "";
-  infos.forEach(
-    (info, index) => (info.firstChild.textContent = infoTexts[index])
-  );
-  button.textContent = texts[language].instructions;
-
-  instructions.innerHTML = `
-  <h1>${instructionsText.headline}</h1>
-  <p>${instructionsText.description_1}<br>
-  ${instructionsText.description_2}</p>
-  <ul>
-  ${instructionsText.shipElementlist.map((item) => `<li>${item}</li>`).join("")}
-  </ul>
-  <p>${instructionsText.description_3}</p>
-  <p>${instructionsText.description_4}</p>
-
-  <a href="#top">
-    <div class="btn">${instructionsText.backToTop}</div>
-  </a>`;
-
-  setLanguage(language);
-};
-
-// IIFE starter. first run on page load/refresh. set basics.
-(() => {
-  document.querySelector(".banners").innerHTML = languages
-    .map(
-      (language) =>
-        `<img class="flag" alt="${language}_flag" src="${bannerURL}/${banners[language]}.svg" title="change to ${language}">`
-    )
-    .join("");
-
-  document.querySelectorAll(".flag").forEach(
-    (flag, index) =>
-      (flag.onclick = () => {
-        const selectedLanguage = languages[index];
-        fillUIContentBy(selectedLanguage);
-        localStorage.setItem(storageItemName, JSON.stringify(selectedLanguage));
-      })
-  );
-
-  const defaultLanguage =
-    JSON.parse(localStorage.getItem(storageItemName)) || languages[0];
-
-  fillUIContentBy(defaultLanguage);
-  startFirstGame();
-})();
+export const setLanguage = (newLanguage) => (language = newLanguage);

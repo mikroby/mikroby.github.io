@@ -44,9 +44,12 @@ export const texts = {
       infos: ["Lövések száma:", "Találatok száma:", "Elsüllyedt hajók:"],
       instructions: {
         headline: "Torpedó játék",
-        description_1: "Süllyeszd el a táblán elrejtett hajókat!",
-        description_2:
+        descriptions: [
+          "Süllyeszd el a táblán elrejtett hajókat!",
           "A számítógép véletlenszerűen elrejt 10 hajót a négyzethálós táblán:",
+          "A hajók egyenesvonalú függőleges vagy vízszintes alakzatok és sem oldalaik, sem csúcsaik mentén nem érintkeznek.",
+          "Lövést leadni a tábla kívánt mezőjére kattintva lehet. Minden elsüllyesztett hajóért egy bónusz torpedó jár. A gép eltérő színű karakterekkel jelzi a találatot és az elvétett lövést. A játék végén a sértetlen hajóelemek is megjelennek.",
+        ],
         shipElementlist: [
           "1db 4 elemből,",
           "2db 3 elemből,",
@@ -54,10 +57,6 @@ export const texts = {
           "4db 1 elemből",
           "álló egységet.",
         ],
-        description_3:
-          "A hajók egyenesvonalú függőleges vagy vízszintes alakzatok és sem oldalaik, sem csúcsaik mentén nem érintkeznek.",
-        description_4:
-          "Lövést leadni a tábla kívánt mezőjére kattintva lehet. Minden elsüllyesztett hajóért egy bónusz torpedó jár. A gép eltérő színű karakterekkel jelzi a találatot és az elvétett lövést. A játék végén a sértetlen hajóelemek is megjelennek.",
         backToTop: "Vissza a táblához",
       },
     },
@@ -74,18 +73,18 @@ export const texts = {
       infos: ["Remaining Shots:", "Ship Elements Hit:", "Ships Sunk:"],
       instructions: {
         headline: "Torpedoes game",
-        description_1: "Sink all the ships hidden on the board!",
-        description_2: "The computer placed a fleet of 10 ships randomly:",
+        descriptions: [
+          "Sink all the ships hidden on the board!",
+          "The computer placed a fleet of 10 ships randomly:",
+          "Every ship forms a line horizontally or vertically and never touches one another by their sides or corners",
+          "Click or tap on the choosen cell of the board to shoot. You get one extra torpedo on each sunken ship. The computer displays the missed shots and hits. At the end it reveals the intacted elements.",
+        ],
         shipElementlist: [
           "1 ship of 4 elements",
           "2 ships of 3 elements",
           "3 ships of 2 elements",
           "4 ships of 1 element",
         ],
-        description_3:
-          "Every ship forms a line horizontally or vertically and never touches one another by their sides or corners",
-        description_4:
-          "Click or tap on the choosen cell of the board to shoot. You get one extra torpedo on each sunken ship. The computer displays the missed shots and hits. At the end it reveals the intacted elements.",
         backToTop: "Back to top",
       },
     },

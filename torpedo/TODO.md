@@ -8,4 +8,4 @@
 
 [ ] add CSS variables
 
-[ ] separate some logic into app.js
+[X] separate some logic into app.js
