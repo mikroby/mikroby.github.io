@@ -129,7 +129,7 @@ const shoot = (cell) => {
 
 const initialize = () => {
   button.textContent = texts[language].instructions;
-  button.onclick = () => (window.location = "#instructions");
+  button.onclick = () => (window.location = "#instructions_page");
   message.textContent = "";
 
   cells.forEach((cell) => {
@@ -137,6 +137,7 @@ const initialize = () => {
     cell.innerHTML = "";
     cell.className = "cell";
   });
+
   shots = maxShots;
   hits = 0;
   sunks = 0;
@@ -157,7 +158,8 @@ const createBoard = () => {
     }
     template.push(`</div>`);
   }
-  board.innerHTML = template.join("");
+
+  board.insertAdjacentHTML("afterbegin", template.join(""));
 };
 
 export const startFirstGame = () => {

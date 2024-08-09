@@ -79,21 +79,25 @@ const fillUIContentBy = (language) => {
 
 // IIFE starter. first run on page load/refresh. set basics.
 (() => {
-  document.querySelector(".banners").innerHTML = languages
-    .map(
-      (language) =>
-        `<img class="flag" alt="${language}_flag" src="${bannerURL}/${banners[language]}.svg" title="change to ${language}">`
-    )
-    .join("");
+  const fragment = document.createDocumentFragment();
 
-  document.querySelectorAll(".flag").forEach(
-    (flag, index) =>
-      (flag.onclick = () => {
-        const selectedLanguage = languages[index];
-        fillUIContentBy(selectedLanguage);
-        localStorage.setItem(storageItemName, JSON.stringify(selectedLanguage));
-      })
-  );
+  languages.forEach((language, index) => {
+    const flag = document.createElement("img");
+
+    flag.className = "flag";
+    flag.alt = `${language}_flag`;
+    flag.title = `change to ${language}`;
+    flag.src = `${bannerURL}/${banners[language]}.svg`;
+    flag.onclick = () => {
+      const selectedLanguage = languages[index];
+      fillUIContentBy(selectedLanguage);
+      localStorage.setItem(storageItemName, JSON.stringify(selectedLanguage));
+    };
+
+    fragment.appendChild(flag);
+  });
+
+  document.querySelector("#banners").appendChild(fragment);
 
   board.dataset.version = `v${version}`;
 

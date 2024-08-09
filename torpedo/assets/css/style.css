@@ -18,15 +18,18 @@ html {
 body {
   margin: 0;
   background-color: rgb(209, 220, 221);
-  /* min-height: 100vh; */
-  /* width: 100%; */
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
+  height: 200vh;
 }
 
-.banners {
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#banners {
   position: absolute;
   right: 1rem;
   top: 0.5rem;
@@ -35,7 +38,7 @@ body {
 .flag {
   width: 1.5rem;
   cursor: pointer;
-  margin: 0 0 0 0.5rem;
+  margin-left: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 35%);
   transition: transform 0.2s ease-out;
 }
@@ -45,7 +48,6 @@ body {
 }
 
 header {
-  position: relative;
   margin: 1.25rem 0;
   font-size: 3rem;
   font-weight: 600;
@@ -129,8 +131,10 @@ header {
 }
 
 .report {
-  margin: 1.5rem 0 0;
-  width: 16rem;
+  margin: 1.5rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #message {
@@ -139,22 +143,19 @@ header {
   font-weight: 600;
   color: black;
   margin-bottom: 1.5rem;
-  margin-left: -100%;
-  margin-right: -100%;
-  text-align: center;
 }
 
 .info {
+  width: 14.5rem;
   font-size: 1.2rem;
   font-weight: 600;
   line-height: 3rem;
-  margin: 0 0 1rem;
+  margin-bottom: 1rem;
 }
 
 #shotNumber,
 #hitNumber,
 #sunkNumber {
-  margin: 0 1rem;
   font-size: 3rem;
   font-weight: 600;
   color: rgb(82, 138, 187);
@@ -168,7 +169,6 @@ header {
   border-radius: 0.5rem;
   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 35%);
   cursor: pointer;
-  margin: 1.5rem auto 0;
   padding: 0.3rem 1.5rem;
   text-align: center;
   transition: all 0.2s ease-out;
@@ -189,12 +189,8 @@ header {
 #instructions {
   display: flex;
   flex-direction: column;
-  margin: 10rem 0;
+  align-items: center;
   width: 20rem;
-}
-
-h1 {
-  text-align: center;
 }
 
 p {
@@ -207,20 +203,21 @@ ul {
 
 p,
 ul {
+  align-self: flex-start;
   font-size: 1.2rem;
   padding: 0;
   margin: 0.5rem 0;
 }
 
 a {
-  margin: 0 auto;
+  margin-top: 1.5rem;
   text-decoration: none;
 }
 
 footer {
   font-size: 1rem;
   align-self: flex-end;
-  margin: 0 1rem 1rem 0;
+  margin: 1.5rem 1rem 1rem 0;
 }
 
 @media screen and (max-width: 370px) {

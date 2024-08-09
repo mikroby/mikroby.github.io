@@ -6,7 +6,9 @@
 
 [X] add HTML content populating
 
-[ ] add CSS variables and refactor paging!
+[ ] add CSS variables
+
+[X] refactor html paging!
 
 [X] separate some logic into app.js
 
