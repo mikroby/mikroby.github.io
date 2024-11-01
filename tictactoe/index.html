@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Tic-Tac-Toe játék</title>
+</head>
+
+<body>
+
+    <main>
+
+        <header id="game__header" class="">
+            TIC-TAC-TOE
+        </header>
+
+        <div class="field-container">
+            <div class="row">
+                <div class="cell" data-value="" data-index="1"></div>
+                <div class="cell" data-value="" data-index="2"></div>
+                <div class="cell" data-value="" data-index="3"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-value="" data-index="4"></div>
+                <div class="cell" data-value="" data-index="5"></div>
+                <div class="cell" data-value="" data-index="6"></div>
+            </div>
+            <div class="row">
+                <div class="cell" data-value="" data-index="7"></div>
+                <div class="cell" data-value="" data-index="8"></div>
+                <div class="cell" data-value="" data-index="9"></div>
+            </div>
+        </div>    
+
+        <div class="showTurn">
+            Most következik:
+            <br>        
+            <span id="nextPlayer">
+                <!-- which player's turn     -->
+            </span>
+            <br>
+            jelű játékos
+        </div>
+
+        <button class="btn"
+            onclick="openModal('Tic-Tac-Toe',
+        'Két játékos felváltva helyezi el saját jelét: X-et vagy O-t. Az a játékos győz, akinek előbb sikerül egy sorban, egy oszlopban vagy átlósan elhelyezni a három azonos jelet.','Játék indítása','Kilépés')">
+            A játék rövid leírása
+        </button>
+
+
+        <div id="overlay" class="overlay--default"></div>
+
+        <div id="modal" class="">
+            <!-- <button class="btn__close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button> -->
+
+            <header class="modal__header">
+                <!-- main message... -->
+            </header>
+            <article class="modal__content">
+                <!-- alternative message... -->
+            </article>
+            <footer class="modal__footer">
+                <button class="modal__btn__ok" onclick="newGameStart()">
+                    <!-- ok button label... -->
+                </button>
+                <button class="modal__btn__cancel" onclick="window.close()">
+                    <!-- close button label... -->
+                </button>
+            </footer>
+        </div>
+
+    </main>
+
+
+    <script src="./assets/js/main.js"></script>
+
+</body>
+
+</html>

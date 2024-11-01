@@ -1,0 +1,182 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+
+@import "./animations.css";
+@import "./scrollbar.css";
+@import "./skill.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "Nunito", sans-serif;
+  user-select: none;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url("../image/hatter.bmp");
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+#spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spin {
+  animation: spin 1s infinite ease;
+}
+
+#content {
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  visibility: hidden;
+  /* display: none; */
+}
+
+a {
+  text-decoration-line: none;
+  color: black;
+}
+
+.header {
+  font-family: "Fredericka the Great", sans-serif;
+  font-weight: 300;
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0.75rem 0 1rem;
+  animation: moveHeader 0.75s forwards;
+  text-align: center;
+}
+
+main {
+  border-radius: 0.35rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  padding: 1.25rem;
+  animation: moveList 1s forwards;
+  overflow-y: scroll;
+}
+
+.link {
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.link:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+  transform: scale(1.015);
+}
+
+small {
+  float: right;
+  color: aliceblue;
+  padding: 0 0 0 1.5rem;
+}
+
+footer {
+  height: 5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  transform: translateY(100%);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1;
+  animation: moveFooter 1s 1.2s forwards;
+}
+
+.grow {
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.grow:hover {
+  transform: scale(1.2);
+}
+
+.portrait {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  filter: contrast(50%);
+  /* object-fit: scale-down; */
+  /* object-position: right; */
+  animation: moveImage 2s forwards;
+  z-index: -1;
+}
+
+.badge {
+  width: 3rem;
+  display: inline-block;
+  margin: 0 0.5rem 0;
+}
+
+.bubble {
+  position: absolute;
+  background-color: white;
+  color: black;
+  border-radius: 0.25rem;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1;
+  text-wrap: nowrap;
+  padding: 0.25rem;
+  margin-left: 0.3rem;
+  transition: transform 0.2s;
+  transform-origin: center left;
+  transform: translateY(-50%) scaleX(0);
+}
+
+.skills {
+  position: fixed;
+  height: 100%;
+  width: 20%;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+@media screen and (max-width: 426px) {
+  html {
+    font-size: 12px;
+  }
+
+  .skills {
+    width: 10%;
+  }
+
+  .badge {
+    width: 100%;
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 10px;
+  }
+}

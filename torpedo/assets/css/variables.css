@@ -1,0 +1,24 @@
+:root {
+  --page-bg-color: rgb(209, 220, 221);
+  --board-bg-color: rgb(82, 138, 187);
+  --board-border-color: rgb(240, 255, 255);
+  --text-color: black;
+  --report-number: var(--board-bg-color);
+  --cell-missed: aliceblue;
+  --cell-hit-color: coral;
+  --cell-sunk-color: darkblue;
+  --cell-alive-color: yellowgreen;
+  --btn-color: aliceblue;
+  --btn-bg-color: var(--board-bg-color);
+  --btn-color-hover: var(--btn-bg-color);
+  --btn-bg-color-hover: var(--btn-color);
+
+  --gray-scale-50: rgba(0, 0, 0, 50%);
+  --gray-scale-35: rgba(0, 0, 0, 35%);
+  --gray-scale-25: rgba(0, 0, 0, 25%);
+
+  --text-shadow: 0 0.5rem 0.5rem var(--gray-scale-50);
+  --shadow-small: 0 0 0.5rem var(--gray-scale-35);
+  --shadow-deep: 0 0.5rem 1rem var(--gray-scale-50);
+  --shadow-inner: 0 0 0.5rem var(--gray-scale-25);
+}

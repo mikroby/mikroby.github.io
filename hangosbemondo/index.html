@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H0 Hangosbemondó alkalmazás</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.png">
+</head>
+
+<body>
+  <header>
+    <h1>H0 Hangosbemondó alkalmazás</h1>
+    <small>v0.1.10</small>
+  </header>
+
+  <main>
+    <p>
+      Ez az alkalmazás használható a meglévő modellvasutunkhoz, ha nincs hangdekóderünk, illetve ha
+      analóg a vasutunk.
+    </p>
+
+    <form>
+      <label for="train-type">Vonatnem</label>
+      <select name="trainType" id="train-type">
+        <option value="">Válassz!</option>
+      </select>
+
+      <label for="verb">Indul/Érkezik</label>
+      <select name="verb" id="verb">
+        <option value="">Válassz!</option>
+      </select>
+
+      <label for="time">Idő</label>
+      <input type="time" name="time" id="time">
+
+      <label for="track">Vágányszám</label>
+      <select name="track" id="track">
+        <option value="">Válassz!</option>
+      </select>
+    </form>
+
+    <button type="button" title="Bemondás">
+      <img alt="Play">
+    </button>
+
+    <!-- SLIDERS HERE -->
+    <div class="slider">
+      <label for="pitch">Hangmagasság</label>
+      <input type="range" name="pitch" id="pitch" min="1" max="100" step="1">
+    </div>
+
+    <div class="slider">
+      <label for="rate">Sebesség</label>
+      <input type="range" name="rate" id="rate" min="1" max="100" step="1">
+    </div>
+
+    <div id="info"></div>
+  </main>
+
+
+  <footer>
+    <span>&copy 2024 - RP</span>
+  </footer>
+
+  <script type="module" src="./app.js"></script>
+</body>
+
+</html>

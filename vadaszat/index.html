@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/style.css">
+
+  <title>Vadászat v0.3</title>
+</head>
+
+<body>
+
+  <div class="container_left">
+    Pontszám: <span id="score"></span>
+    <br>
+    Töltények: <span id="bullets"></span>
+  </div>
+
+  <div class="container_right">
+    Ellenségek: <span id="enemies"></span>
+  </div>
+
+  <div class="modal">
+    <h1 id="bigScore">0</h1>
+    <div class="points">Pont</div>
+    <div class="btn" id="startButton">Új játék</div>
+    <div class="title">
+      Vadászat:
+    </div>
+    <p>
+      Találd el a mozgó célpontokat, szerezz minél több pontot!
+      <br>
+      A játék véget ér, ha elfogyott a lőszer.
+      <br>
+      Irányítás az egérrel, lövés a bal egérgombbal történik.
+      <br>
+      A kisebb vagy gyorsabban mozgó célpontok többet érnek,
+      míg a nagyobbakra többször kell lőni, mire eltűnnek.
+      <br>
+      A célkeresztben lévő összes elem találatáért kapsz pontot,
+      így érdemes kivárni a megfelelő pillanatot.
+      <br>
+      Minden
+      <strong><span id="award"></span></strong>
+      pont után
+      <strong><span id="award_bullet"></span></strong>
+      db lövedék jár.
+      <br>
+      'Escape' lenyomására leáll ill. folytatódik a játék.
+    </p>
+  </div>
+
+  <canvas></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script type="module" src="./assets/main.js">
+  </script>
+
+</body>
+
+</html>

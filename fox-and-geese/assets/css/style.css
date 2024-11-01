@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+:root {
+  --bg-sheet: rgb(209, 220, 221);
+  --bg-board: rgb(82, 138, 187);
+  --bg-goose: aliceblue;
+  --bg-fox: orangered;
+  --bg-empty: black;
+  --bg-takeable: dodgerblue;
+  --bg-transposable: greenyellow;
+  --bg-button: transparent;
+  /* --bg-button: rgb(219, 222, 224); */
+  --bg-button-hover: aliceblue;
+
+  --color-game_header: rgba(0, 0, 0, 0.5);
+  --color-infoBox: black;
+  --color-button: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "Nunito", sans-serif;
+  user-select: none;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-sheet);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200vh;
+}
+
+/* PAGE LAYOUT */
+.Page_1,
+.Page_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+
+#game__header {
+  color: var(--color-game_header);
+  margin: 0 0 1.25rem;
+  font-size: 3rem;
+  font-weight: 600;
+  text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+#version {
+  display: block;
+}
+
+/* BOARD ELEMENTS */
+#board {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  width: 21rem;
+  height: 21rem;
+  display: flex;
+  flex-direction: column;
+  /* background-clip: content-box; */
+  background-color: var(--bg-board);
+  background-image: url(./lines.svg);
+}
+
+.row {
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cell {
+  width: 2rem;
+  margin: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.5s ease-in-out;
+  transform: scale(1);
+}
+
+.empty {
+  background-color: var(--bg-empty);
+  box-shadow: none;
+}
+
+/* GAME FIGURES */
+.goose {
+  background-color: var(--bg-goose);
+}
+
+.fox {
+  background-color: var(--bg-fox);
+}
+
+.goose,
+.fox {
+  box-shadow: inset 0 -0.5rem 0.5rem rgba(0, 0, 0, 0.5),
+    0 0.5rem 1rem rgba(0, 0, 0, 0.75);
+}
+
+.takeable {
+  animation: changeScale 0.5s alternate infinite ease-in-out;
+}
+
+.takeable:hover {
+  background-color: var(--bg-takeable);
+  cursor: pointer;
+}
+
+.taken {
+  cursor: pointer;
+  background-color: var(--bg-takeable);
+  transform: scale(1.3);
+}
+
+.transposable {
+  cursor: pointer;
+  animation: changeColor 1s alternate infinite ease;
+}
+
+/* INFORMATIONS */
+#showReport {
+  margin: 1.25rem 0 0;
+  text-align: center;
+}
+
+.infoBox {
+  height: 2.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-infoBox);
+  text-align: center;
+  transition: all 0.5s ease-in-out;
+  transform: scaleY(0);
+}
+
+.showUp {
+  transform: scaleY(1);
+}
+
+#geeseText {
+  font-weight: 600;
+  vertical-align: middle;
+  font-size: 1.2rem;
+}
+
+#geeseNumber {
+  font-weight: 600;
+  vertical-align: middle;
+  font-size: 3rem;
+  margin: 0 0 0 1rem;
+  color: var(--bg-board);
+}
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  margin: 1rem 0 0;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.3s ease;
+  background-color: var(--bg-button);
+  color: var(--color-button);
+}
+
+.btn:hover {
+  background-color: var(--bg-button-hover);
+}
+
+.btn:active {
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.35),
+    0 0 0.5rem rgba(0, 0, 0, 0.35);
+}
+
+#playRules h1 {
+  margin: 0 0 1rem;
+}
+
+#playRules p {
+  width: 20rem;
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+#backToTop {
+  text-decoration: none;
+  color: var(--color-button);
+}
+
+/* ANIMATIONS */
+@keyframes changeScale {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes changeColor {
+  0% {
+    background-color: var(--bg-empty);
+  }
+
+  100% {
+    background-color: var(--bg-transposable);
+  }
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 370px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media (min-width: 371px) and (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}

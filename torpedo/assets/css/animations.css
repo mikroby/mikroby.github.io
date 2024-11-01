@@ -1,0 +1,27 @@
+@keyframes blast {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(0.2rem);
+  }
+
+  100% {
+    transform: translateX(-0.2rem);
+  }
+}
+
+@keyframes sway {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+
+  50% {
+    transform: translateX(0.625rem) rotate(5deg);
+  }
+
+  100% {
+    transform: translateX(-0.625rem) rotate(-5deg);
+  }
+}

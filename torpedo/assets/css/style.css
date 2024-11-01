@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("./variables.css");
+@import url("./animations.css");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: "Nunito", sans-serif;
+  user-select: none;
+  /* font-size: 16px; */
+}
+
+body {
+  margin: 0;
+  min-height: 200vh;
+}
+
+.page {
+  background-color: var(--page-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#banners {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}
+
+.flag {
+  width: 1.5rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  box-shadow: var(--shadow-small);
+  transition: transform 0.2s ease-out;
+}
+
+.flag:hover {
+  transform: scale(1.2);
+}
+
+header {
+  margin: 1.25rem 0;
+  font-size: 3rem;
+  font-weight: 600;
+  text-shadow: var(--text-shadow);
+  color: var(--text-color);
+}
+
+.sway {
+  animation: sway 0.2s alternate 2;
+}
+
+#board {
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-deep);
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  background-clip: content-box;
+  background-color: var(--board-bg-color);
+  position: relative;
+}
+
+#board::before {
+  content: attr(data-version);
+  position: absolute;
+  top: -1.5rem;
+  right: 0;
+  font-size: 1rem;
+}
+
+.blast {
+  animation: blast 0.1s alternate 4;
+}
+
+.row {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+}
+
+.row:not(:nth-child(10)) {
+  border: 1px var(--board-border-color);
+  border-style: none none solid none;
+}
+
+.cell {
+  width: 10%;
+  color: transparent;
+  font-size: 1.25rem;
+  font-weight: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.cell:not(:nth-child(10)) {
+  border: 1px var(--board-border-color);
+  border-style: none solid none none;
+}
+
+.shot {
+  cursor: default;
+}
+
+.missed {
+  color: var(--cell-missed);
+}
+
+.hit {
+  color: var(--cell-hit-color);
+}
+
+.sunk {
+  color: var(--cell-sunk-color);
+}
+
+.alive {
+  color: var(--cell-alive-color);
+}
+
+.report {
+  margin: 1.5rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#message {
+  color: var(--text-color);
+  height: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.info {
+  color: var(--text-color);
+  width: 15rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 3rem;
+  margin-bottom: 1rem;
+}
+
+#shotNumber,
+#hitNumber,
+#sunkNumber {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--report-number);
+  float: right;
+}
+
+.btn {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-small);
+  cursor: pointer;
+  padding: 0.3rem 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease-out;
+  background-color: var(--btn-bg-color);
+  color: var(--btn-color);
+}
+
+.btn:hover {
+  background-color: var(--btn-bg-color-hover);
+  color: var(--btn-color-hover);
+  transform: scale(1.05);
+}
+
+.btn:active {
+  box-shadow: inset var(--shadow-inner), var(--shadow-small);
+}
+
+#instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+  color: var(--text-color);
+}
+
+p {
+  text-align: justify;
+}
+
+ul {
+  list-style: none;
+}
+
+p,
+ul {
+  align-self: flex-start;
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0.5rem 0;
+}
+
+a {
+  margin-top: 1.5rem;
+  text-decoration: none;
+}
+
+footer {
+  color: var(--text-color);
+  font-size: 1rem;
+  align-self: flex-end;
+  margin: 1.5rem 1rem 1rem 0;
+}
+
+@media screen and (max-width: 370px) {
+  html {
+    font-size: 13px;
+  }
+}

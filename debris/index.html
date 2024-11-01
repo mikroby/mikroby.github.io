@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/style.css">
+
+  <title>Debris Game v1.4</title>
+</head>
+
+<body>
+
+  <div class="container">
+    Score: <span id="score"></span>
+    <br>
+    Bomb: <span id="bombs"></span>
+  </div>
+
+  <div class="modal">
+    <h1 id="bigScore">0</h1>
+    <p class="points">Points</p>
+    <div class="btn" id="startButton">Start New Game</div>
+    <div class="title">
+      Debris Game:
+    </div>
+    <p>
+      Avoid collision with debris by destroying them!
+      <br>
+      Click on left mouse button to launch a projectile.
+      <br>
+      Every <span id="award"></span> points awards a bomb.
+      <br>
+      Press SPACE bar to release a bomb when in danger...
+      <br>
+      Press Esc to toggle Pause.
+    </p>
+  </div>
+
+  <canvas></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"
+    integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script type="module" src="./assets/main.js">
+  </script>
+
+</body>
+
+</html>

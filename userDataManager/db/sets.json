@@ -1,0 +1,34 @@
+{
+  "headers": [
+    [
+      "id",
+      "Id"
+    ],
+    [
+      "name",
+      "Name"
+    ],
+    [
+      "emailAddress",
+      "Email Address"
+    ],
+    [
+      "address",
+      "Address"
+    ]
+  ],
+  "messages": {
+    "invalid": "Some of the entered datas are invalid, please check!",
+    "incomplete": "Complete Your Edit or Click Cancel!",
+    "jsonFileError": "users.json file is empty or missing!",
+    "success": "New datas have been saved!",
+    "modified": "Modified datas have been saved!"
+  },
+  "styling": {
+    "invalid": "border-color:#e75353;",
+    "incomplete": "border-color:#e75353;",
+    "jsonFileError": "border-color:#e75353;",
+    "success": "border-color:#5de65d;",
+    "modified": "border-color:#5de65d;"
+  }
+}

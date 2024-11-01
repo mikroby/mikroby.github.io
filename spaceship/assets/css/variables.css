@@ -1,0 +1,5 @@
+:root {
+  --box-width: calc(100vw * 0.3125);
+  --box-height: calc(100vw * 0.22);
+  --earth-diameter: calc(100vw * 0.15625);
+}

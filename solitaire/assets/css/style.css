@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(209, 220, 221);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200vh;
+}
+
+.Page_1,
+.Page_2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+#game__header {
+  margin: 0 0 1.25rem;
+  font-size: 3rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.version {
+  display: block;
+  text-align: center;
+}
+
+.shock-header {
+  animation: shake 0.2s alternate 2;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0) rotate(0);
+  }
+
+  50% {
+    transform: translateX(0.625rem) rotate(10deg);
+  }
+
+  100% {
+    transform: translateX(-0.625rem) rotate(-10deg);
+  }
+}
+
+.field {
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  width: 21rem;
+  height: 21rem;
+  display: flex;
+  flex-direction: column;
+  background-clip: content-box;
+  background-color: rgb(82, 138, 187);
+}
+
+.row {
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.cell {
+  width: 2rem;
+  margin: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.4s ease-in-out;
+  transform: scale(1);
+}
+
+.occupied {
+  background: aliceblue;
+  box-shadow: inset 0 -0.5rem 0.5rem rgba(0, 0, 0, 0.5),
+    0 0.5rem 1rem rgba(0, 0, 0, 0.75);
+}
+
+.empty {
+  background: black;
+  box-shadow: none;
+}
+
+@keyframes smooth {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.moveable {
+  animation: smooth 0.4s alternate infinite linear;
+}
+
+.moveable:hover {
+  background: red;
+  cursor: pointer;
+}
+
+.taken {
+  cursor: pointer;
+  background: blue;
+  transform: scale(1.3);
+}
+
+.transposable {
+  background: greenyellow;
+  cursor: pointer;
+}
+
+
+.showReport {
+  margin: 1.25rem 0 0;
+  text-align: center;
+}
+
+.infoBox {
+  height: 2.5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+  transition: all 0.4s ease-in-out;
+  transform: scaleY(0)
+}
+
+.blinkInfo {
+  transform: scaleY(1);
+}
+
+.pegs {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+#pegText {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+#pegNumber {
+  margin: 0 0 0 1rem;
+  color: rgb(82, 138, 187);
+}
+
+.btn {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  margin: 1rem 0 0;
+  padding: 0.5rem 0.75rem;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.3s;
+  background-color: rgb(219, 222, 224);
+}
+
+.btn:hover {
+  background-color: aliceblue;
+}
+
+.btn:active {
+  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.35),
+    0 0 0.5rem rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+p {
+  width: 20rem;
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (max-width:370px) {
+  html {
+    font-size: 13px;
+  }
+}

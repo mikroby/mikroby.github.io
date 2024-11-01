@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/761a9f5d41.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>To-Do Manager</title>
+</head>
+
+<body>
+  <header>
+    <h1 class="main__header">Daily To-Do list manager</h1>
+  </header>
+
+  <section class="content">
+
+    <div class="date--time">
+      <div class="date"></div>
+      <div class="clock"></div>
+    </div>
+
+    <div class="addTask">
+      <input class="input" type="text" placeholder="Take the garbage out">
+      <div class="btn addTask--btn">
+        <i class="fas fa-plus"></i>
+      </div>
+    </div>
+
+    <div class="main--container">
+
+      <div class="cheers displayNone">
+        <div class="side-by-side">
+          <i class="fas fa-wine-glass-alt"></i>
+          <i class="fas fa-hamburger"></i>
+        </div>
+        Time to chill! You have no todos.
+      </div>
+
+      <div class="pending--container">
+        <div class="pending--message"></div>
+        <div class="pending--list">
+        </div>
+      </div>
+
+      <div class="completed--container displayNone">
+        <div class="completed--message"></div>
+        <div class="completed--list">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="manageTask">
+      <div class="btn completeTask--btn">
+      </div>
+      <div class="btn clearAllTask--btn">
+        Clear All
+      </div>
+    </div>
+
+  </section>
+
+  <script type="module" src="./assets/js/app.js">
+  </script>
+
+</body>
+
+</html>

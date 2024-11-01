@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(240, 248, 255);
+}
+
+.main__header {
+  font-family: 'Architects Daughter', 'Nunito', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 0 0 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 40rem;
+  width: 27rem;
+  border-radius: 0.3rem;
+  box-shadow:
+    0 0px 0.625rem rgba(0, 0, 0, 0.3),
+    0 0px 0.2rem rgba(0, 0, 0, 0.5);
+  background-color: rgb(245, 245, 245);
+  padding: 1.25rem;
+}
+
+.date--time {
+  display: inline-block;
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.date {
+  display: inline;
+  float: left;
+}
+
+.clock {
+  display: inline;
+  float: right;
+}
+
+.main--container {
+  height: 27rem;
+  overflow: auto;
+}
+
+.addTask,
+.manageTask {
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.addTask {
+  margin: 0 0 0.5rem;
+}
+
+.input {
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  border-radius: 0.3rem;
+  border-style: none;
+  outline: none;
+  width: 82%;
+  background-color: inherit;
+  color: rgb(192, 192, 192);
+  box-shadow:
+    0 0 3px rgba(0, 0, 0, 0.5);
+  transition: 0.3s background-color ease-in-out;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+}
+
+::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 100;
+  font-style: italic;
+  font-family: 'Nunito', sans-serif;
+}
+
+.input:hover,
+.input:focus {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  box-shadow:
+    0 0 3px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: 0.3s background-color ease-in-out;
+}
+
+.btn:active {
+  box-shadow:
+    0 0 3px rgba(0, 0, 0, 0.5),
+    0 0 7px rgba(0, 0, 0, 0.5) inset;
+}
+
+.addTask--btn {
+  width: 15%;
+  font-size: 1rem;
+  background-color: rgb(221, 221, 221);
+  color: rgb(245, 245, 245);
+}
+
+.addTask--btn:hover {
+  background-color: rgb(77, 144, 253);
+}
+
+.pending--message,
+.completed--message {
+  margin: 1.5rem 0 0;
+  font-size: 1rem;
+}
+
+.pending--container,
+.completed--container,
+.cheers {
+  height: auto;
+  position: relative;
+}
+
+.item {
+  font-family: 'Architects Daughter', 'Nunito', sans-serif;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 3rem;
+  margin: 1rem 0 0rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 0.3rem;
+  transition: 0.75s all ease-in-out;
+  position: relative;
+}
+
+.pending {
+  background-color: rgba(77, 144, 253, 0.2);
+}
+
+.completed {
+  background-color: rgba(221, 221, 221, 0.75);
+  text-decoration: line-through;
+}
+
+/* @keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+} */
+
+.delete--btn {
+  width: 3rem;
+  height: 3rem;
+  font-size: 0.8rem;
+  background-color: rgb(77, 144, 253);
+  color: #f5f5f5;
+  right: 0;
+  transition: 0.3s transform ease-in-out;
+  position: absolute;
+  box-shadow: 0 0;
+  border-radius: 0 0.3rem 0.3rem 0;
+  transform-origin: right;
+  transform: scaleX(0);
+}
+
+.delete--btn.move--in {
+  transform: scaleX(1);
+}
+
+.checkBox {
+  margin: 0 0.75rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.manageTask {
+  justify-content: center;
+  margin: 1rem 0 0;
+}
+
+.completeTask--btn,
+.clearAllTask--btn {
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  font-weight: 600;
+  background-color: inherit;
+  color: black;
+}
+
+.completeTask--btn:hover {
+  background-color: rgba(77, 144, 253, 0.7);
+}
+
+.clearAllTask--btn:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.cheers {
+  font-weight: 900;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5.5rem 0;
+}
+
+.side-by-side {
+  display: inline-block;
+  font-size: 3rem;
+  color: rgba(77, 144, 253, 0.85);
+  margin: 0 0 1rem;
+}
+
+.displayNone {
+  display: none;
+}
+
+@media screen and (max-width:460px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width:430px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width:400px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width:374px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width:345px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width:319px) {
+  html {
+    font-size: 10px;
+  }
+}

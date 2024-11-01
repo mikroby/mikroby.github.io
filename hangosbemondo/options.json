@@ -1,0 +1,31 @@
+{
+  "options": {
+    "trainType": [
+      { "text": "Személy", "value": "Személyvonat" },
+      { "text": "Gyorsított személy", "value": "Gyorsított személyvonat" },
+      { "text": "Zónázó", "value": "Zónázó vonat" },
+      { "text": "IC", "value": "Intersziti vonat" },
+      { "text": "Gyorsvonat", "value": "Gyorsvonat" },
+      { "text": "Expresszvonat", "value": "Expresszvonat" },
+      { "text": "EC", "value": "Eurosziti vonat" }
+    ],
+    "verb": [
+      { "text": "Indul", "value": "indul" },
+      { "text": "Érkezik", "value": "érkezik" }
+    ],
+    "track": [
+      { "text": "1", "value": "az 1." },
+      { "text": "2", "value": "a 2." },
+      { "text": "A", "value": "az Á" },
+      { "text": "B", "value": "a Bé" }
+    ],
+    "affix": {
+      "indul": "vágányról",
+      "érkezik": "vágányra"
+    }
+  },
+  "config": {
+    "pitch": 50,
+    "rate": 85
+  }
+}

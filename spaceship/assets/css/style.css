@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import './variables.css';
+@import './animations.css';
+
+html {
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  /* font-size: 16px; */
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: black;
+}
+
+.ship_window,
+.text_window {
+  width: var(--box-width);
+  height: var(--box-height);
+  position: fixed;
+  border-radius: 2rem;
+  border: 1px solid gray;
+  opacity: 0;
+}
+
+.ship_window {
+  left: 30%;
+  top: 50%;
+  transform: translate(-150%, -50%);
+  animation: 1s 1.5s move_window ease forwards;
+  background: url('../img/space-earth.gif') no-repeat;
+  background-size: 100% auto;
+  background-position: bottom;
+  background-clip: content-box;
+}
+
+.text_window {
+  right: 30%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  animation: 1.2s 2.5s pulse ease-in forwards;
+  color: gray;
+  text-align: center;
+}
+
+.earth {
+  width: var(--earth-diameter);
+  height: var(--earth-diameter);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  animation: 1.5s move_earth ease-in-out forwards;
+  background: url('../img/earth-rotation.gif') no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-clip: content-box;
+  border-radius: 50%;
+  transition: 0.7s all ease;
+}
+
+.earth:hover {
+  box-shadow: 0 0 15px 7px dodgerblue;
+}
+
+#warning {
+  animation: 1s pulse ease alternate infinite;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 1rem 0;
+}

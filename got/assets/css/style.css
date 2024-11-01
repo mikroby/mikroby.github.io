@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@font-face {
+  font-family: gameOfThrones;
+  src: url('../../fonts/Game of Thrones.ttf');
+}
+@font-face {
+  font-family: messiri;
+  src: url('../../fonts/ElMessiri.ttf');
+}
+
+html{
+  scroll-behavior: smooth;
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  font-size:14px;
+}
+*{
+	box-sizing: border-box;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.left{
+  flex:75%;
+  height: 100%;  
+  background-image: url('../site/mapblue.jpg');
+  background-attachment: fixed;
+  background-position: -100% 40%;
+  background-repeat: no-repeat;  
+  background-size: 90%;  
+  padding: 3rem;
+}
+.right{
+  flex:25%;  
+  height: 100%; 
+  background-color: #39393a; 
+  padding: 3rem 1.5rem 1.5rem;
+  color:white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;  
+}
+
+.portrait--container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  height:100%;
+  width:100%;
+}
+.portrait{
+  margin:0;
+  width:12.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.portrait--img{  
+  width:65%;  
+  transition: 0.3s all ease-in-out;
+}
+.grow--img{
+  transform: scale(1.1);  
+}
+.animate{
+  animation: rotating 1.5s linear infinite; 
+}
+@keyframes rotating{
+  0%{transform: rotateY(0deg) scale(1.1);}
+  100%{transform: rotateY(360deg) scale(1.1);}  
+}
+.portrait--caption{ 
+  display: inline-block;
+  margin: 0.25rem 0 0;  
+  text-align: center;
+  font-size: 0.65rem;  
+  font-weight: 900;
+  text-transform: uppercase;  
+  font-family: messiri,'Nunito',sans-serif;
+  color:#803218; 
+  transition: 0.3s ease-in-out;
+}
+.grow--caption{
+  transform: scale(1.2); 
+  text-shadow: 0 0.72rem 0.12rem rgba(0, 0, 0,0.55);  
+}
+.stayGrown{
+  transform: scale(1.2);  
+  text-shadow: 0 0.72rem 0.12rem rgba(0, 0, 0,0.55);  
+}
+
+.info--container{
+  width:100%;
+}
+.main__header{
+  font-family: gameOfThrones,'Nunito',sans-serif;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+  text-align: center;  
+}
+.picture{
+  width:100%;  
+}
+.infoHeader{
+  display: inline-block;
+  height:3rem;
+  font-size: 1.2rem;  
+  font-weight: 600;  
+}
+.shield{
+  float:right;
+  height: 3rem;
+}
+.bio{
+  font-size: 1rem;
+  margin: 1rem 0 0;
+  font-weight: 100;
+}
+
+.search{
+  height:2rem;  
+  width: 100%;  
+  bottom: 0rem;  
+  background-color: white;
+  color:black;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+.input{  
+  padding: 0 0.5rem;
+  font-size: 1rem;
+  border-style: none;
+  outline: none;
+  height: 2rem;  
+  border-radius: 0.25rem;
+  width: 85%;
+  display: inline-block;
+}
+.btn{  
+  display:flex;
+  align-items: center;
+  justify-content: center;  
+  border-radius: 0.25rem 0 0 0.25rem;
+  cursor: pointer;  
+  height: 2rem;  
+  width: 15%;
+  float: left;
+}
+.btn:active{
+  box-shadow:
+    0 0 7px rgba(0,0,0,0.75) inset;
+}
+
+.displayNone{
+  display: none;
+}
+
+
+
+@media screen and (min-width:1500px) {
+  html{       
+    font-size:16px;
+  }
+}
+@media screen and (min-width:2560px) {
+  html{       
+    font-size:26px;
+  }
+}
+@media screen and (max-width:1024px) {
+  html{       
+    font-size: 12px;
+  }
+}
+@media screen and (max-width:950px) {
+  html{       
+    font-size:12px;
+  }
+}
+@media screen and (max-width:768px) {
+  html{       
+      font-size:11px;
+    }
+    .left{
+      flex:60%;
+      background-position: center right;    
+      background-size: cover;
+      padding: 2rem;
+    }
+}
+@media screen and (max-width:690px) {
+  html{       
+      font-size:10px;
+    }  
+  
+}
+@media screen and (max-width:630px) {
+  .right{
+    flex:40%;
+  }
+  .portrait{    
+    width:25%;
+  }
+  .portrait--img{  
+    width:40%;
+  }
+}
+@media screen and (max-width:450px) { 
+  body{   
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  } 
+  .left{    
+    width: 100%;
+    flex: 60%;
+    padding: 1rem;
+  }
+  .right{   
+    width: 100%;
+    flex: 40%;  
+  }  
+  .portrait{    
+    width:12.5%;
+  }
+  .portrait--img{  
+    width:65%;
+  }
+  .picture{
+    height:40%;
+    object-fit: scale-down; 
+  }
+}
