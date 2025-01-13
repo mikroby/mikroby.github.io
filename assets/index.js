@@ -1,5 +1,7 @@
 const NUM_COMPONENTS = 3;
-const promises = new Array(NUM_COMPONENTS).fill().map(() => Promise.withResolvers());
+const promises = new Array(NUM_COMPONENTS)
+  .fill()
+  .map(() => Promise.withResolvers());
 
 let counter = 0;
 
@@ -14,7 +16,7 @@ const setStyleAfterRender = (element, CSSprop, value) => {
     clearTimeout(id);
     element.style[CSSprop] = value;
   }, 0);
-}
+};
 
 const onClick = (event, bubble) => {
   const { top, bottom, right } = event.target.getBoundingClientRect();
@@ -22,15 +24,15 @@ const onClick = (event, bubble) => {
   bubble.style.left = `${right}px`;
   bubble.textContent = event.target.dataset.txt;
 
-  setStyleAfterRender(bubble, 'transform', "translateY(-50%) scaleX(1)");
-}
+  setStyleAfterRender(bubble, "transform", "translateY(-50%) scaleX(1)");
+};
 
 const onMouseLeave = (bubble) =>
-  setStyleAfterRender(bubble, 'transform', "translateY(-50%) scaleX(0)");
+  setStyleAfterRender(bubble, "transform", "translateY(-50%) scaleX(0)");
 
 const startApp = (results) => {
-  document.querySelector("#content").classList.toggle("hidden");
-  document.querySelector("#spinner").classList.toggle("hidden");
+  document.querySelector("#content").hidden = false;
+  document.querySelector("#spinner").hidden = true;
 
   const badges = document.querySelectorAll(".badge");
   const bubble = document.querySelector(".bubble");

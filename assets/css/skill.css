@@ -1,40 +1,41 @@
 [class^="skill_"] {
   transform: translateX(-150%);
   opacity: 0;
+  animation: moveSkill 1s forwards;
 }
 
 .skill_01 {
-  animation: moveSkill 1s 2s forwards;
+  animation-delay: 1s;
 }
 
 .skill_02 {
-  animation: moveSkill 1s 2.2s forwards;
+  animation-delay: 1.2s;
 }
 
 .skill_03 {
-  animation: moveSkill 1s 2.4s forwards;
+  animation-delay: 1.4s;
 }
 
 .skill_04 {
-  animation: moveSkill 1s 2.6s forwards;
+  animation-delay: 1.6s;
 }
 
 .skill_05 {
-  animation: moveSkill 1s 2.8s forwards;
+  animation-delay: 1.8s;
 }
 
 .skill_06 {
-  animation: moveSkill 1s 3s forwards;
+  animation-delay: 2s;
 }
 
 .skill_07 {
-  animation: moveSkill 1s 3.2s forwards;
+  animation-delay: 2.2s;
 }
 
 .skill_08 {
-  animation: moveSkill 1s 3.4s forwards;
+  animation-delay: 2.4s;
 }
 
 .skill_09 {
-  animation: moveSkill 1s 3.6s forwards;
+  animation-delay: 2.6s;
 }

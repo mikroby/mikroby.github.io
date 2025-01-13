@@ -42,11 +42,6 @@ body {
   align-items: center;
 }
 
-.hidden {
-  visibility: hidden;
-  /* display: none; */
-}
-
 a {
   text-decoration-line: none;
   color: black;
