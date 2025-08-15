@@ -1,7 +1,7 @@
 const NUM_COMPONENTS = 3;
-const promises = new Array(NUM_COMPONENTS)
-  .fill()
-  .map(() => Promise.withResolvers());
+const promises = Array.from({ length: NUM_COMPONENTS }, () =>
+  Promise.withResolvers()
+);
 
 let counter = 0;
 
