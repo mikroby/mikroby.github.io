@@ -42,6 +42,9 @@ function setup() {
       generation[i][j] = floor(random(2));
     }
   }
+
+  noLoop(); // start with noLoop to pause the simulation
+  redraw(); // draw the initial state
 }
 
 // draw is a predefined function in p5.js - runs continuously in a loop
@@ -101,6 +104,7 @@ function keyPressed() {
       break;
     case ESCAPE:
       // Reset on ESCAPE key press
+      noLoop();
       setup();
   }
 }
