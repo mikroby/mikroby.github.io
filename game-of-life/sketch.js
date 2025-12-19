@@ -98,5 +98,9 @@ function keyPressed() {
     case 32:
       // Advance one generation on SPACE key press
       !looping ? redraw() : null;
+      break;
+    case ESCAPE:
+      // Reset on ESCAPE key press
+      setup();
   }
 }
