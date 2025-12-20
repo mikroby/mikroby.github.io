@@ -1,32 +1,6 @@
+setVersion('0.1.0');
+
 let cols, rows, generation, resolution = 2;
-
-const create2DArray = (cols, rows) => {
-  let arr = new Array(cols);
-  for (let i = 0; i < arr.length; i++) {
-    arr[i] = new Array(rows);
-  }
-
-  return arr;
-}
-
-const countNeighbors = (gen, x, y) => {
-  let sum = 0;
-
-  for (let i = -1; i < 2; i++) {
-    for (let j = -1; j < 2; j++) {
-      const col = x + i;
-      const row = y + j;
-
-      if (col < 0 || row < 0 || col === cols || row === rows) {
-        continue;
-      }
-
-      sum += gen[col][row];
-    }
-  }
-
-  return sum;
-}
 
 // setup is a predefined function in p5.js - runs once at the start
 function setup() {
@@ -36,12 +10,8 @@ function setup() {
 
   generation = create2DArray(cols, rows);
 
-  // initialize generation with random values of 0s and 1s
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      generation[i][j] = floor(random(2));
-    }
-  }
+  // initialize generation states
+  randomizeStates(generation);
 
   noLoop(); // start with noLoop to pause the simulation
   redraw(); // draw the initial state
@@ -63,11 +33,11 @@ function draw() {
 
   const next = create2DArray(cols, rows);
 
-  // compute next generation
+  // iterate next generation
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       const state = generation[i][j];
-      const neighbors = countNeighbors(generation, i, j) - state;
+      const neighbors = countNeighbors(generation, i, j, state);
 
       if (state === 0 && neighbors === 3) {
         // birth
@@ -91,20 +61,35 @@ function draw() {
 }
 
 function keyPressed() {
-  const looping = isLooping();
-
   switch (keyCode) {
     case ENTER:
-      // Toggle loop/noLoop on ENTER key press
-      looping ? noLoop() : loop();
+      toggleLooping();
       break;
-    case 32:
-      // Advance one generation on SPACE key press
-      !looping ? redraw() : null;
+    case 32: // on SPACE key
+      advanceOne();
       break;
-    case ESCAPE:
-      // Reset on ESCAPE key press
+    case ESCAPE: // reset the simulation
       noLoop();
       setup();
+      break;
+    default: // Allow other keys to perform their default actions
+      return true;
   }
+
+  // Prevent default behavior of special keys
+  return false;
+}
+
+function mouseClicked() {
+  advanceOne();
+
+  // Prevent default behavior of the mouse click
+  return false;
+}
+
+function doubleClicked() {
+  toggleLooping();
+
+  // Prevent default behavior of the double click
+  return false;
 }
