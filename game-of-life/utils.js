@@ -19,8 +19,7 @@ const randomizeStates = (array) => {
   }
 }
 
-// count living neighbors around given cell.
-// result includes the state of current cell!
+// count living neighbors of given cell.
 const countNeighbors = (array, x, y, state) => {
   let sum = -state;
 
@@ -51,4 +50,27 @@ const advanceOne = () => {
 
 const setVersion = (version) => {
   document.title = `${document.title} v${version}`;
+}
+
+const modeButton = document.querySelector('.btn__mode');
+
+// toggle mode
+modeButton.addEventListener('click', (event) => {
+  event.stopPropagation();
+  setMode(mode === 'edit' ? 'simulation' : 'edit');
+});
+
+const setMode = (nextMode) => {
+  noLoop();
+  mode = nextMode;
+  console.log(mode);
+  modeButton.textContent = mode === 'edit' ? 'Simulation mode' : 'Edit mode';
+}
+
+const toggleCell = () => {
+  const col = floor(mouseX / resolution);
+  const row = floor(mouseY / resolution);
+
+  generation[col][row] = generation[col][row] === 0 ? 1 : 0;
+  redraw();
 }
