@@ -9,13 +9,25 @@
 
   <body>
     <header>
-      <div class="btn btn__description">Description</div>
-      <div class="btn btn__mode"></div>
+      <div class="item slider">
+        <label for="resolution-slider">Resolution:</label>
+        <input type="range" id="resolution-slider" min="2" max="50" />
+      </div>
+
+      <div class="item slider">
+        <label for="speed-slider">Simulation speed:</label>
+        <input type="range" id="speed-slider" min="0.5" max="60" step="0.5" />
+      </div>
+
+      <div class="item btn btn__description">Description</div>
+
+      <div class="item btn btn__mode"></div>
     </header>
 
     <main></main>
 
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.11/lib/p5.min.js"></script>
+    <script src="dom.js"></script>
     <script src="utils.js"></script>
     <script src="actions.js"></script>
     <script src="main.js"></script>

@@ -1,9 +1,12 @@
 setVersion('0.2.0');
-let mode, cols, rows, generation, resolution = 5;
+let mode, cols, rows, generation, resolution = 8, speed = 3;
 
 // setup() is a predefined function in p5.js - runs once at the start
 function setup() {
+  noStroke();
+  setSpeed(speed);
   setMode('simulation');  // start in simulation mode
+  setResolution(resolution);
 
   createCanvas(windowWidth, windowHeight);
   cols = floor(width / resolution);
@@ -23,9 +26,9 @@ function draw() {
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       if (generation[i][j] === 1) {
-        fill(255);
-        noStroke();
-        rect(i * resolution, j * resolution, resolution - 1, resolution - 1);
+        // fill(255); // white color for cells
+        // fill(255, 165, 0); // orange color for cells
+        rect(i * resolution, j * resolution, resolution - 1);
       }
     }
   }

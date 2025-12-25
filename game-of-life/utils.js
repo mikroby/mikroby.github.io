@@ -1,7 +1,7 @@
 const create2DArray = (cols, rows) => {
   let array = new Array(cols);
 
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < cols; i++) {
     array[i] = new Array(rows);
   }
 
@@ -52,19 +52,23 @@ const setVersion = (version) => {
   document.title = `${document.title} v${version}`;
 }
 
-const modeButton = document.querySelector('.btn__mode');
-
-// toggle mode
-modeButton.addEventListener('click', (event) => {
-  event.stopPropagation();
-  setMode(mode === 'edit' ? 'simulation' : 'edit');
-});
-
 const setMode = (nextMode) => {
   noLoop();
   mode = nextMode;
-  console.log(mode);
   modeButton.textContent = mode === 'edit' ? 'Simulation mode' : 'Edit mode';
+}
+
+const setSpeed = (nextSpeed) => {
+  speed = nextSpeed;
+  frameRate(speed);
+  speedSlider.value = speed;
+  speedSlider.nextSibling.replaceWith(`${speed.toFixed(1)} fps`);
+}
+
+const setResolution = (nextResolution) => {
+  resolution = nextResolution;
+  resolutionSlider.value = resolution;
+  resolutionSlider.nextSibling.replaceWith(`${resolution} px/cell`);
 }
 
 const toggleCell = () => {
