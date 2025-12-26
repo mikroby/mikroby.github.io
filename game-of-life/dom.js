@@ -1,10 +1,11 @@
 // Prevent clicks on header from affecting the canvas
-document.querySelector('header').addEventListener('click', (event) =>
+const header = document.querySelector('header')
+header.addEventListener('click', (event) =>
   event.stopPropagation()
 );
+header.addEventListener('dblclick', (event) => event.stopPropagation());
 
 const modeButton = document.querySelector('.btn__mode');
-// toggle mode
 modeButton.addEventListener('click', () =>
   setMode(mode === 'edit' ? 'simulation' : 'edit')
 );
@@ -18,3 +19,7 @@ const resolutionSlider = document.querySelector('#resolution-slider');
 resolutionSlider.addEventListener('input', (event) =>
   setResolution(Number(event.target.value))
 );
+
+document.querySelector('.btn__rnd').addEventListener('click', () => initalize('random'))
+
+document.querySelector('.btn__empty').addEventListener('click', () => initalize('empty'))

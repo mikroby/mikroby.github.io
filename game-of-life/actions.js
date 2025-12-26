@@ -1,13 +1,13 @@
 function keyPressed() {
   switch (keyCode) {
     case ENTER:
-      mode === 'simulation' ? toggleLooping() : null;
+      if (mode === 'simulation') toggleLooping();
       break;
     case 32: // on SPACE key
-      mode === 'simulation' ? advanceOne() : null;
+      if (mode === 'simulation') advanceOne();
       break;
     case ESCAPE: // reset the simulation regardless of mode
-      setup();
+      initalize('random');
       break;
     default: // Allow other keys to perform their default actions
       return true;
@@ -25,8 +25,8 @@ function mouseClicked() {
 }
 
 function doubleClicked() {
-  mode === 'simulation' ? toggleLooping() : null;
+  if (mode === 'simulation') toggleLooping();
 
-  // Prevent default behavior of the double click
+  // Prevent default behavior of the mouse double click
   return false;
 }

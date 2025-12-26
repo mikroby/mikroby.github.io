@@ -56,4 +56,14 @@ header {
     color: black;
     background-color: lightgray;
   }
+
+  .btn__rnd {
+    color: black;
+    background-color: lightsalmon;
+  }
+
+  .btn__empty {
+    color: black;
+    background-color: lightblue;
+  }
 }

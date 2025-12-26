@@ -8,13 +8,13 @@ const create2DArray = (cols, rows) => {
   return array;
 }
 
-const randomizeStates = (array) => {
+const initializeStatesOf = (array, method) => {
   const cols = array.length;
   const rows = array[0].length;
 
   for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
-      array[i][j] = floor(random(2));
+      array[i][j] = method === 'random' ? floor(random(2)) : 0;
     }
   }
 }
@@ -40,6 +40,20 @@ const countNeighbors = (array, x, y, state) => {
   return sum;
 }
 
+const display = (array) => {
+  background(0);
+
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      if (array[i][j] === 1) {
+        // fill(255); // white color for cells -> default value
+        // fill(255, 165, 0); // orange color for cells
+        rect(i * resolution, j * resolution, resolution - 1);
+      }
+    }
+  }
+}
+
 const toggleLooping = () => {
   isLooping() ? noLoop() : loop();
 }
@@ -54,21 +68,22 @@ const setVersion = (version) => {
 
 const setMode = (nextMode) => {
   noLoop();
+  modeButton.textContent = nextMode === 'edit' ? 'Simulation mode' : 'Edit mode';
   mode = nextMode;
-  modeButton.textContent = mode === 'edit' ? 'Simulation mode' : 'Edit mode';
 }
 
 const setSpeed = (nextSpeed) => {
+  frameRate(nextSpeed);
+  speedSlider.value = nextSpeed;
+  speedSlider.nextSibling.replaceWith(`${nextSpeed.toFixed(1)} fps`);
   speed = nextSpeed;
-  frameRate(speed);
-  speedSlider.value = speed;
-  speedSlider.nextSibling.replaceWith(`${speed.toFixed(1)} fps`);
 }
 
 const setResolution = (nextResolution) => {
+  resolutionSlider.value = nextResolution;
+  resolutionSlider.nextSibling.replaceWith(`${nextResolution} px/cell`);
   resolution = nextResolution;
-  resolutionSlider.value = resolution;
-  resolutionSlider.nextSibling.replaceWith(`${resolution} px/cell`);
+  if (generation) display(generation);
 }
 
 const toggleCell = () => {
@@ -76,5 +91,5 @@ const toggleCell = () => {
   const row = floor(mouseY / resolution);
 
   generation[col][row] = generation[col][row] === 0 ? 1 : 0;
-  redraw();
+  display(generation);
 }
