@@ -13,7 +13,7 @@
 [X] implement adjusting resolution with slider
 [X] fix advance one after entering simulation mode again
 [X] add scalable grid background
-[X] implement random and clear buttons
+[X] implement randomize and empty buttons
 
 ## Notes:
 

@@ -54,6 +54,9 @@ const display = (array) => {
 
 const drawGrid = (color = '#989898', bgColor = '#7e7e7e') => {
   grid.background(bgColor);
+
+  if (resolution < 4) return; // skip re-drawing grid for small resolutions
+
   grid.strokeWeight(1);
   grid.stroke(color);
 
