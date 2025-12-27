@@ -84,20 +84,20 @@ const setVersion = (version) => {
 
 const setMode = (nextMode) => {
   noLoop();
-  modeButton.textContent = nextMode === 'edit' ? 'Sim mode' : 'Edit mode';
+  modeButton.textContent = nextMode === 'edit' ? 'Simulation' : 'Edit mode';
   mode = nextMode;
 }
 
 const setSpeed = (nextSpeed) => {
   frameRate(nextSpeed);
   speedSlider.value = nextSpeed;
-  speedSlider.nextSibling.replaceWith(`${nextSpeed.toFixed(1)} fps`);
+  speedSlider.nextElementSibling.textContent = nextSpeed.toFixed(1);
   speed = nextSpeed;
 }
 
 const setResolution = (nextResolution) => {
   resolutionSlider.value = nextResolution;
-  resolutionSlider.nextSibling.replaceWith(`${nextResolution} px/cell`);
+  resolutionSlider.nextElementSibling.textContent = nextResolution;
   resolution = nextResolution;
 
   drawGrid();

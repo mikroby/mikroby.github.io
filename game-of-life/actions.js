@@ -6,7 +6,7 @@ function keyPressed() {
     case 32: // on SPACE key
       if (mode === 'simulation') advanceOne();
       break;
-    case ESCAPE: // reset the simulation regardless of mode
+    case ESCAPE:
       initalize('random');
       break;
     default: // Allow other keys to perform their default actions
@@ -27,6 +27,6 @@ function mouseClicked() {
 function doubleClicked() {
   if (mode === 'simulation') toggleLooping();
 
-  // Prevent default behavior of the mouse double click
+  // Prevent default behavior of the mouse double-click
   return false;
 }
