@@ -2,8 +2,8 @@
 
 [ ] implement adjusting zoom with mouse wheel
 [ ] implement panning with mouse drag
-[ ] add basic shapes selection
-[ ] add description
+[ ] add basic shapes selection, move, rotate and drop in edit mode
+[ ] add description as a modal
 
 ## DONE:
 
