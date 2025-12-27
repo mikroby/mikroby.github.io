@@ -1,8 +1,8 @@
 const create2DArray = (cols, rows) => {
   let array = new Array(cols);
 
-  for (let i = 0; i < cols; i++) {
-    array[i] = new Array(rows);
+  for (let col = 0; col < cols; col++) {
+    array[col] = new Array(rows);
   }
 
   return array;
@@ -12,24 +12,23 @@ const initializeStatesOf = (array, method) => {
   const cols = array.length;
   const rows = array[0].length;
 
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      array[i][j] = method === 'random' ? floor(random(2)) : 0;
+  for (let x = 0; x < cols; x++) {
+    for (let y = 0; y < rows; y++) {
+      array[x][y] = method === 'random' ? floor(random(2)) : 0;
     }
   }
 }
 
-// count living neighbors of given cell.
-const countNeighbors = (array, x, y, state) => {
+const countLivingNeighbors = (array, x, y, state) => {
   let sum = -state;
 
-  for (let i = -1; i < 2; i++) {
-    const col = x + i;
+  for (let dx = -1; dx < 2; dx++) {
+    const col = x + dx;
 
     if (col < 0 || col === cols) continue;
 
-    for (let j = -1; j < 2; j++) {
-      const row = y + j;
+    for (let dy = -1; dy < 2; dy++) {
+      const row = y + dy;
 
       if (row < 0 || row === rows) continue;
 
@@ -43,12 +42,10 @@ const countNeighbors = (array, x, y, state) => {
 const display = (array) => {
   background(0);
 
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      if (array[i][j] === 1) {
-        // fill(255); // white color for cells -> default value
-        // fill(255, 165, 0); // orange color for cells
-        rect(i * resolution, j * resolution, resolution - 1);
+  for (let x = 0; x < cols; x++) {
+    for (let y = 0; y < rows; y++) {
+      if (array[x][y] === 1) {
+        rect(x * resolution, y * resolution, resolution - 1);
       }
     }
   }
@@ -87,9 +84,9 @@ const setResolution = (nextResolution) => {
 }
 
 const toggleCell = () => {
-  const col = floor(mouseX / resolution);
-  const row = floor(mouseY / resolution);
+  const x = floor(mouseX / resolution);
+  const y = floor(mouseY / resolution);
 
-  generation[col][row] = generation[col][row] === 0 ? 1 : 0;
+  generation[x][y] = generation[x][y] === 0 ? 1 : 0;
   display(generation);
 }
