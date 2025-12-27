@@ -2,7 +2,7 @@ let mode, cols, rows, generation, resolution, speed, grid;
 
 // setup() is a predefined function in p5.js - runs once at startup
 function setup() {
-  setVersion('0.3.1');
+  setVersion('0.3.2');
 
   createCanvas(windowWidth, windowHeight);
   grid = createGraphics(windowWidth, windowHeight);
