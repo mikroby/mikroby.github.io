@@ -1,12 +1,17 @@
-let mode, cols, rows, generation, resolution, speed;
+let mode, cols, rows, generation, resolution, speed, grid;
 
 // setup() is a predefined function in p5.js - runs once at startup
 function setup() {
   setVersion('0.3.0');
+
   createCanvas(windowWidth, windowHeight);
+  grid = createGraphics(windowWidth, windowHeight);
+
   noStroke();
   // fill(255); // white color for cells -> default value
   // fill(255, 165, 0); // orange color for cells
+  // fill(255, 160, 122); // lightsalmon color for cells
+  fill('#ffff00'); // yellow color for cells
   setSpeed(3);
   setMode('simulation');
   setResolution(8);
@@ -15,12 +20,12 @@ function setup() {
   rows = floor(height / resolution);
   generation = create2DArray(cols, rows);
 
-  initalize('random');
+  // initalize('random');
 }
 
 const initalize = (method) => {
   noLoop();
-  initializeStatesOf(generation, method); // populate board with the first generation
+  initializeStatesOf(generation, method); // populate first generation by method
   display(generation);
 }
 
@@ -35,19 +40,19 @@ function draw() {
       const neighbors = countLivingNeighbors(generation, x, y, state);
 
       if (state === 0 && neighbors === 3) {
-        next[x][y] = 1; // birth
+        next[x][y] = 1; // born
         continue;
       }
 
       if (state === 1 && (neighbors < 2 || neighbors > 3)) {
-        next[x][y] = 0; // death
+        next[x][y] = 0; // dies
         continue;
       }
 
-      next[x][y] = state; // survival or remains dead
+      next[x][y] = state; // survives or remains dead
     }
   }
 
-  generation = next; // update generation
+  generation = next; // update generation to next
   display(generation);
 }

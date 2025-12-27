@@ -40,7 +40,8 @@ const countLivingNeighbors = (array, x, y, state) => {
 }
 
 const display = (array) => {
-  background(0);
+  clear();
+  image(grid, 0, 0); // display grid in the background
 
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
@@ -50,6 +51,21 @@ const display = (array) => {
     }
   }
 }
+
+const drawGrid = (color = '#989898', bgColor = '#7e7e7e') => {
+  grid.background(bgColor);
+  grid.strokeWeight(1);
+  grid.stroke(color);
+
+  // vertical lines
+  for (let x = resolution; x < width; x += resolution) {
+    grid.line(x, 0, x, height);
+  }
+  // horizontal lines
+  for (let y = resolution; y < height; y += resolution) {
+    grid.line(0, y, width, y);
+  }
+};
 
 const toggleLooping = () => {
   isLooping() ? noLoop() : loop();
@@ -65,7 +81,7 @@ const setVersion = (version) => {
 
 const setMode = (nextMode) => {
   noLoop();
-  modeButton.textContent = nextMode === 'edit' ? 'Simulation mode' : 'Edit mode';
+  modeButton.textContent = nextMode === 'edit' ? 'Sim mode' : 'Edit mode';
   mode = nextMode;
 }
 
@@ -80,6 +96,8 @@ const setResolution = (nextResolution) => {
   resolutionSlider.value = nextResolution;
   resolutionSlider.nextSibling.replaceWith(`${nextResolution} px/cell`);
   resolution = nextResolution;
+
+  drawGrid();
   if (generation) display(generation);
 }
 

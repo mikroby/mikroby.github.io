@@ -12,6 +12,8 @@
 [X] implement adjusting animation speed with slider
 [X] implement adjusting resolution with slider
 [X] fix advance one after entering simulation mode again
+[X] add scalable grid background
+[X] implement random and clear buttons
 
 ## Notes:
 
