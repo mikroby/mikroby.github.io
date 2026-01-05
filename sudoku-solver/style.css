@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+@import url("./variables.css");
+
+html {
+  font-family: "Nunito", sans-serif;
+  user-select: none;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  height: 200vh;
+}
+
+.page {
+  background-color: var(--page-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 2rem;
+}
+
+#board {
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-deep);
+  display: flex;
+  flex-direction: column;
+  background-clip: content-box;
+  background-color: var(--board-bg-color);
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row:not(:last-child) {
+  border-bottom: var(--thin-line) solid var(--line-color);
+}
+
+.row:nth-child(3),
+.row:nth-child(6) {
+  border-bottom: var(--thick-line) solid var(--line-color);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  font-size: var(--text-fontsize-large);
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+  color: var(--cell-output);
+
+  &.input {
+    color: var(--cell-input);
+  }
+
+  &.selected {
+    background-color: var(--cell-selected-bg);
+  }
+}
+
+.cell:not(:last-child) {
+  border-right: var(--thin-line) solid var(--line-color);
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6) {
+  border-right: var(--thick-line) solid var(--line-color);
+}
+
+.control {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  font-size: var(--text-fontsize-normal);
+  font-weight: 600;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-small);
+  cursor: pointer;
+  padding: 0.3rem 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease-out;
+  background-color: var(--btn-bg-color);
+  color: var(--btn-color);
+
+  &:hover {
+    background-color: var(--btn-bg-color-hover);
+    color: var(--btn-color-hover);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    box-shadow: inset var(--shadow-inner), var(--shadow-small);
+  }
+}
+
+.info {
+  display: inline-block;
+  color: var(--text-color);
+  height: 3rem;
+  font-size: var(--text-fontsize-normal);
+  font-weight: 600;
+  line-height: 1;
+}
+
+#instructions {
+  /* text-align: center; */
+}
+
+h1 {
+  text-align: center;
+  font-size: var(--text-fontsize-large);
+  position: relative;
+  color: var(--text-color);
+
+  &::after {
+    content: attr(data-version);
+    position: absolute;
+    top: -0.5rem;
+    font-size: var(--text-fontsize-smallest);
+  }
+}
+
+p {
+  font-size: var(--text-fontsize-normal);
+}
+
+footer {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  color: var(--text-color);
+  font-size: var(--text-fontsize-small);
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sudoku Solver</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./sudoku-web.js"></script>
+  </head>
+
+  <body>
+    <div id="top" class="page">
+      <main id="board"></main>
+
+      <div class="control">
+        <a href="#instructions">
+          <div class="btn">Instructions</div>
+        </a>
+
+        <div id="solve-btn" class="btn">Solve</div>
+
+        <div id="empty-btn" class="btn">Empty</div>
+      </div>
+
+      <div id="result-info" class="info"></div>
+    </div>
+
+    <div id="instructions_page" class="page">
+      <div id="instructions">
+        <h1 data-version="v0.1.1">Sudoku Solver</h1>
+        <p>This app resolves the puzzle you input manually.</p>
+        <p>Click on any cell to start editing, then scroll</p>
+        <p>your mouse to select a number.</p>
+        <p>Click outside the board or choose another cell</p>
+        <p>to finish editing the current one.</p>
+        <p>Double-click on a number empties the cell.</p>
+        <p>By default, an example board is loaded at startup.</p>
+        <p>Click on 'Solve' to start resolving the sudoku board.</p>
+      </div>
+
+      <a href="#top">
+        <div class="btn">Back to top</div>
+      </a>
+    </div>
+
+    <footer>&COPY; rtamas 2026</footer>
+  </body>
+</html>
