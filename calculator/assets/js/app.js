@@ -14,11 +14,11 @@ const operatorObject = {
   'x'(previous, current) { return previous * current },
   '÷'(previous, current) { return previous / current }
 };
-let errorOccured;
+let errorOccured = false;
 
 
-function parseLastInput() {
-  const buttonClicked = this.textContent;
+const parseLastInput = (event) => {
+  const buttonClicked = event.target.textContent;
 
   if (errorOccured && buttonClicked !== 'C') { return };
 
@@ -84,7 +84,8 @@ const error = (errorMessage) => {
   calculator.classList.add('error');
   const id = setTimeout(() => {
     clearTimeout(id);
-  calculator.classList.remove('error')}, 600);
+    calculator.classList.remove('error')
+  }, 600);
 }
 
 const checkError = (result) => {
@@ -117,10 +118,8 @@ const parseAll = (input) => {
   calculate(numbers, operators);
 };
 
-const start = () => {
-  errorOccured = false;
-  Array.from(document.querySelectorAll('.buttons'))
+// START
+(() => {
+  document.querySelectorAll('.buttons')
     .forEach(item => item.addEventListener('click', parseLastInput));
-};
-
-export default start;
+})();
