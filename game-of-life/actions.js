@@ -1,3 +1,4 @@
+// keypressed() is a predefined function in p5.js
 function keyPressed() {
   switch (keyCode) {
     case ENTER:
@@ -17,6 +18,7 @@ function keyPressed() {
   return false;
 }
 
+// mouseClicked() is a predefined function in p5.js
 function mouseClicked() {
   mode === 'simulation' ? advanceOne() : toggleCell();
 
@@ -24,6 +26,7 @@ function mouseClicked() {
   return false;
 }
 
+// doubleClicked() is a predefined function in p5.js
 function doubleClicked() {
   if (mode === 'simulation') toggleLooping();
 

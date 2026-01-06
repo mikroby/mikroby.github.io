@@ -2,8 +2,9 @@
 
 [ ] implement adjusting zoom with mouse wheel
 [ ] implement panning with mouse drag
-[ ] add basic shapes selection, move, rotate and drop in edit mode
+[ ] add predefined basic shapes, selection, move, rotate and stamp in edit mode
 [ ] add description as a modal
+[ ] solve how to edit cells that underlies the header
 
 ## DONE:
 
