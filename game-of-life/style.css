@@ -85,3 +85,8 @@ header {
   color: black;
   background-color: lightblue;
 }
+
+.btn__run {
+  color: black;
+  background-color: lightgray;
+}

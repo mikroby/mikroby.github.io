@@ -24,3 +24,7 @@ resolutionSlider.addEventListener('input', (event) =>
 document.querySelector('.btn__rnd').addEventListener('click', () => initalize('random'));
 
 document.querySelector('.btn__empty').addEventListener('click', () => initalize('empty'));
+
+document.querySelector('.btn__run').addEventListener('click', () => {
+  if (mode === 'simulation') toggleLooping()
+});
