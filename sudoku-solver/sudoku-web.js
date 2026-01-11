@@ -13,7 +13,7 @@ const createBoard = () => {
     template.push(`<div class="row">`);
     for (let col = 0; col < cols; col++) {
       template.push(
-        `<div class="cell" data-col="${col}" data-row="${row}"></div>`
+        `<div class="cell" data-col="${col}" data-row="${row}" tabindex="0"></div>`
       );
     }
     template.push(`</div>`);
@@ -82,6 +82,7 @@ const startSolve = (cells) => {
       selectedCell = event.target;
       selectedCell.classList.add("input", "selected");
       if (!selectedCell.textContent) selectedCell.textContent = 1;
+      selectedCell.focus();
     });
 
     cell.addEventListener("dblclick", (event) => {
@@ -90,8 +91,17 @@ const startSolve = (cells) => {
       const selected = event.target;
       selected.classList.remove("input", "selected");
       selected.textContent = null;
+      selected.blur();
       selectedCell = null;
     });
+
+    cell.addEventListener('keydown', (event) => {
+      const key = event.key;
+
+      if (/^[1-9]$/.test(key)) {
+        cell.textContent = key;
+      }
+    })
   });
 
   document.addEventListener("click", (event) => {
