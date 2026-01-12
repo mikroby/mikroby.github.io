@@ -65,6 +65,10 @@ body {
   &.selected {
     background-color: var(--cell-selected-bg);
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .cell:not(:last-child) {
