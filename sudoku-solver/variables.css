@@ -18,10 +18,15 @@
   --cell-output: aliceblue;
   --cell-selected-bg: deepskyblue;
 
-  --btn-color: aliceblue;
-  --btn-bg-color: var(--board-bg-color);
-  --btn-color-hover: var(--btn-bg-color);
-  --btn-bg-color-hover: var(--btn-color);
+  --btn-primary-color: aliceblue;
+  --btn-secondary-color: aliceblue;
+  --btn-info-color: aliceblue;
+  --btn-color-hover: var(--board-bg-color);
+
+  --btn-bg-primary-color: deepskyblue;
+  --btn-bg-secondary-color: skyblue;
+  --btn-bg-info-color: var(--board-bg-color);
+  --btn-bg-color-hover: var(--btn-primary-color);
 
   --gray-scale-50: rgba(0, 0, 0, 50%);
   --gray-scale-35: rgba(0, 0, 0, 35%);

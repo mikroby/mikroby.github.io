@@ -73,44 +73,43 @@ const startSolve = (cells) => {
 
   cells.forEach((cell) => {
     cell.addEventListener("click", (event) => {
+      // stop bubbling up to document.
       event.stopPropagation();
 
       if (selectedCell) {
+        if (selectedCell === cell) return;
+
         selectedCell.classList.remove("selected");
       }
 
-      selectedCell = event.target;
-      selectedCell.classList.add("input", "selected");
-      if (!selectedCell.textContent) selectedCell.textContent = 1;
-      selectedCell.focus();
+      cell.classList.add("input", "selected");
+      cell.textContent = cell.textContent || 1;
+      cell.focus();
+      selectedCell = cell;
     });
 
-    cell.addEventListener("dblclick", (event) => {
-      event.stopPropagation();
-
-      const selected = event.target;
-      selected.classList.remove("input", "selected");
-      selected.textContent = null;
-      selected.blur();
+    cell.addEventListener("dblclick", () => {
+      cell.classList.remove("input", "selected");
+      cell.textContent = null;
+      cell.blur();
       selectedCell = null;
     });
 
-    cell.addEventListener('keydown', (event) => {
+    cell.addEventListener("keydown", (event) => {
       const key = event.key;
 
       if (/^[1-9]$/.test(key)) {
         cell.textContent = key;
       }
-    })
+    });
   });
 
   document.addEventListener("click", (event) => {
     if (event.target !== document.body) {
       if (selectedCell) {
         selectedCell.classList.remove("selected");
+        selectedCell = null;
       }
-
-      selectedCell = null;
     }
   });
 
@@ -119,8 +118,8 @@ const startSolve = (cells) => {
     (event) => {
       if (!selectedCell) return;
 
+      // prevent scrolling the document.
       event.preventDefault();
-      // event.stopPropagation();
 
       const currentValue = Number(selectedCell.textContent) || 1;
       let nextValue = event.deltaY > 0 ? currentValue + 1 : currentValue - 1;
@@ -132,6 +131,12 @@ const startSolve = (cells) => {
     },
     { passive: false }
   );
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+    }
+  });
 
   const resultInfo = document.querySelector("#result-info");
   const startButton = document.querySelector("#solve-btn");

@@ -95,8 +95,6 @@ body {
   padding: 0.3rem 1.5rem;
   text-align: center;
   transition: all 0.2s ease-out;
-  background-color: var(--btn-bg-color);
-  color: var(--btn-color);
 
   &:hover {
     background-color: var(--btn-bg-color-hover);
@@ -109,6 +107,21 @@ body {
   }
 }
 
+.btn-primary {
+  color: var(--btn-primary-color);
+  background-color: var(--btn-bg-primary-color);
+}
+
+.btn-secondary {
+  color: var(--btn-secondary-color);
+  background-color: var(--btn-bg-secondary-color);
+}
+
+.btn-info {
+  color: var(--btn-info-color);
+  background-color: var(--btn-bg-info-color);
+}
+
 .info {
   display: inline-block;
   color: var(--text-color);
@@ -116,10 +129,6 @@ body {
   font-size: var(--text-fontsize-normal);
   font-weight: 600;
   line-height: 1;
-}
-
-#instructions {
-  /* text-align: center; */
 }
 
 h1 {
