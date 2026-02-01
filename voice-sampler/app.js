@@ -30,7 +30,7 @@ const draw = () => {
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
   canvasCtx.lineWidth = 2;
-  canvasCtx.strokeStyle = "rgb(0,0,0)";
+  canvasCtx.strokeStyle = scopeRayColor;
   canvasCtx.beginPath();
 
   const sliceWidth = WIDTH / bufferLength;
