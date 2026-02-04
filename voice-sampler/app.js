@@ -1,5 +1,5 @@
 const message = document.getElementById("message");
-const stopButton = document.getElementById("stop-btn");
+const statusButton = document.getElementById("status-btn");
 
 const scopeBgColor = "black";
 const scopeRayColor = "green";
@@ -48,35 +48,39 @@ const draw = () => {
   canvasCtx.stroke();
 };
 
-navigator.mediaDevices
-  .getUserMedia({ audio: true })
-  .then((stream) => {
-    mediaStream = stream;
-    audioContext = new AudioContext();
-    // resume in case it's suspended by autoplay policy
-    if (audioContext.state === "suspended") audioContext.resume();
+const startAudio = () => {
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then((stream) => {
+      mediaStream = stream;
+      audioContext = new AudioContext();
+      // resume in case it's suspended by autoplay policy
+      if (audioContext.state === "suspended") audioContext.resume();
 
-    const source = audioContext.createMediaStreamSource(stream);
-    analyser = audioContext.createAnalyser();
-    source.connect(analyser);
+      const source = audioContext.createMediaStreamSource(stream);
+      analyser = audioContext.createAnalyser();
+      source.connect(analyser);
 
-    analyser.fftSize = 2048;
-    bufferLength = analyser.frequencyBinCount;
-    dataArray = new Uint8Array(bufferLength);
+      analyser.fftSize = 2048;
+      bufferLength = analyser.frequencyBinCount;
+      dataArray = new Uint8Array(bufferLength);
 
-    message.textContent = "Audio started.";
-    draw();
-  })
-  .catch((err) => {
-    const { name } = err;
-    if (name === "NotAllowedError" || name === "PermissionDeniedError") {
-      message.textContent = "Microphone permission denied";
-    } else if (name === "NotFoundError") {
-      message.textContent = "No microphone found";
-    } else {
-      message.textContent = "Error: " + err.message;
-    }
-  });
+      message.textContent = "Audio started.";
+      draw();
+    })
+    .catch((err) => {
+      const { name } = err;
+      if (name === "NotAllowedError" || name === "PermissionDeniedError") {
+        message.textContent = "Microphone permission denied";
+      } else if (name === "NotFoundError") {
+        message.textContent = "No microphone found";
+      } else {
+        message.textContent = "Error: " + err.message;
+      }
+    });
+};
+
+// startAudio();
 
 const stopAudio = () => {
   if (drawVisual) cancelAnimationFrame(drawVisual);
@@ -84,7 +88,20 @@ const stopAudio = () => {
   if (audioContext && audioContext.state !== "closed") audioContext.close();
 };
 
-stopButton.addEventListener("click", () => {
-  stopAudio();
-  message.textContent = "Audio stopped.";
+let state = 'stop';
+
+statusButton.addEventListener("click", () => {
+  switch (state) {
+    case 'stop':
+      startAudio();
+      state = 'start';
+      message.textContent = "Audio started.";
+      statusButton.textContent = 'Stop'
+      break
+    case 'start':
+      stopAudio();
+      state = 'stop';
+      message.textContent = "Audio stopped.";
+      statusButton.textContent = 'Start'
+  }
 });
