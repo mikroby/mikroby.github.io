@@ -22,34 +22,31 @@ canvas.style.height = cssHeight + "px";
 canvasCtx.scale(DPR, DPR);
 const WIDTH = cssWidth;
 const HEIGHT = cssHeight;
+const scaleY = HEIGHT / 256;
+canvasCtx.fillStyle = scopeBgColor;
+canvasCtx.lineWidth = 2;
+canvasCtx.strokeStyle = scopeRayColor;
 
 let analyser, bufferLength, dataArray, drawVisual, mediaStream,
-  audioContext, sampleRate;
+  audioContext, sampleRate, sliceWidth;
 
 const draw = () => {
   drawVisual = requestAnimationFrame(draw);
 
   analyser.getByteTimeDomainData(dataArray);
 
-  canvasCtx.fillStyle = scopeBgColor;
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  canvasCtx.lineWidth = 2;
-  canvasCtx.strokeStyle = scopeRayColor;
   canvasCtx.beginPath();
 
-  const sliceWidth = WIDTH / bufferLength;
-  let x = 0;
+  const startY = dataArray[0] * scaleY;
+  canvasCtx.moveTo(0, startY);
 
-  for (let i = 0; i < bufferLength; i++) {
-    const v = dataArray[i] / 128;
-    const y = v * HEIGHT / 2;
-    if (i === 0) canvasCtx.moveTo(x, y);
-    else canvasCtx.lineTo(x, y);
-    x += sliceWidth;
+  for (let i = 1; i < bufferLength; i++) {
+    const y = dataArray[i] * scaleY;
+    canvasCtx.lineTo(sliceWidth * i, y);
   }
 
-  canvasCtx.lineTo(WIDTH, HEIGHT / 2);
   canvasCtx.stroke();
 };
 
@@ -72,6 +69,7 @@ const startAudio = async () =>
       bufferLength = analyser.frequencyBinCount;
       dataArray = new Uint8Array(bufferLength);
 
+      sliceWidth = WIDTH / (bufferLength - 1);
       draw();
     })
     .catch((err) => {
@@ -81,7 +79,7 @@ const startAudio = async () =>
       } else if (name === "NotFoundError") {
         message.textContent = "No microphone found";
       } else {
-        message.textContent = "Error: " + err.message;
+        message.textContent = `Error: ${err.message}`;
       }
     });
 
@@ -90,25 +88,25 @@ const stopAudio = () => {
   if (mediaStream) mediaStream.getTracks().forEach((t) => t.stop());
   if (audioContext && audioContext.state !== "closed") audioContext.close();
 
-  state = 'stop';
+  state = 'stopped';
   message.textContent = "Audio stopped.";
   statusButton.textContent = 'Start'
 };
 
-let state = 'stop';
+let state = 'stopped';
 
 statusButton.addEventListener("click", async () => {
   switch (state) {
-    case 'stop':
+    case 'stopped':
       await startAudio();
-      state = 'start';
+      state = 'started';
       info.textContent = `Sample rate: ${sampleRate / 1000} kHz
       screen width: ${(bufferLength / sampleRate * 1000).toFixed(3)} ms
       `;
       message.textContent = "Audio started.";
       statusButton.textContent = 'Stop'
       break
-    case 'start':
+    case 'started':
       stopAudio();
   }
 });
@@ -119,7 +117,7 @@ fftSlider.value = sliderValue;
 fftSlider.nextElementSibling.textContent = FFT_SIZE;
 
 fftSlider.addEventListener('input', (event) => {
-  if (state !== 'stop') stopAudio();
+  if (state !== 'stopped') stopAudio();
 
   sliderValue = Number(event.target.value);
   FFT_SIZE = 2 ** (sliderValue + 5);
