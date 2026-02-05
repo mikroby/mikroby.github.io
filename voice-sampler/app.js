@@ -100,8 +100,9 @@ statusButton.addEventListener("click", async () => {
     case 'stopped':
       await startAudio();
       state = 'started';
+      const time = bufferLength / sampleRate * 1000;
       info.textContent = `Sample rate: ${sampleRate / 1000} kHz
-      screen width: ${(bufferLength / sampleRate * 1000).toFixed(3)} ms
+      screen width: ${time.toFixed(3)} ms
       `;
       message.textContent = "Audio started.";
       statusButton.textContent = 'Stop'
