@@ -9,8 +9,18 @@
   </head>
   <body>
     <div class="container">
+      <div class="info" id="info"></div>
+
       <canvas></canvas>
+
       <div class="message" id="message"></div>
+
+      <div class="item slider">
+        <label for="fft-slider">FFT Size:</label>
+        <input type="range" id="fft-slider" min="0" max="10" step="1" />
+        <span></span>
+      </div>
+
       <div class="btn" id="status-btn">Start</div>
     </div>
   </body>
