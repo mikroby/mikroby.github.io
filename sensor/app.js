@@ -4,7 +4,7 @@ const sensors = [
   'accelerometer', 'proximity', 'gyroscope', 'magnetometer',
   'ambient-light-sensor',
 ]
-const sensorObject = {
+const sensorObjects = {
   'magnetometer'() { return new Magnetometer({ frequency: 5 }) }
   ,
   'accelerometer'() { return new Accelerometer({ frequency: 10 }) }
@@ -37,7 +37,7 @@ const useSensor = (sensorName, index, result) => {
 
 
   // create sensor object
-  const sensor = sensorObject[sensorName]()
+  const sensor = sensorObjects[sensorName]()
 
   sensor.addEventListener('reading', () => {
     switch (sensorName) {
